@@ -18,40 +18,34 @@
 \section{Canonical Quantization of a Scalar Field}
 
 A scalar field $\phi(x)$ that obeys the Klein-Gordon equation
-
 \begin{align}
     (\partial^2 + m^2)\phi(x) = 0
 \end{align}
 
 also obeys the following \textit{equal-time commutation relations} (ETCRs):
-
 \begin{gather}
     [\phi(t, \underline{x}), \dot{\phi}(t, \underline{x}^\prime)] = i\delta(\underline{x} - \underline{x}^\prime) \\
     [\phi(t, \underline{x}), \phi(t, \underline{x}^\prime)] = [\dot{\phi}(t, \underline{x}), \dot{\phi}(t, \underline{x}^\prime)] = 0
 \end{gather}
 
 A scalar field may be expanded in terms of mode operators:
-
 \begin{align}
     \phi(t, \underline{x}) &= \phi^+(x) + \phi^-(x) \\
     &= \int \frac{d^3 p}{(2 \pi)^3} \frac{1}{2 \omega(\underline{p})}\left(a(\underline{p}) e^{-i p \cdot x}+a(\underline{p})^{\dagger} e^{i p \cdot x}\right)
 \end{align}
 
 where the creation and annihilation operators in momentum space obey the commutation relations
-
 \begin{align}
     [a (\underline{p}), a^\dagger(\underline{p}^\prime)] = 2\omega(\underline{p}) (2\pi)^3 \delta(\underline{p}-\underline{p}^\prime) \\
     [a (\underline{p}), a(\underline{p}^\prime)] = [a^\dagger(\underline{p}), a^\dagger(\underline{p}^\prime)] = 0.
 \end{align}
 
 To prevent infinite contributions to the energy, we require that all terms be \textit{normal ordered} - that is, all annihilation operators stand to the right of all creation operators. This results in the convenient property
-
 \begin{empheq}[box=\widefbox]{align*}
     \ev{\normord{\phi(x)\phi(y)}}{0} = 0.
 \end{empheq}
 
 We may simplify covariant commutation relations for the Klein-Gordon field by introducing three invariant functions
-
 \begin{gather}
     \Delta^+(x) \equiv -i \int \dfrac{d^3p}{(2\pi)^3} \dfrac{1}{2\omega(\underline{p})}e^{-ip \cdot x} \\
     \Delta^-(x) \equiv \Delta^+(x)^* = i \int \dfrac{d^3p}{(2\pi)^3} \dfrac{1}{2\omega(\underline{p})}e^{ip \cdot x}\\
@@ -59,20 +53,52 @@ We may simplify covariant commutation relations for the Klein-Gordon field by in
 \end{gather}
 
 All three satisfy the Klein-Gordon equation, and we may furthermore write $\Delta$ in a manifestly covariant form:
-
 \begin{equation}
     \Delta(x) = -i \int \hat{d}^4p \hat{\delta}(p^2-m^2)\theta(p_0)e^{-ip\cdot x}.
 \end{equation}
 
 $\Delta$ also satisfies the microcausality condition
-
 \begin{empheq}[box=\widefbox]{align*}
     [\phi(x), \phi(y)] = 0, \quad (x-y)^2 < 0.
 \end{empheq}
 
 \section{Interactions and Scattering in $\phi^3$ Theory}
 
-The Lagrangian for this theory 
+The Lagrangian for this theory is given by 
+\begin{align}
+    \mathcal{L} &\equiv \mathcal{L}_0 + \mathcal{L}_I \\
+    &= \frac{1}{2} \partial_\mu \phi \partial^\mu \phi - \frac{1}{2}m^2\phi^2 - \frac{1}{3!} g \phi^3.
+\end{align}
 
+We may write the Euler-Lagrange equation as 
+\begin{align}
+    (\partial^2 + m^2)\phi = -\frac{1}{2}g\phi^2.
+\end{align}
+
+Since this is a nonlinear partial differential equation, we would like to proceed by solving it in terms of powers of coupling $g$.
+
+We define the S-matrix as the time evolution operator between two states in the far past and the far future at which the particles involved may be considered non-interacting:
+\begin{align}
+    \ket{\Psi, \infty} = S\ket{\Psi, -\infty}.
+\end{align}
+
+Since in general, we must consider many possible initial and final states, we consider the $S$-matrix elements defined as
+\begin{align}
+    S_{fi} = \mel{f}{S}{i}
+\end{align}
+
+Note that the $S$-matrix is unitary ($S^\dagger S = SS^\dagger = 1$) even when particles in the state are destroyed and/or created.
+
+Furthermore, in the future we will work in the interaction picture of quantum mechanics - a mix of the Schrödinger and Heisenberg pictures. We split the Hamiltonian into free and non-interacting parts $H = H_0 + H_I$ and let the time evolution of the state be governed by $H_I$, and the time evolution of the operators by $H_0$:
+\begin{gather}
+    \frac{\partial}{\partial t} O(t) = i [H_0, O(t)] \\
+    i \frac{\partial}{\partial t} \ket{\psi, t} = H_I \ket{\psi, t}. \label{eq:schrodinger}
+\end{gather}
+
+Integrating Eq. \ref{eq:schrodinger}, we obtain a recursion relation for $\ket{\Psi, t}$:
+\begin{align}
+    \ket{\Psi, t} &= \ket{\Psi, -\infty} + \int_{-\infty}^t dt_1 \frac{\partial}{\partial t}\ket{\Psi, t_1} \\
+    &= \ket{i} - i \int_{-\infty}^t dt_1 H_I(t_1) \ket{\Psi, t_1}
+\end{align}
 
 \end{document}
