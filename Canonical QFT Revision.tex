@@ -3,13 +3,76 @@
 \usepackage[style=nature, autocite = inline]{biblatex}
 \usepackage[margin=1in]{geometry}
 
-\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\setlength{\parindent}{0pt}
 
-\title{Classical perturbative Yang-Mills theory}
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand{\normord}[1]{:\mathrel{#1}:}
+
+\title{Canonical Quantum Field Theory}
 \author{Mathias Driesse}
 
 \begin{document}
 
 \maketitle
+
+\section{Canonical Quantization of a Scalar Field}
+
+A scalar field $\phi(x)$ that obeys the Klein-Gordon equation
+
+\begin{align}
+    (\partial^2 + m^2)\phi(x) = 0
+\end{align}
+
+also obeys the following \textit{equal-time commutation relations} (ETCRs):
+
+\begin{gather}
+    [\phi(t, \underline{x}), \dot{\phi}(t, \underline{x}^\prime)] = i\delta(\underline{x} - \underline{x}^\prime) \\
+    [\phi(t, \underline{x}), \phi(t, \underline{x}^\prime)] = [\dot{\phi}(t, \underline{x}), \dot{\phi}(t, \underline{x}^\prime)] = 0
+\end{gather}
+
+A scalar field may be expanded in terms of mode operators:
+
+\begin{align}
+    \phi(t, \underline{x}) &= \phi^+(x) + \phi^-(x) \\
+    &= \int \frac{d^3 p}{(2 \pi)^3} \frac{1}{2 \omega(\underline{p})}\left(a(\underline{p}) e^{-i p \cdot x}+a(\underline{p})^{\dagger} e^{i p \cdot x}\right)
+\end{align}
+
+where the creation and annihilation operators in momentum space obey the commutation relations
+
+\begin{align}
+    [a (\underline{p}), a^\dagger(\underline{p}^\prime)] = 2\omega(\underline{p}) (2\pi)^3 \delta(\underline{p}-\underline{p}^\prime) \\
+    [a (\underline{p}), a(\underline{p}^\prime)] = [a^\dagger(\underline{p}), a^\dagger(\underline{p}^\prime)] = 0.
+\end{align}
+
+To prevent infinite contributions to the energy, we require that all terms be \textit{normal ordered} - that is, all annihilation operators stand to the right of all creation operators. This results in the convenient property
+
+\begin{empheq}[box=\widefbox]{align*}
+    \ev{\normord{\phi(x)\phi(y)}}{0} = 0.
+\end{empheq}
+
+We may simplify covariant commutation relations for the Klein-Gordon field by introducing three invariant functions
+
+\begin{gather}
+    \Delta^+(x) \equiv -i \int \dfrac{d^3p}{(2\pi)^3} \dfrac{1}{2\omega(\underline{p})}e^{-ip \cdot x} \\
+    \Delta^-(x) \equiv \Delta^+(x)^* = i \int \dfrac{d^3p}{(2\pi)^3} \dfrac{1}{2\omega(\underline{p})}e^{ip \cdot x}\\
+    \Delta(x) \equiv \Delta^+(x) + \Delta^-(x).
+\end{gather}
+
+All three satisfy the Klein-Gordon equation, and we may furthermore write $\Delta$ in a manifestly covariant form:
+
+\begin{equation}
+    \Delta(x) = -i \int \hat{d}^4p \hat{\delta}(p^2-m^2)\theta(p_0)e^{-ip\cdot x}.
+\end{equation}
+
+$\Delta$ also satisfies the microcausality condition
+
+\begin{empheq}[box=\widefbox]{align*}
+    [\phi(x), \phi(y)] = 0, \quad (x-y)^2 < 0.
+\end{empheq}
+
+\section{Interactions and Scattering in $\phi^3$ Theory}
+
+The Lagrangian for this theory 
+
 
 \end{document}
