@@ -1,5 +1,6 @@
+%!TEX program = lualatex
 \documentclass{article}
-\usepackage{physics, amsmath, amsfonts, empheq, mathtools, booktabs, hyperref, simpler-wick}
+\usepackage{physics, amsmath, amsfonts, empheq, mathtools, booktabs, hyperref, simpler-wick, tikz-feynman}
 \usepackage[style=nature, autocite = inline]{biblatex}
 \usepackage[margin=1in]{geometry}
 
@@ -24,11 +25,11 @@ A scalar field $\phi(x)$ that obeys the Klein-Gordon equation
 
 also obeys the following \textit{equal-time commutation relations} (ETCRs):
 \begin{gather}
-    [\phi(t, \underline{x}), \dot{\phi}(t, \underline{x}^\prime)] = i\delta(\underline{x} - \underline{x}^\prime) \\
-    [\phi(t, \underline{x}), \phi(t, \underline{x}^\prime)] = [\dot{\phi}(t, \underline{x}), \dot{\phi}(t, \underline{x}^\prime)] = 0
+    [\phi(t,\underline{x}),\pi(t,\underline{x}')] = [\phi(t, \underline{x}), \dot{\phi}(t, \underline{x}^\prime)] = i\delta(\underline{x} - \underline{x}^\prime) \\
+    [\phi(t, \underline{x}), \phi(t, \underline{x}^\prime)] = [\pi(t,\underline{x}), \pi(t,\underline{x}')]=[\dot{\phi}(t, \underline{x}), \dot{\phi}(t, \underline{x}^\prime)] = 0
 \end{gather}
 
-A scalar field may be expanded in terms of mode operators:
+where the conjugate momentum $\pi(x)$ is the usual $\pdv{\mathcal{L}}{\dot{\phi}(x)}$. A scalar field may be expanded in terms of mode operators:
 \begin{align}
     \phi(t, \underline{x}) &= \phi^+(x) + \phi^-(x) \\
     &= \int \frac{d^3 p}{(2 \pi)^3} \frac{1}{2 \omega(\underline{p})}\left(a(\underline{p}) e^{-i p \cdot x}+a(\underline{p})^{\dagger} e^{i p \cdot x}\right)
@@ -127,14 +128,150 @@ Thus, making use of our knowledge of the functions $\Delta^{\pm}$, we find that
     i\Delta_F(x-x') = \wick{\c\phi (x) \c\phi (x')} = \ev{T\left(\phi(x) \phi(x')\right)}{0},
 \end{empheq}
 
-where the bracket on top denotes a \textit{Wick contraction}. How can we relate the time-ordered product in general, normal ordering and Wick contractions? The answer is \textit{Wick's Theorem}. For unequal time
+where the bracket on top denotes a \textit{Wick contraction}. How can we relate the time-ordered product in general, normal ordering and Wick contractions? The answer is \textit{Wick's Theorem}. For unequal times
 \begin{equation}
 \begin{aligned}
-    T(ABCD\cdots WXYZ) &= \normord{ABCD \cdots WXYZ} \\
-        & + \normord{\wick{\c1 A \c1 B}C\cdots YZ} + \normord{}
+    T(ABCD\cdots WXYZ) &= \, \normord{ABCD \cdots WXYZ} \\
+        & + \normord{\wick{\c A \c B}C\cdots YZ} + \normord{\wick{\c1 A B \c1 C} \cdots YZ} + \cdots + \normord{ABC \cdots \wick{\c Y \c Z}} \\
+        & + \normord{\wick{\c1 A \c1 B \c1 C \c1 D} \cdots WXYZ} + \cdots + \normord{ABCD \cdots \wick{\c1 W \c1 X \c1 Y \c1 Z}} \\
+        & + \cdots,
 \end{aligned}
 \end{equation}
 
+which simplifies to, for example, in the case of a single time ordering to 
+\begin{equation}
+    T(A(x)B(x')) = \normord{A(x)B(x')} + \ev{T(A(x)B(x'))}{0}.
+\end{equation}
 
+When performing the Dyson expansion, we will need to evaluate the Feynman propagator many times. Therefore, it is usefeful to rewrite it in terms of a single integral
+
+\begin{equation}
+    \Delta_F(x) = \int \hat{d}^4p \frac{e^{-ip\cdot x}}{p^2-m^2+i\varepsilon}
+\end{equation}
+
+where $\varepsilon \equiv 2\eta \omega(\underline{p})$ is a small number that takes care of the contours in the complex plane that we have to take due to the poles at $p=\pm m$. In fact, $\Delta_F$ is a Green's function for the Klein-Gordon equation, corresponding to Dirichlet boundary conditions (initial and final conditions on $\phi(x)$), and is thus appropriate to our quantum paradigm of initial and final states.
+
+As an example, let us expand the $S$-matrix in position space. In $\phi^3$ theory, we have $\mathcal{H}_I(x) = \frac{g}{3!}\normord{\phi^3(x)}$, which we expand in terms of $\phi^+$ (which destroys a particle at $x$) and $\phi^-$ (which creates a particle at $x$).
+
+\begin{enumerate}
+    \item For $n=0$, nothing happens.
+    \item For $n=1$,
+    \begin{equation}
+        S^{(1)} =\frac{-ig}{3!} \int d^4x \, T(\normord{\phi^3(x)}).
+    \end{equation}
+        Since there are no \textit{unequal times}, there are no terms with contractions. The terms without contractions cannot conserve momentum, so they vanish.
+    \item For $n=2$,
+    \begin{equation}
+        \begin{aligned}
+            S^{(2)} = -\frac{g^2}{2!(3!)^2} \int d^4x d^4y \, T\left(\normord{\phi^3(x)}\normord{\phi^3(y)}\right),
+        \end{aligned}
+    \end{equation}
+        which we may split up into terms containing zero, one, two and three contractions.
+    \begin{enumerate}
+        \item $S_0^{(2)}$ only contains one term, and it is proportional to $\normord{\phi^3(x)\phi^3(y)}$. The interactions at $x$ and $y$ are unrelated, so they factorize and vanish due to momentum conservation as in the $n=1$ case.
+        \item $S_1^{(2)}$ contains terms with one contraction, i.e. proportional to $\wick{\c\phi(x) \c\phi(y)} \normord{\phi^2(x) \phi^2(y)}$. Expanding it out in terms of $\phi^+$ and $\phi^-$, there are three terms that survive momentum conservation:
+        \begin{equation} \label{eq:s12}
+            \begin{aligned}
+                \phi^-(y)\phi^-(y)\wick{\c\phi(x) \c\phi(y)}\phi^+(x)\phi^+(x), \\
+                \phi^-(x)\phi^-(y)\wick{\c\phi(x) \c\phi(y)}\phi^+(x)\phi^+(y), \\
+                \phi^-(y)\phi^-(x)\wick{\c\phi(x) \c\phi(y)}\phi^+(x)\phi^+(y).
+            \end{aligned}
+        \end{equation}
+        % which correspond to the three Feynman diagrams
+        % \begin{figure}[!h]
+        %     \feynmandiagram [horizontal=a to b]{
+        %         i1 -- [scalar] a -- [scalar] i2,
+        %         a -- [scalar] b,
+        %         f1 -- [scalar] b -- [scalar] f2,
+        %     };
+        %     \feynmandiagram [vertical=a to b]{
+        %         i1 -- [scalar] a -- [scalar] f1,
+        %         a -- [scalar] b,
+        %         i2 -- [scalar] b -- [scalar] f2,
+        %     };
+        % \end{figure}
+        There is also a combinatorial $3^2$ factor, since there are 3 ways of contracting $\phi(x)$ and 3 ways of contracting $\phi(y)$.
+        \item $S_2^{(2)}$ is given by the term $\wick{\c1\phi(x)\c1\phi(y)\c1\phi(x)\c1\phi(y)} \normord{\phi(x)\phi(y)}$, which diverges and forms the so-called \textit{self-energy correction}.
+        \item $S_3^{(2)}$ is given by the term $\wick{\c1\phi(x)\c1\phi(y)\c1\phi(x)\c1\phi(y)\c1\phi(x)\c1\phi(y)}$, which also diverges, but as it is disconnected it makes no contribution to the scattering process.
+    \end{enumerate}
+\end{enumerate}
+
+This is a lot of work for calculating the $S$-matrix! Fortunately, we are more interested in calculating the matrix elements $S_{fi} = \mel{f}{S}{i}$ than $S$ itself. Since we label free particle initial and final states by their definite on-shell momentum $\ket{\underline{p}} = a^\dagger(\underline{p})\ket{0}$, we should work in momentum space. Then
+\begin{equation} \label{eq:phiplusp}
+\begin{aligned}
+    \phi^+(x)\ket{\underline{p}} &= \int  \frac{\hat{d}^3 \underline{p}}{2E'} e^{-ip'\cdot x} a(\underline{p}')a^\dagger(\underline{p})\ket{0} \\
+    &= \int d^3 \underline{p}'   e^{-ip'\cdot x} \delta^3(\underline{p}-\underline{p}')\ket{0} \\
+    &= e^{-ip\cdot x}\ket{0}
+\end{aligned}
+\end{equation}
+
+while
+\begin{equation} \label{eq:phiminusp}
+\begin{aligned}
+    \bra{\underline{p}}\phi^-(x) &= \bra{0} a(\underline{p}) \int \frac{\hat{d}^3 \underline{p}}{2E'} e^{ip'\cdot x} a^\dagger(\underline{p}) \\
+    &= \bra{0} \int d^3 \underline{p}' e^{ip'\cdot x} \delta^3(\underline{p}-\underline{p}') \\
+    &= e^{ip\cdot x} \bra{0}.
+\end{aligned}
+\end{equation}
+
+As an example, let us perform a momentum-space calculation of the 2$\rightarrow$2 process through the $s$-channel. We may do this by simply inserting the first line of Eq. \ref{eq:s12}:
+\begin{equation}
+\begin{aligned}
+    \mel{f}{S_{1,s}^{(2)}}{i} &= -\frac{3^2 g^2}{(3!)^2} \int d^4x \int d^4y \mel{q;q'}{\phi^-(y)\phi^-(y)\wick{\c\phi(x) \c\phi(y)}\phi^+(x)\phi^+(x)}{p;p'} \\
+    &= -\frac{g^2}{4} \int d^4x \int d^4y \, 4 e^{i(q+q')\cdot x} \, i \int \hat{d}^4k \frac{e^{-ik\cdot (y-x)}}{k^2-m^2+i\varepsilon} e^{-i(p+p')\cdot x} \\
+    &= -ig^2 \int \hat{d}^4k \,\hat{\delta}^4\left(q+q'-k\right)\hat{\delta}^4\left(k-p-p'\right) \frac{1}{k^2-m^2+i\varepsilon} \\
+    &= \hat{\delta}^4\left(q+q'-p-p'\right)\frac{-ig^2}{(p+p')^2-m^2},
+\end{aligned}
+\end{equation}
+
+where on the second line we have applied Eqs. \ref*{eq:phiplusp}, \ref*{eq:phiminusp} and inserted our expression for the Feynman propagator, with an additional factor of 4 coming from the choice of apply $(\phi^+)^2$ on $\ket{p;p'}$. For the other two contributions we have the same, replacing the denominator by $(p-q)^2-m^2$ and $(p-q')-m^2$ respectively. It is therefore useful to write down the \textit{Mandelstam invariants} $s$, $t$, $u$, defined as 
+\begin{equation}
+\begin{aligned}
+    s=(p_1+p_2)^2=(p_3+p_4)^2 \\
+    t=(p_1-p_3)^2=(p_2-p_4)^2 \\
+    u=(p_1-p_4)^2=(p_2-p_3)^2.
+\end{aligned}
+\end{equation}
+
+Applying a similar process to the loop diagram leads to a divergent term, which we will look at in more detail through $renormalization$. 
+
+An attentive reader, having calculated all three channels, might have noticed that the process above seems fairly simple and algorithmic. Indeed, we can define the so-called \textit{Feynman rules}, which for any theory allow us to write down the contribution from each diagram without performing any nasty integrations. For scalar $\phi^3$ theory, we have:
+
+\begin{itemize}
+    \item for each $\phi^3$ vertex, a factor of $-ig$ and a delta function ensuring momentum conservation
+    \item for each external line, a factor of $1$
+    \item for each internal line of momentum $k$, a factor $i/(k^2-m^2+i\varepsilon)$
+    \item for each momentum $k$ not fixed by momentum conservation, an integral $\int \hat{d}^4k$
+    \item a symmetry factor.
+\end{itemize}
+
+\section{Complex Scalar Fields and Charge Conservation}
+
+In quantum field theory, for the $S$-matrix to be unitary, we only require that the Lagrangian density $\mathcal{L}$, the Hamiltonian density $\mathcal{H}$, and the action $S$ be real. Thus, a quantum field may also be complex as long as above conditions are satisfied. They also have the important new property of charge conservation.
+
+If we have a multiplet (several) of scalar fields $\phi_r(x)$, where $r=1,2,\cdots N$, then we may quantize them as we have done for a single scalar field, the only difference being an additional delta function in the nonzero commutators.
+
+A complex scalar field $\phi(x)$ can be expressed in terms of two independent fields $\phi_1$ and $\phi_2$:
+\begin{equation}
+    \phi(x)=\frac{1}{\sqrt{2}}(\phi_1(x) + i\phi_2(x)).
+\end{equation}
+
+Then we have the Lagrangian density
+\begin{equation}
+    \mathcal{L} = \left(\partial_\mu\phi^\dagger(x)\right)\left(\partial^\mu\phi(x)\right)-m^2\phi^\dagger(x)\phi(x)
+\end{equation}
+
+along with the conjugate momentum $\pi(x)=\pdv{\mathcal{L}{\dot{\phi}(x)}}=\dot{\phi}^\dagger(x)$, which provides the ETCRs
+\begin{equation}
+    [\phi(t,\underline{x}), \pi(t,\underline{x}')]=[\phi^\dagger(t,\underline{x}),\pi^\dagger(t,\underline{x}')] = i\delta(\underline{x}-\underline{x}').
+\end{equation}
+
+Each of the fields $\phi(x)$ and $\phi^\dagger(x)$ obeys the Klein-Gordon equation independently. We expand the fields in terms of mode operators
+
+\begin{equation}
+\begin{aligned}
+    \phi(x)
+\end{aligned}
+\end{equation}
 
 \end{document}
