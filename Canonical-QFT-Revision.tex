@@ -235,6 +235,8 @@ where on the second line we have applied Eqs. \ref*{eq:phiplusp}, \ref*{eq:phimi
 
 Applying a similar process to the loop diagram leads to a divergent term, which we will look at in more detail through $renormalization$. 
 
+\subsection{Feynman rules for scalar field theory}
+
 An attentive reader, having calculated all three channels, might have noticed that the process above seems fairly simple and algorithmic. Indeed, we can define the so-called \textit{Feynman rules}, which for any theory allow us to write down the contribution from each diagram without performing any nasty integrations. For scalar $\phi^3$ theory, we have:
 
 \begin{itemize}
@@ -267,11 +269,117 @@ along with the conjugate momentum $\pi(x)=\pdv{\mathcal{L}{\dot{\phi}(x)}}=\dot{
 \end{equation}
 
 Each of the fields $\phi(x)$ and $\phi^\dagger(x)$ obeys the Klein-Gordon equation independently. We expand the fields in terms of mode operators
+\begin{equation}
+\begin{aligned}
+    \phi(x) = \int \hat{d}^3p \frac{1}{2\omega(\underline{p})} \left(a(\underline{p})e^{-ip\cdot x} + b^\dagger(\underline{p})e^{ip\cdot x}\right),
+\end{aligned}
+\end{equation}
+
+noting that we can no longer assume the Hermiticity relation between the operator coefficients of the positive and negative frequency terms because $\phi(x)$ is not Hermitian. Furthermore, the commutation relations 
+\begin{equation}
+\begin{aligned}
+    [a(\underline{p}), a^\dagger(\underline{p}')] = [b(\underline{p}), b^\dagger(\underline{p'})] = 2\omega(\underline{p}) \hat{\delta}^3(\underline{p}-\underline{p}')
+\end{aligned}
+\end{equation}
+
+with all others being zero reproduce the ETCRs. $a$ and $b$ and their Hermitian conjugates are the creation and annihilation operators for two types of particles. Furthermore, momentum is conserved, with the 4-momentum operator (not to be confused with the conjugate of the field) being 
+\begin{gather}
+    P^\nu = \int d^3x T^{0\nu}(x)\\
+    T^{\mu\nu}(x) = \normord{\partial^\mu \phi^\dagger(x) \partial^\nu \phi(x) + \partial^\nu \phi^\dagger(x) \partial^\mu \phi(x) - \eta^{\mu\nu} \mathcal{L}(x)},
+\end{gather}
+
+or in terms of mode operators
+\begin{equation}
+    P^\nu = \int \hat{d}^3p \frac{1}{2\omega(\underline{p})}p^\nu \left(a^\dagger(\underline{p}) a(\underline{p}) + b^\dagger(\underline{p})b(\underline{p})\right).
+\end{equation}
+
+\subsection{Charge conservation}
+
+Additionally, notice that the Lagrangian density is invariant under the phase transformations
 
 \begin{equation}
 \begin{aligned}
-    \phi(x)
+    \phi(x) \rightarrow \phi'(x)&=e^{i\alpha}\phi(x) \approx (1+i\alpha)\phi(x) \\
+    \phi(x) \rightarrow \phi'(x)&=e^{-i\alpha}\phi(x) \approx (1-i\alpha)\phi(x),
 \end{aligned}
 \end{equation}
+
+which is known as a \textit{global phase transformation} or \textit{gauge transformation of the first kind}. Furthermore, since the Lagrangian density itself is invariant, according to Noether's theorem there is a conserved current $j$ and conserved charge $Q$:
+\begin{gather}
+    Q = \int d^3x j^0(x) \\
+    j^\mu(x) = -\frac{1}{\alpha}\left(\pdv{\mathcal{L}}{\partial_\mu\phi} + \pdv{\mathcal{L}}{\partial_\mu\phi^\dagger}\right) = i \normord{\phi^\dagger(x)\left(\partial^\mu \phi(x)\right) - \left(\partial^\mu \phi^\dagger(x)\right)\phi(x)}.
+\end{gather}
+
+Thus, the existence of charge is directly tied to the existence of complex scalar fields. Furthermore, we can think of $a$ as corresponding to particles with ``charge'' $+1$ while $b$ would correspond to particles with ``charge'' $-1$. Since $Q$ is conserved, these particles must always be created or destroyed in pairs - they are anti-particles of each other.
+
+\subsection{Feynman rules for complex scalar fields}
+
+The propagator for complex scalar fields is the same as for real scalar fields:
+\begin{equation}
+    \wick{\c\phi(x)\c\phi^\dagger(x')} = i\Delta_F(x-x').
+\end{equation}
+
+The external states are given by 
+\begin{equation}
+    \ket{p,+} = a^\dagger(\underline{p})\ket{0}, \quad \ket{p,-}=b^\dagger(\underline{p})\ket{0},
+\end{equation}
+
+so then
+\begin{gather}
+    \phi_+(x)\ket{p,+} = e^{-ip\cdot x}\ket{0}, \quad \phi_+^\dagger(x)\ket{p,-} = e^-ip\cdot x \ket{0} \\
+    \bra{p,+}\phi_-^\dagger(x)=e^{ip\cdot x} \bra{0}, \quad \bra{p,-} \phi_-(x) = e^{ip\cdot x} \bra{0}.
+\end{gather}
+
+In terms of the interactions possible, remembering that the Lagrangian must remain real, we commonly use
+\begin{equation}
+    \mathcal{L}_I^4 = -\frac{1}{4}\lambda (\phi^\dagger\phi)^2
+\end{equation}
+or if there is also a real scalar field $\Phi$ 
+\begin{equation}
+    \mathcal{L}_I^3 = -y\Phi(\phi^\dagger\phi).
+\end{equation}
+
+These additional processes allow much more interesting processes such as elastic scattering, decay, and charged particle elastic scattering. 
+
+\subsection{$C$, $P$, and $T$ for scalar fields}
+
+Under \textbf{parity}, $x^\mu=(t,\underline{x}) \rightarrow \bar{x}^\mu = (t, -\underline{x})$, $p^\mu = (E, \underline{p}) \rightarrow \bar{p}^\mu = (E, -\underline{p})$. This is implemented using the unitary operator $\mathcal{P}$, thus
+\begin{equation}
+    \mathcal{P} \ket{0}, \quad \mathcal{P} \ket{\underline{p}} = \ket{-\underline{p}}.
+\end{equation}
+
+Since $\ket{\underline{p}} = a^\dagger(\underline{p})\ket{0}$, we must have
+\begin{equation}
+    \mathcal{P}a^\dagger(\underline{p})\mathcal{P}^\dagger = a^\dagger(-\underline{p}), \quad \mathcal{P}a(\underline{p})\mathcal{P}^\dagger = a(-\underline{p}).
+\end{equation}
+
+Therefore
+\begin{equation}
+    \phi(x) \rightarrow \mathcal{P} \phi(x) \mathcal{P}^\dagger = \phi(\bar{x}).
+\end{equation}
+
+Under \textbf{time reversal}, $x^\mu \rightarrow -\bar{x}^\mu$, $p^\mu \rightarrow \bar{p}^\mu$. Furthermore, initial and final states are interchanged $\mel{f}{\,}{i} \rightarrow \mel{i}{\,}{f}$, or alternatively $i \rightarrow -i$. $\mathcal{T}$ is anti-unitary: unitary, but also complex conjugates. It acts as 
+\begin{equation}
+    \mathcal{T}\ket{0} = \ket{0}, \quad \mathcal{T}\ket{\underline{p}} = \ket{-\underline{p}}, \quad \mathcal{T} a^\dagger(\underline{p})\mathcal{T}^\dagger = a^\dagger(-\underline{p}), \quad \mathcal{T}a(\underline{p})\mathcal{T}6 \dagger = a(-\underline{p})
+\end{equation}
+
+but
+\begin{equation}
+    \phi(x) \rightarrow \mathcal{T} \phi(x) \mathcal{T}^\dagger = \phi(-\bar{x}).
+\end{equation}
+
+Under \textbf{charge conjugation}, particles and antiparticles are exchanged: $\mathcal{C}\ket{\underline{p},+} = \ket{\underline{p},-}$, $\mathcal{C}\ket{\underline{p},-} = \ket{\underline{p},+}$, so 
+\begin{equation}
+    \mathcal{C}a^\dagger(\underline{p})\mathcal{C}^\dagger = b^\dagger(\underline{p}), \quad \mathcal{C}b^\dagger(\underline{p})\mathcal{C}^\dagger = a^\dagger(\underline{p}).
+\end{equation}
+
+Furthermore (only for complex fields, since scalar fields do not carry any charge),
+\begin{equation}
+    \mathcal{C}\phi(x)\mathcal{C}^\dagger = \phi^\dagger(x), \quad \mathcal{C}\phi^\dagger(x)\mathcal{C}^\dagger = \phi(x),
+\end{equation}
+and
+\begin{eqnarray}
+    \mathcal{C}j^\mu\mathcal{C}^\dagger = -j^\mu, \quad \mathcal{C}Q\mathcal{C}^\dagger = -Q.
+\end{eqnarray}
 
 \end{document}
