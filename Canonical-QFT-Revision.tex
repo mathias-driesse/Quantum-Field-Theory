@@ -1,6 +1,6 @@
 %!TEX program = lualatex
 \documentclass{article}
-\usepackage{physics, amsmath, amsfonts, empheq, mathtools, booktabs, hyperref, simpler-wick, tikz-feynman}
+\usepackage{physics, amsmath, amsfonts, empheq, mathtools, booktabs, hyperref, simpler-wick, tikz-feynman, slashed}
 \usepackage[style=nature, autocite = inline]{biblatex}
 \usepackage[margin=1in]{geometry}
 
@@ -381,5 +381,112 @@ and
 \begin{eqnarray}
     \mathcal{C}j^\mu\mathcal{C}^\dagger = -j^\mu, \quad \mathcal{C}Q\mathcal{C}^\dagger = -Q.
 \end{eqnarray}
+
+\section{The Dirac Equation}
+
+The Dirac equation, written in covariant form as 
+\begin{empheq}[box=\widefbox]{align*}
+    (i\gamma^\mu \partial_\mu - m)\psi(x) = 0,
+\end{empheq}
+
+contains two objects worth studying in detail: $\gamma^\mu$ and $\psi(x)$. The gamma matrices $\gamma^\mu$ follow the \textit{Clifford algebra}
+\begin{equation}
+    \left\{\gamma^\mu, \gamma^\nu\right\} = 2\eta^{\mu\nu}
+\end{equation}
+
+and have two common representations, known as the Dirac basis and Weyl basis respectively:
+\begin{gather}
+    \gamma^0 = \begin{pmatrix}\imat{2}\end{pmatrix}, \quad \gamma^i = \begin{pmatrix}0 & \sigma^i \\ -\sigma^i & 0\end{pmatrix}, \quad \gamma^5 = \begin{pmatrix}0 & 1 \\ 1 & 0 \end{pmatrix}, \\
+    \gamma^0 = \begin{pmatrix}0 & 1 \\ 1 & 0\end{pmatrix}, \quad \gamma^i = \begin{pmatrix}0 & \sigma^i \\ -\sigma^i & 0\end{pmatrix}, \quad \gamma^5 = \begin{pmatrix}-1 & 0 \\ 0 & 1\end{pmatrix},
+\end{gather}
+
+where we have used 
+\begin{equation}
+    \gamma^5 = i\gamma^0\gamma^1\gamma^2\gamma^3.
+\end{equation}
+
+Recalling our knowledge of the Lorentz group from Symmetries of Particles and Fields, Lorentz transformations may be written as
+\begin{equation}
+    S(\Lambda)=\exp\left(-\frac{i}{4}\omega_{\mu\nu} \sigma^{\mu\nu}\right), \quad \sigma^{\mu\nu} \equiv \frac{i}{2}\left[\gamma^\mu, \gamma^\nu\right].
+\end{equation}
+
+Under Lorentz transformations, the four-component object $\psi(x)$ transforms as 
+\begin{equation}
+    \psi(x) \rightarrow \psi'(x') = S(\Lambda)\psi(x),
+\end{equation}
+
+$\gamma^\mu$ transforms as 
+\begin{equation}
+    \Lambda^\mu_{\, \nu} \gamma^\nu = S(\Lambda)^{-1}\gamma^\mu S(\Lambda).
+\end{equation}
+
+We also introduce the conjugate $\bar{\psi} = \psi^\dagger(x)\gamma^0$.
+
+From this, we can construct the 16 Dirac bilinears
+
+\begin{equation}
+    \begin{array}{ccc}
+    \bar{\psi} \psi & \text { scalar } & 1 \\
+    \bar{\psi} \gamma^\mu \psi & \text { vector } & 4 \\
+    \bar{\psi} \sigma^{\mu \nu} \psi & \text { tensor } & 6 \\
+    \bar{\psi} \gamma^5 \gamma^\mu \psi & \text { axial vector } & 4 \\
+    \bar{\psi} \gamma^5 \psi & \text { pseudoscalar } & 1.
+    \end{array}
+\end{equation}
+
+The Lagrangian for the Dirac field is given by 
+\begin{empheq}[box=\widefbox]{align*}
+    \mathcal{L} = \bar{\psi}(x)\left(i\slashed{\partial}-m   \right)\psi(x)
+\end{empheq}
+
+if we treat $\psi(x)$ and $\bar{\psi}(x)$ as independent fields. Varying the Lagrangian with respect to $\bar{\psi}(x)$ gives the Dirac equation, while varying the Lagrangian with respect to $\psi(x)$ gives $\left(i\partial_\mu \gamma^\mu + m\right)\bar{\psi}(x) = 0$. Just as with complex scalar fields, we have a conserved current and charge 
+\begin{equation}
+    j^\mu = \bar{\psi}\gamma^\mu\psi, \quad Q = \int d^3x \psi^\dagger\psi.
+\end{equation}
+
+The solutions to the Dirac equation are plane wave solutions, the positive and negative energy ones given by
+\begin{equation}
+    \psi^+(x) = \exp(-ip_\mu x^\mu)\,u(\underline{p}), \quad \psi^-(x) = \exp(ip_\mu x^\mu) v(\underline{p})
+\end{equation}
+
+respectively, where $u$ and $v$ are four-component \textit{spinors} also satisfying the Dirac equation:
+\begin{gather}
+    u(\underline{p}, s) = \sqrt{E+m} \begin{pmatrix}
+        \phi^s \\ \frac{\underline{\sigma} \cdot \underline{p}}{E+m} \phi^s
+    \end{pmatrix} \\
+    v(\underline{p}, s) = \sqrt{E+m} \begin{pmatrix}
+        \frac{\underline{\sigma} \cdot \underline{p}}{E+m} \chi^s \\ \chi^s
+    \end{pmatrix},
+\end{gather}
+
+where 
+\begin{gather}
+    \phi^1 = \begin{pmatrix}
+        1 \\ 0
+    \end{pmatrix}, \quad \phi^2 = \begin{pmatrix}
+        0 \\ 1
+    \end{pmatrix}, \\
+    \chi^s = \begin{pmatrix}
+        0 \\ 1
+    \end{pmatrix}, \quad \chi^2 = \begin{pmatrix}
+        -1 \\ 0
+    \end{pmatrix}.
+\end{gather}
+
+The energy states $s=1,\, 2$ are degenerate in energy; the \textit{helicity} operator
+\begin{equation}
+    \hat{h}(\underline{p}) = \frac{\underline{\Sigma} \cdot \underline{p}}{|\underline{p}|}, \quad \Sigma \equiv \begin{pmatrix}
+        \underline{\sigma} & 0 \\ 0 & \underline{\sigma}
+    \end{pmatrix} = -\frac{1}{4} \epsilon_{ijk} [\gamma_j, \gamma_k]
+\end{equation}
+
+commutes with the Hamiltonian and measures the spin projected along the direction of motion. In accordance with our earlier definition of $\bar{\psi}(x)$, let us list out a few properties of $u$, $\bar{u} \equiv u^\dagger \gamma^0$, $v$, and $\bar{v} \equiv v^\dagger \gamma^0$:
+\begin{gather}
+    \sum_s u(p, s) \bar{u} (p, s) = \slashed{p} + m \equiv 2m\Lambda_+ \\
+    \sum_s v(p, s) \bar{v} (p, s) = \slashed{p} - m \equiv -2m \Lambda_- \\
+    \psi = \alpha u + \beta v \rightarrow \Lambda_+ \psi = \alpha u, \, \Lambda_- \psi = \beta v \\
+    \Lambda_+^2 = \Lambda_+, \quad \Lambda_-^2 = \Lambda_-, \Lambda_+ \Lambda_- = 0.
+\end{gather}
+
 
 \end{document}
