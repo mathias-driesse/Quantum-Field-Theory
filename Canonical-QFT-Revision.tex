@@ -5,6 +5,7 @@
 \usepackage[margin=1in]{geometry}
 
 \setlength{\parindent}{0pt}
+\numberwithin{equation}{section}
 
 \newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
 \newcommand{\normord}[1]{:\mathrel{#1}:}
@@ -32,12 +33,12 @@ also obeys the following \textit{equal-time commutation relations} (ETCRs):
 where the conjugate momentum $\pi(x)$ is the usual $\pdv{\mathcal{L}}{\dot{\phi}(x)}$. A scalar field may be expanded in terms of mode operators:
 \begin{align}
     \phi(t, \underline{x}) &= \phi^+(x) + \phi^-(x) \\
-    &= \int \frac{d^3 p}{(2 \pi)^3} \frac{1}{2 \omega(\underline{p})}\left(a(\underline{p}) e^{-i p \cdot x}+a(\underline{p})^{\dagger} e^{i p \cdot x}\right)
+    &= \int \hat{d}^3 p \frac{1}{2 \omega(\underline{p})}\left(a(\underline{p}) e^{-i p \cdot x}+a(\underline{p})^{\dagger} e^{i p \cdot x}\right)
 \end{align}
 
 where the creation and annihilation operators in momentum space obey the commutation relations
 \begin{align}
-    [a (\underline{p}), a^\dagger(\underline{p}^\prime)] = 2\omega(\underline{p}) (2\pi)^3 \delta(\underline{p}-\underline{p}^\prime) \\
+    [a (\underline{p}), a^\dagger(\underline{p}^\prime)] = 2\omega(\underline{p}) \hat{\delta}(\underline{p}-\underline{p}^\prime) \\
     [a (\underline{p}), a(\underline{p}^\prime)] = [a^\dagger(\underline{p}), a^\dagger(\underline{p}^\prime)] = 0.
 \end{align}
 
@@ -48,8 +49,8 @@ To prevent infinite contributions to the energy, we require that all terms be \t
 
 We may simplify covariant commutation relations for the Klein-Gordon field by introducing three invariant functions
 \begin{gather}
-    \Delta^+(x) \equiv -i \int \dfrac{d^3p}{(2\pi)^3} \dfrac{1}{2\omega(\underline{p})}e^{-ip \cdot x} \\
-    \Delta^-(x) \equiv \Delta^+(x)^* = i \int \dfrac{d^3p}{(2\pi)^3} \dfrac{1}{2\omega(\underline{p})}e^{ip \cdot x}\\
+    \Delta^+(x) \equiv -i \int \hat{d}^3 p \dfrac{1}{2\omega(\underline{p})}e^{-ip \cdot x} \\
+    \Delta^-(x) \equiv \Delta^+(x)^* = i \int \hat{d}^3 p \dfrac{1}{2\omega(\underline{p})}e^{ip \cdot x}\\
     \Delta(x) \equiv \Delta^+(x) + \Delta^-(x).
 \end{gather}
 
@@ -199,7 +200,7 @@ As an example, let us expand the $S$-matrix in position space. In $\phi^3$ theor
 This is a lot of work for calculating the $S$-matrix! Fortunately, we are more interested in calculating the matrix elements $S_{fi} = \mel{f}{S}{i}$ than $S$ itself. Since we label free particle initial and final states by their definite on-shell momentum $\ket{\underline{p}} = a^\dagger(\underline{p})\ket{0}$, we should work in momentum space. Then
 \begin{equation} \label{eq:phiplusp}
 \begin{aligned}
-    \phi^+(x)\ket{\underline{p}} &= \int  \frac{\hat{d}^3 \underline{p}}{2E'} e^{-ip'\cdot x} a(\underline{p}')a^\dagger(\underline{p})\ket{0} \\
+    \phi^+(x)\ket{\underline{p}} &= \int  \frac{\hat{d}^3 \underline{p}'}{2E'} e^{-ip'\cdot x} a(\underline{p}')a^\dagger(\underline{p})\ket{0} \\
     &= \int d^3 \underline{p}'   e^{-ip'\cdot x} \delta^3(\underline{p}-\underline{p}')\ket{0} \\
     &= e^{-ip\cdot x}\ket{0}
 \end{aligned}
@@ -208,7 +209,7 @@ This is a lot of work for calculating the $S$-matrix! Fortunately, we are more i
 while
 \begin{equation} \label{eq:phiminusp}
 \begin{aligned}
-    \bra{\underline{p}}\phi^-(x) &= \bra{0} a(\underline{p}) \int \frac{\hat{d}^3 \underline{p}}{2E'} e^{ip'\cdot x} a^\dagger(\underline{p}) \\
+    \bra{\underline{p}}\phi^-(x) &= \bra{0} a(\underline{p}) \int \frac{\hat{d}^3 \underline{p}'}{2E'} e^{ip'\cdot x} a^\dagger(\underline{p}) \\
     &= \bra{0} \int d^3 \underline{p}' e^{ip'\cdot x} \delta^3(\underline{p}-\underline{p}') \\
     &= e^{ip\cdot x} \bra{0}.
 \end{aligned}
@@ -349,7 +350,7 @@ Under \textbf{parity}, $x^\mu=(t,\underline{x}) \rightarrow \bar{x}^\mu = (t, -\
 \end{equation}
 
 Since $\ket{\underline{p}} = a^\dagger(\underline{p})\ket{0}$, we must have
-\begin{equation}
+\begin{equation}\label{eq:parity_scalar}
     \mathcal{P}a^\dagger(\underline{p})\mathcal{P}^\dagger = a^\dagger(-\underline{p}), \quad \mathcal{P}a(\underline{p})\mathcal{P}^\dagger = a(-\underline{p}).
 \end{equation}
 
@@ -449,7 +450,7 @@ The solutions to the Dirac equation are plane wave solutions, the positive and n
     \psi^+(x) = \exp(-ip_\mu x^\mu)\,u(\underline{p}), \quad \psi^-(x) = \exp(ip_\mu x^\mu) v(\underline{p})
 \end{equation}
 
-respectively, where $u$ and $v$ are four-component \textit{spinors} also satisfying the Dirac equation:
+respectively, where $u$ and $v$ are four-component \textit{spinors} also satisfying $(\slashed{p}-m)u(p, s) = 0$ and $(\slashed{p} + m)v(p, s) = 0$:
 \begin{gather}
     u(\underline{p}, s) = \sqrt{E+m} \begin{pmatrix}
         \phi^s \\ \frac{\underline{\sigma} \cdot \underline{p}}{E+m} \phi^s
@@ -487,6 +488,225 @@ commutes with the Hamiltonian and measures the spin projected along the directio
     \psi = \alpha u + \beta v \rightarrow \Lambda_+ \psi = \alpha u, \, \Lambda_- \psi = \beta v \\
     \Lambda_+^2 = \Lambda_+, \quad \Lambda_-^2 = \Lambda_-, \Lambda_+ \Lambda_- = 0.
 \end{gather}
+
+\section{Quantization of the Dirac Field}
+
+Since the rest-frame four-component spinors $u(\underline{0})$ are eigenvectors of $\Sigma_3$ with eigenvalues $\pm 1$, this suggests that we interpret the Diract equation as describing a spin-$1/2$ particle. Since they obey Fermi-Dirac statistics, we must impose the restriction that no two particles may occupy the same state - even in Fock space! Therefore, we must switch our commutation relations to \textit{anticommutation relations}:
+\begin{equation}
+\begin{aligned}
+    \{a_r(\underline{p}), a_s^\dagger(\underline{p}')\} &= \delta_{rs}\, 2 \omega(\underline{p}) \hat{\delta}^3(\underline{p}-\underline{p}') \\
+    \{a_r(\underline{p}), a_s(\underline{p}')\} &= \{a_r^\dagger(\underline{p}), a_s^\dagger(\underline{p}')\} = 0
+\end{aligned}
+\end{equation}
+
+so that the occupation number of a state $\ket{\underline{p}, s}$ can only be 0 or 1, as we expect for identical fermions. Proceeding as with a scalar field, we expand the Dirac field $\psi(x)$ and its conjugate $\bar{\psi}(x)$ in terms of the free particle solutions
+\begin{equation}
+\begin{aligned}
+    \psi(x) &= \sum_s \int \hat{d}^3 p \frac{1}{2\omega(\underline{p})} \left[a_s(\underline{p})u(p, s) e^{-ip\cdot x} + b_s^\dagger(\underline{p}) v(p, s) e^{ip\cdot x}\right] \equiv \psi^+(x) + \psi^-(x) \\
+    \bar{\psi}(x) &= \sum_s \int \hat{d}^3 p \frac{1}{2\omega(\underline{p})} \left[b_s(\underline{p}) \bar{v}(p, s) e^{-ip\cdot x} + a_s^\dagger(\underline{p}) \bar{u}(p, s) e^{ip\cdot x}  \right] \equiv \bar{\psi}^+(x) + \bar{\psi}^-(x).
+\end{aligned}
+\end{equation}
+
+The equal-time anticommutators for field operators are
+\begin{equation}
+\begin{aligned}
+    \{\psi_a(t, \underline{x}), i\psi_b^\dagger(t, \underline{x}') \}  & = i \delta_{ab} \delta(\underline{x} - \underline{x}'), \\
+    \{\psi_a(t, \underline{x}), \bar{\psi}_b(t, \underline{x}')\} &= \gamma_{ab}^0 \delta(\underline{x} - \underline{x}'),
+\end{aligned}
+\end{equation}
+with all others being zero. Moving towards conserved quantities of Dirac theory, normal ordering includes a minus sign upon exchange of fermion operators:
+\begin{equation}
+    \normord{\psi_a\psi_b}\, = \,\normord{(\psi_a^+ + \psi_a^-)(\psi_b^+ + \psi_b^-)}\,= \psi_a^+ \psi_b^+ - \psi_b^- \psi_a^+ + \psi_a^- \psi_b^+ + \psi_a^- \psi_b^-.
+\end{equation}
+Also, an additional rule appears for Wick's theorem: fermionic operators must be swapped past each other, gaining a minus sign every time, until all contractions are next to each other. 
+
+The stress-energy tensor 
+\begin{equation}
+    T^{\mu\nu}(x) = i \normord{\bar{\psi}(x)\gamma^\mu \partial^\nu \psi(x)}
+\end{equation}
+
+is conserved, along with the Hamiltonian
+\begin{equation}
+    H = \int d^3x T^{00}(x)
+\end{equation}
+
+and the 3-momentum 
+\begin{equation}
+    \underline{P} = \sum_s \int \hat{d}^3p.
+\end{equation}
+
+Furthermore, invariance of the Lagrangian under $\psi \rightarrow e^{i\alpha}\psi$ leads to a conserved Noether current
+\begin{equation}
+    j^\mu(x) = \, \normord{\bar{\psi}(x)\gamma^\mu \psi(x)}
+\end{equation}
+with a corresponding conserved charge $Q = \int d^3x j^0(x)$.
+
+The covariant anticommutation relations for the Dirac field are given by
+\begin{equation}
+\begin{aligned}
+    \{\psi_a^\pm (x), \bar{\psi}_b^\mp (y)\} &= i(i\slashed{\partial} + m)_{ab} \Delta^\pm (x-y) \\
+    \{\psi_a(x), \psi_b(y)\} &= \{\bar{\psi}_a(x), \bar{\psi}_b(x)\} = 0,
+\end{aligned}
+\end{equation}
+or, defining
+\begin{equation}
+    i S^\pm (x-y) \equiv \{\psi^\pm(x), \bar{\psi}^\mp(y) \} = i(i\slashed{\partial} + m)\Delta^\pm(x)
+\end{equation}
+
+Seeing the equivalence with the expressions for the scalar field, we also define
+\begin{equation}
+    S(x) = (i\slashed{\partial}+m)\Delta(x)
+\end{equation}
+such that
+\begin{equation}
+    {\psi_a(x), \bar{\psi}_b(y)} = S_{ab}(x-y).
+\end{equation}
+
+The time-ordered product, however, changes definition through a minus sign for fermion fields:
+\begin{equation}
+    T(\psi(x)\bar{\psi}(x')) = \theta(t - t')\psi(x)\bar{\psi}(x') = \theta(t' - t)\bar{\psi}(x')\psi(x)
+\end{equation}
+
+The Feynman propagator for fermions is then
+\begin{empheq}[box=\widefbox]{align*}
+    i S_F(x - x') = \wick{\c \psi(x) \c{\bar{\psi}}(x')} = \ev{T(\psi(x)\bar{\psi(x')})}{0} = i(i\slashed{\partial}+m)\Delta_F(x-x'),
+\end{empheq}
+
+which admits the following integral representation:
+\begin{empheq}[box=\widefbox]{align*}
+    S_F(x) = \int \hat{d}^4p e^{-ip\cdot x} \frac{\slashed{p} + m}{p^2 - m^2 + i\varepsilon}.
+\end{empheq}	
+
+\subsection{Feynman Rules for Fermions}
+
+Let us perform the calculation for the effect of fermion operators in momentum-space:
+\begin{equation}
+\begin{aligned}
+    \psi^+(x) \ket{e^-, \underline{p}, s} &= \sum_r \int \hat{d}^3p' \frac{1}{2\omega(\underline{p}')} a_r(\underline{p}') u(p', r)e^{-ip'\cdot x} a_s^\dagger(\underline{p})\ket{0} \\
+    &= \sum_r \int \hat{d}^3p' \frac{1}{2\omega(\underline{p}')}  u(p', r)e^{-ip'\cdot x} \, 2 \omega(\underline{p}') \delta_{rs} \hat{\delta}^3(\underline{p} - \underline{p}')\ket{0} \\
+    &= \int \hat{d}^3p' \, u(p', s)e^{-ip'\cdot x} \hat{\delta}^3(\underline{p} - \underline{p}') \ket{0}\\
+    &= u(p, s) e^{-ip\cdot x} \ket{0}
+\end{aligned}
+\end{equation}
+
+Similarly,
+\begin{gather}
+    \bar{\psi}^+(x)\ket{e^+, \underline{p}, s} = \bar{v}(p, s) e^{-ip\cdot x}\ket{0}\\
+    \bra{e^-, \underline{p}, s}\psi^-(x) = \bra{0}\bar{u}(p, s)e^{ip\cdot x} \\
+    \bra{e^+, \underline{p}, s}\bar{\psi}^-(x) = \bra{0} v(p, s)e^{ip\cdot x}.
+\end{gather}
+
+Therefore, the Feynman rules involving fermions are thus 
+\begin{itemize}
+    \item For each external line one of the following factors
+    \begin{itemize}
+        \item For each initial electron $u(p, s)$
+        \item For each final electron $\bar{p, s}$
+        \item For each initial positron $\bar{v}(p, s)$
+        \item For each final positron $v(p, s)$
+    \end{itemize}
+    \item For each internal fermion line a fermion propagator
+    \begin{equation}
+        i\tilde{S}_F(p) = \frac{i}{\slashed{p} - m + i\varepsilon} 
+    \end{equation}
+    \item The Dirac-matrix-valued factors are to be ordered so that reading from right to left corresponds to the sequence obtained by following the fermion line in the direction of its arrows.
+    \item The 4-momenta corresponding to the three lines which meet at a vertex are conserved. For each 4-momentum $l$ not so fixed by an integral $\int \hat{d}^4q$.
+    \item Multiply the amplitude by a phase factor $(-1)^p$, where $p$ is the number of interchanges of neighbouring fermion operators required to achieve normal ordering. 
+    \item Vertices: the interactions of fermions can be either purely fermionic, for example $\mathcal{L}_I = -G(\bar{\psi}\psi)^2$, or else a mixture of scalars and fermions, for example the Yukawa interaction $\mathcal{L}_I = -y\phi(\bar{\psi \psi})$, giving a vertex factor of $-iy$. 
+    \item Every fermionic closed loop gives an extra minus sign. To see this, consider the simplest example,. the scalar self-energy correction due to the Yukawa interaction, and thus a single closed fermion loop. The appropriate term in the Dyson expansion is
+    \begin{equation}
+    \begin{aligned}
+        \normord{\wick{\phi(x)\c2{\bar{\psi}}_a(x) \c1{\psi}_a(x) \phi(y) \c1{\bar{\psi}}_b(y) \c2{\psi}_b(y) }} &= -\phi(x)\phi(y)\wick{\c\psi_b(y) \c{\bar{\psi}}_a(x) \c\psi_a(x) \c{\bar{\psi}}_b(y)}\\
+        &= - \phi(x) \phi(y) (iS_F(y-x)_{ba}) (iS_F(x-y)_{ab})
+    \end{aligned}
+    \end{equation}
+\end{itemize}
+
+\subsection{$C$, $P$, and $T$ for fermion fields}
+
+If under \textbf{parity}, $\psi(x) \rightarrow \psi_P(x) = P\psi(\bar{x})$ for some Dirac matrix $P$, then 
+\begin{equation}
+    \gamma^\mu \rightarrow P \gamma^\mu P^{-1} = \gamma_\mu,
+\end{equation}
+so $P = \gamma^0$.
+\begin{equation}
+    \gamma^0 \gamma^\mu \gamma^0=\left\{\begin{array}{cl}
+        \gamma^0 & \text { if } \mu=0 \\
+        -\gamma^i & \text { if } \mu=i=1,2,3
+        \end{array}\right.
+\end{equation}
+Then
+\begin{equation}
+\begin{aligned}
+    \bar{\psi}\psi &\rightarrow \bar{\psi} \psi \\
+    \bar{\psi}\gamma^\mu \psi & \rightarrow \bar{\psi}\gamma_\mu \psi \\
+    \mathcal{L} &\rightarrow \mathcal{L} = \bar{\psi}(i\slashed{\partial}-m)\psi.
+\end{aligned}
+\end{equation}
+
+However, spinors and mode operators change sign of their momentum, e.g. $u(\underline{p}, s) \rightarrow \gamma^0u(\underline{p}, s) = u(-\underline{p}, s)$, using the same arguments as for scalar fields (see Eq. \ref{eq:parity_scalar}).
+
+\textbf{Time reversal} is \textit{antiunitary}, so if $\psi(x) \rightarrow \psi_T(x) = T\psi(-\bar{x})$, we require
+\begin{equation}
+    \gamma^\mu \rightarrow T(\gamma^\mu)^* T^{-1}.
+\end{equation}
+The solution is $T = -T^{-1} = \gamma^1\gamma^3$, because $(\gamma^1\gamma^3)^2 = -1$, and 
+\begin{equation}
+    \begin{aligned}
+        -\gamma^1 \gamma^3 \gamma^0 \gamma^1 \gamma^3 &=\gamma^0, \\
+        -\gamma^1 \gamma^3 \gamma^1 \gamma^1 \gamma^3 &=-\gamma^1, \\
+        -\gamma^1 \gamma^3\left(-\gamma^2\right) \gamma^1 \gamma^3 &=-\gamma^2, \\
+        -\gamma^1 \gamma^3 \gamma^3 \gamma^1 \gamma^3 &=-\gamma^3.
+        \end{aligned}
+\end{equation}
+
+Then
+\begin{equation}
+\begin{aligned}
+    \bar{\psi}\psi &\rightarrow \bar{\psi}\psi, \\
+    \bar{\psi}\gamma^\mu \psi &\rightarrow \bar{\psi} \gamma_\mu \psi, \\
+    \mathcal{L} & \rightarrow \mathcal{L}.
+\end{aligned}
+\end{equation}
+
+This time, spinors and mode operators change spin sign too: $u(\underline{p}, s) \rightarrow T u(\underline{p}, s)^* = u(-\underline{p}, -s)$, which can be checked by inserting
+\begin{equation}
+    T=\gamma^1 \gamma^3=\left(\begin{array}{rr}
+        i \sigma^2 & 0 \\
+        0 & i \sigma^2
+        \end{array}\right)
+\end{equation}
+into the definition of spinors.
+
+\textbf{Charge conjugation} is a unitary operation that exchanges particles and antiparticles, leaving $\underline{p}$ and $s$ unchanged:
+\begin{gather}
+    Ca_s^\dagger(\underline{p})C^\dagger = b_s^\dagger(\underline{p}), \quad Cb_s^\dagger(\underline{p})C^\dagger = a_s^\dagger \\
+    Ca_s(\underline{p})C^\dagger = b_s(\underline{p}), \quad Cb_s(\underline{p})C^\dagger = a_s(\underline{p}).
+\end{gather}
+
+Inserting these changes into the mode expansion of $\psi$ gives us the properties of a matrix in spinor space $c$ with properties 
+\begin{equation}
+    cu_s^* = v_s, \quad cv_s^* = u_s, cc^* = 1,
+\end{equation}
+which turns out to be $c=i\gamma^2$. Writing things in terms of the dirac adjoint, $\psi_c =i\gamma^2\psi^* = i\gamma^2\gamma^0 \bar{\psi}^T \equiv C\bar{\psi}^T$. Then $C = i\gamma^2\gamma^0$, and under charge conjugation
+\begin{equation}
+\begin{aligned}
+    \bar{\psi}\psi &\rightarrow -\psi^T\bar{\psi}^T = \bar{\psi}\psi,\\
+    \normord{\bar{\psi}\gamma^\mu\psi} &\rightarrow\, \normord{\psi^T(\gamma^\mu)^T\bar{\psi}^T}\, = \,-\normord{\bar{\psi}\gamma^\mu\psi}, \\
+    \mathcal{L} &\rightarrow \mathcal{L},
+\end{aligned}
+\end{equation}
+
+where we have normal ordered the vector current, since both fields are evaluated at the same space-time point. Summarizing everything:
+\begin{equation}
+    \begin{array}{lll}
+        P: & \psi \rightarrow P \psi, & \bar{\psi} \rightarrow \bar{\psi} P^{-1}, \quad P=\gamma^0 \\
+        T: & \psi \rightarrow T \psi, & \bar{\psi} \rightarrow \bar{\psi} T^{-1}, \quad T=\gamma^1 \gamma^3 \\
+        C: & \psi \rightarrow C \bar{\psi}^T, & \bar{\psi} \rightarrow-\psi^T C^{-1}, \quad C=i \gamma^2 \gamma^0.
+        \end{array}
+\end{equation}
+
+The \textit{CPT Theorem} (Pauli, Schwinger, Bell, 1954), not proven here, states that any Lorentz invariant local action is invariant under the combined operation of $CPT$. Since under $PT$, $x^\mu \rightarrow -x^\mu$, and under $C$ particles and antiparticles are exchanged, we interpret antiparticles as particles going backwards in space-time, as is implicit in the way we draw Feynman diagrams.
 
 
 \end{document}
