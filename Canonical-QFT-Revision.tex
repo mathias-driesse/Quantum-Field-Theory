@@ -49,14 +49,14 @@ To prevent infinite contributions to the energy, we require that all terms be \t
 
 We may simplify covariant commutation relations for the Klein-Gordon field by introducing three invariant functions
 \begin{gather}
-    \Delta^+(x) \equiv -i \int \hat{d}^3 p \dfrac{1}{2\omega(\underline{p})}e^{-ip \cdot x} \\
-    \Delta^-(x) \equiv \Delta^+(x)^* = i \int \hat{d}^3 p \dfrac{1}{2\omega(\underline{p})}e^{ip \cdot x}\\
-    \Delta(x) \equiv \Delta^+(x) + \Delta^-(x).
+    i\Delta^+(x-y) \equiv [\phi^+(x), \phi^-(y)] = \int \hat{d}^3 p \dfrac{1}{2\omega(\underline{p})}e^{-ip \cdot (x-y)} \\
+    i \Delta^-(x-y) \equiv [\phi^-(x), \phi^+(y)] = - \Delta^+(y-x) = -\int \hat{d}^3 p \dfrac{1}{2\omega(\underline{p})}e^{ip \cdot (x-y)}\\
+    \Delta(x-y) \equiv \Delta^+(x-y) + \Delta^-(x-y).
 \end{gather}
 
 All three satisfy the Klein-Gordon equation, and we may furthermore write $\Delta$ in a manifestly covariant form:
 \begin{equation}
-    \Delta(x) = -i \int \hat{d}^4p \hat{\delta}(p^2-m^2)\theta(p_0)e^{-ip\cdot x}.
+    \Delta(x-y) = -i \int \hat{d}^4p \hat{\delta}(p^2-m^2)\theta(p_0)e^{-ip\cdot (x-y)}.
 \end{equation}
 
 $\Delta$ also satisfies the microcausality condition
@@ -478,7 +478,7 @@ The energy states $s=1,\, 2$ are degenerate in energy; the \textit{helicity} ope
 \begin{equation}
     \hat{h}(\underline{p}) = \frac{\underline{\Sigma} \cdot \underline{p}}{|\underline{p}|}, \quad \Sigma \equiv \begin{pmatrix}
         \underline{\sigma} & 0 \\ 0 & \underline{\sigma}
-    \end{pmatrix} = -\frac{1}{4} \epsilon_{ijk} [\gamma_j, \gamma_k]
+    \end{pmatrix} = -\frac{1}{4} \epsilon_{ij k} [\gamma_j, \gamma_k]
 \end{equation}
 
 commutes with the Hamiltonian and measures the spin projected along the direction of motion. In accordance with our earlier definition of $\bar{\psi}(x)$, let us list out a few properties of $u$, $\bar{u} \equiv u^\dagger \gamma^0$, $v$, and $\bar{v} \equiv v^\dagger \gamma^0$:
@@ -707,6 +707,109 @@ where we have normal ordered the vector current, since both fields are evaluated
 \end{equation}
 
 The \textit{CPT Theorem} (Pauli, Schwinger, Bell, 1954), not proven here, states that any Lorentz invariant local action is invariant under the combined operation of $CPT$. Since under $PT$, $x^\mu \rightarrow -x^\mu$, and under $C$ particles and antiparticles are exchanged, we interpret antiparticles as particles going backwards in space-time, as is implicit in the way we draw Feynman diagrams.
+
+\section{Quantization of the Electromagnetic field}
+
+The Maxwell equations follow from the Lagrangian density 
+\begin{equation}
+    \mathcal{L} = -\frac{1}{4}F_{\mu\nu} F^{\mu\nu} - A_\mu J^\mu.
+\end{equation}
+
+Setting $\delta S = 0$ gives $\partial_\mu F^{\mu\nu} = J^\nu$ and $\partial_\mu J^\mu = 0$. The second equation reduces the apparent number of degrees of freedom in $A^\mu$ from 4 to 3. This is the result of gauge invariance - we are free to choose
+\begin{equation}
+    A^\mu \rightarrow A^\mu - \partial^\mu \chi
+\end{equation}
+
+for some scalar field $\chi$, and this leaves the equations of motion unchanged. However, let us examine this more closely. In the Hamiltonian formalism, 
+\begin{equation}
+    \phi^\mu(x) = \pdv{\mathcal{L}}{\dot{A}_\mu} = -F^{0\mu}(x),
+\end{equation}
+
+which vanishes for $\mu = 0$, so $\pi^0 \equiv 0$. This means we cannot impose the usual ETCRs between $A^0(t, \underline{x})$ and $\pi^0(t, \underline{x}')$. Moreover
+\begin{gather}
+    \pi^i = -F^{0i} = i\dot{A}^i + \partial^i A^0 \\
+    \underline{\nabla} \cdot \underline{\pi} = -J^0,
+\end{gather}
+
+which gives an additional constraint on $pi^i$. So there are only two genuine degrees of freedom for $\pi^\mu$ and $A^\mu$. 
+
+For our quantization procedure, we adopt the Coulomb gauge, in which only the two physical degrees of freedom are present, quantize these, then generalise to restore manifest Lorentz covariance and gauge invariance. The Coulomb gauge is given by 
+\begin{equation}
+    A^0 = 0, \quad \underline{\nabla} \cdot \underline{A} = 0.
+\end{equation}
+Then the free Maxwell equations in the Coulomb gauge are simply $\partial^2 \underline{A} = 0$ with solutions
+\begin{equation}
+    \underline{A} = \underline{\epsilon}^r(\underline{k}) e^{-ik\cdot x}, \quad k^2 = 0, \quad \underline{k} \cdot \underline{\epsilon}^r(\underline{k}).
+\end{equation}
+
+Choosing $\underline{\epsilon}^3 = \underline{k}/|\underline{k}|$, $\underline{\epsilon}^r$ form an orthonormal basis:
+\begin{equation}
+    \underline{\epsilon}^r \cdot \underline{\epsilon}^{s*} = \delta^{rs}, \quad \sum_{r=1, 2, 3}\underline{\epsilon}_i^r \underline{\epsilon}_j^{r*} = \delta_{ij}.
+\end{equation}
+
+We can use these to define a term which will be useful later: the transverse projector
+\begin{equation}
+    P_{ij}(\underline{k}) = \sum_{r=1, 2} \underline{\epsilon}_i^r \underline{\epsilon}_j^{r*} = \delta_{ij} - \underline{\epsilon}_i^3 \underline{\epsilon}_j^{3*} = \delta_{ij} - \frac{k_i k_j}{|\underline{k}|^2}
+\end{equation}
+which obeys the identity $P_{ij}P_{jk} = P_ik$.
+Naturally, we perform a mode expansion of the free, \textbf{real} electromagnetic field $\underline{A}(x)$:
+
+\begin{equation}
+    \underline{A}(x) = \underline{A}_+(x) + \underline{A}_-(x) = \sum_{r=1,2} \int \hat{d}^3k \frac{1}{2\omega(\underline{k})} \left(\underline{\epsilon}_r(\underline{k}) a_r(\underline{k}) e^{-ik\cdot x} + \underline{\epsilon}_r(\underline{k})^* a_r^\dagger(\underline{k})e^{ik\cdot x}\right), 
+\end{equation}
+and impose the usual commutation relations
+\begin{gather}
+    [a_r(\underline{k}), a_{r'}^\dagger(\underline{k}')] = 2\delta_{rr'} \omega(\underline{k}) \hat{\delta}^3(\underline{k} - \underline{k}') \\
+    [a_r(\underline{k}), a_{r'}(\underline{k}')] = [a_r^\dagger(\underline{k}), a_{r'}^\dagger(\underline{k}')] = 0,
+\end{gather}
+
+which leads to the covariant commutators
+\begin{gather}
+    iD_+^{ij}(x-y) \equiv [A_+^i(x), A_-^j(y)] = \int \hat{d}^3k \frac{1}{2\omega(\underline{k})} P_{ij}(\underline{k})e^{-ik\cdot (x-y)}, \\
+    iD_-^{ij}(x-y) \equiv [A_-^i(x), A_+^j(y)] = - D_+^{ij}(y-x) = -\int \hat{d}^3k \frac{1}{2\omega(\underline{k})} P_{ij}(\underline{k})e^{ik\cdot (x-y)}
+\end{gather}
+and the Feynman propagator (in the Coulomb gauge)
+\begin{equation}
+    i D_F^{ij}(x-y) \equiv  \ev{T(A^i(x)A^j(y))}{0} = i \int \hat{d}^4k \frac{P^{ij}(\underline{k})}{k^2+i\varepsilon} e^{-ik \cdot (x-y)}
+\end{equation}
+
+\subsection{Recovering Lorentz Covariance}
+
+The Coulomb gauge is not manifestly Lorentz invariant. We can fix this by choosing some timelike unit four-vector $n^\mu = (1, \underline{0})$, which lets us rewrite the Coulomb gauge conditions
+\begin{gather}
+    A^0 = 0 \rightarrow n^\mu A_\mu = 0 \\
+    \underline{\nabla} \cdot \underline{A} = 0 \rightarrow \partial^\mu A_\mu = 0,
+\end{gather}
+which lets us write our results in a Lorentz covariant way; however, they may be dependent on $n^\mu$. We may expand our polarization vectors in a similar way $\epsilon_r^\mu = (0, \underline{\epsilon}_r)$, recovering the identities
+\begin{equation}
+    k \cdot \epsilon_r = 0, \quad
+    \epsilon_r \cdot \epsilon_s^* = -\delta_{rs}
+\end{equation}
+and the projector
+\begin{equation}
+    P^{\mu\nu}(k) = \sum_{r=1, 2} \epsilon_r^\mu \epsilon_r^{\nu*} = -\eta^{\mu\nu}  + \frac{k^\mu \bar{k}^\nu + \bar{k}^\mu k^\nu}{k \cdot \bar{k}} 
+\end{equation}
+where we have introduced $\bar{k}^\mu = (|\underline{k}|, -\underline{k})$, so $\bar{k}^2 = 0$, $k \cdot \bar{k} = 2 |\underline{k}|^2 = 2(k \cdot n)^2$, and $n^\mu = (k^\mu + \bar{k}^\mu)/2 k \cdot n$. The projection operator is still a projection operator:
+\begin{equation}
+    P^{\mu\alpha}(k) P_\alpha^\nu = -P^{\mu\nu}(k).
+\end{equation}
+
+The Feynman propagator, in covariant form, becomes
+\begin{equation}
+    i D_F^{\mu\nu}(x-y) \equiv \ev{T(A^\mu(x A^\nu(y)))}{0} = i \int \hat{d}^4k \frac{P^{\mu\nu}}{k^2 +i\varepsilon} e^{-ik \cdot (x-y)}.
+\end{equation}
+
+Note that the $P^{\mu\nu}$ is only a projection operator when $k$ is on-shell. But since internal photons are off-shell, they are also not transverse, which means they include unphysical longitudinal and timelike modes which however cancel in the full amplitude, which will be discussed later. Furthermore, we have also introduced the arbitrary four-vector $\bar{k}^\mu$, which has no physical interpretation - physical results must be independent of this direction.
+
+In a general linear gauge, the projector becomes more complicated and gauge-dependent, leading to a gauge-dependent Feynman propagator and Feynman rules. The remainder of the chapter focuses on convincing the reader that \textbf{physical results} are in fact \textbf{gauge-independent}.
+
+\subsection{Ward Identities}
+
+Consider the interaction Hamiltonain density $A^\mu J_\mu$, where $J_\mu$ is some generic current (dependent on scalar or fermion matter fields). Gauge invariance of the theory requires that $J^\mu$ is conserved: $\partial^\mu J_\mu = 0$. In Fourier space, we express this as 
+\begin{gather}
+    \tilde{J}
+\end{gather}
+
 
 
 \end{document}
