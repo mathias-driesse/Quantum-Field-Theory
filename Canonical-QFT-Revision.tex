@@ -803,12 +803,51 @@ Note that the $P^{\mu\nu}$ is only a projection operator when $k$ is on-shell. B
 
 In a general linear gauge, the projector becomes more complicated and gauge-dependent, leading to a gauge-dependent Feynman propagator and Feynman rules. The remainder of the chapter focuses on convincing the reader that \textbf{physical results} are in fact \textbf{gauge-independent}.
 
+\subsection{Internal Photons and Feynman Rules}
+
+Consider the interaction Hamiltonain density $A^\mu J_\mu$, where $J_\mu$ is some generic current (dependent on scalar or fermion matter fields). Gauge invariance of the theory requires that $J^\mu$ is conserved: $\partial^\mu J_\mu = 0$. In Fourier space, we express this as $k^\mu J_\mu = 0$. 
+
+Consider now graphs with internal photon lines, and thus a contraction between photon fields:
+\begin{equation}
+\begin{aligned}
+    \hat{\delta}^4(\sum p_f - \sum p_i) &= \ev{T(\cdots \smallint d^4x J_\mu(x)\wick{\c{A}^\mu(x) \smallint d^4y J_\nu(y) \c{A}^\nu(y)})}{\cdots} \\
+    &= \ev{T(\cdots \smallint d^4x \smallint d^4y J_\mu(x) J_\nu(y) iD_F^{\mu\nu}(x-y))}{\cdots} \\
+    &= \ev{T(\cdots \smallint \hat{d}^4k \frac{P^{\mu\nu}(k)}{k^2+i \varepsilon} \tilde{J}_\mu(k) \tilde{J}_\nu(-k))}{\cdots}.
+\end{aligned}
+\end{equation}
+
+However, using $k^\mu J_\mu = 0$,
+\begin{equation}
+    P^{\mu\nu} \tilde{J}_\mu(k) \tilde{J}_\nu(-k) = (-\eta^{\mu\nu} + k^\mu \alpha^\nu + \alpha^{\mu*}k^\nu) \tilde{J}_\mu(k) \tilde{J}_\nu(-k) = -\tilde{J}_\mu(k) \tilde{J}_\nu(-k),
+\end{equation}
+
+so the amplitude is independent of $\alpha$ and is thus gauge independent, which means that in practice we can use the simpler \textit{Feynman gauge} propagator
+\begin{equation}
+    \frac{-\eta^{\mu\nu}}{k^2 + i\varepsilon}.
+\end{equation}
+
+Thus we have our Feynman rules for photons:
+\begin{itemize}
+    \item for every incoming photon, a factor of $\epsilon_r^\mu(k)$
+    \item for every outgoing photon, a factor of $\epsilon_r^{\mu*}(k)$
+    \item for every internal photon, a factor of $iP^{\mu\nu}(k)/(k^2+i\varepsilon) = -i\eta^{\mu\nu}/(k^2+i\varepsilon)$.
+\end{itemize}
+
 \subsection{Ward Identities}
 
-Consider the interaction Hamiltonain density $A^\mu J_\mu$, where $J_\mu$ is some generic current (dependent on scalar or fermion matter fields). Gauge invariance of the theory requires that $J^\mu$ is conserved: $\partial^\mu J_\mu = 0$. In Fourier space, we express this as 
-\begin{gather}
-    \tilde{J}
-\end{gather}
+Now consider some amplitude $\mathcal{M}$ with an external photon: assuming wlog that this photon is incoming with momentum $k$ and polarization $r$,
+\begin{equation}
+    \hat{d}^4(\sum p_f - \sum p_i)  = \mel{\cdots}{T( \cdots \smallint d^4x J_\mu A^\mu)}{k, r;\cdots}.
+\end{equation}
+Now we can rewrite the rhs using the Feynman rule for the external photon as 
+\begin{equation}
+    \mel{\cdots}{T(\cdots \smallint d^4x J_\mu \epsilon_r^\mu(k) e^{-ik\cdot x})}{\cdots} = \ev{T(\cdots \tilde{J}_\mu(-k) \epsilon_r^\mu(k))}{\cdots }.
+\end{equation}
+Under a gauge transformation $\epsilon_r^\mu(k) \rightarrow \epsilon_r^\mu(k) + ik^\mu c_r(k)$, but $k^\mu \tilde{J}_\mu = 0$, so $\mathcal{M}$ is invariant under a gauge transformation of an external photon. Furthermore, writing $\mathcal{M} = \epsilon_r^\mu(k)\mathcal{M}_\mu$, current conservation implies the \textit{Ward identity}
+\begin{equation}
+    k^\mu \mathcal{M}_\mu = 0.
+\end{equation}
+
 
 
 
