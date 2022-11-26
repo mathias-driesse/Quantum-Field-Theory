@@ -1,0 +1,189 @@
+%!TEX program = lualatex
+\documentclass{article}
+\usepackage{physics, amsmath, amsfonts, empheq, mathtools, booktabs, hyperref, simpler-wick, tikz-feynman, slashed}
+\usepackage[style=nature, autocite = inline]{biblatex}
+\usepackage[margin=1in]{geometry}
+
+\setlength{\parindent}{0pt}
+\numberwithin{equation}{section}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand{\normord}[1]{:\mathrel{#1}:}
+
+\title{Path Integral Quantum Field Theory}
+\author{Mathias Driesse}
+
+\begin{document}
+
+\maketitle
+
+\section{Gaussian Integrals}
+
+The General Gaussian integral, for a complex, symmetric $n\times n$ matrix $A$ such that $\Re A \geq 0$ and the eigenvalues $a_i$ of $A$ are nonzero, is given by 
+
+\begin{empheq}[box=\widefbox]{align}
+    Z_A(b) = \int d^nx \exp\left(-\frac{1}{2} \sum_{i,j = 1}^n x_i A_{ij}x_j + \sum_{i=1}^n b_i x_i\right) = (2\pi)^{n/2} (\det A)^{-1/2} \exp\left(\frac{1}{2}\sum_{i,j = 1}^n b_i A_{ij}^{-1}b_j \right).
+\end{empheq}
+
+Let $\mu$ be a measure in $\mathbb{R}^n$; we define the expectation value
+
+\begin{equation}
+\begin{aligned}
+    \ev{F}_\mu &= \int d\mu(x)F(x) \\
+    &= \int d^nx\, \Omega(x)F(x).
+\end{aligned}
+\end{equation}
+
+The measure is normalized so that 
+\begin{equation}
+    \int d\mu(x) = 1.
+\end{equation}
+
+We define the generating function 
+\begin{equation}
+    Z_\mu(b) = \ev{e^{(b,x)}}_\mu = \int d\mu(x) \exp\left(\sum_{i=1}^n b_i x_i\right),
+\end{equation}
+
+which is a function of the $n$-dimensional vector $b$ and the measure $\mu$. The integrand can be expanded
+\begin{equation}
+    \exp\left(\sum_{i=1}^n b_i x_i\right) = \sum_{\ell=0}^\infty \frac{1}{\ell!} \sum_{i_1 \cdots i_\ell = 1}^n b_{i_1} \cdots b_{i_\ell} x_{i_1} \cdots x_{i_\ell}.
+\end{equation}
+Therefore, substituting the definition of the correlator
+\begin{equation}
+    \ev{x_{i_1} \cdots x_{i_\ell}}_\mu = \int d\mu(x) x_{i_1} \cdots x_{i_\ell}
+\end{equation}
+we obtain 
+\begin{equation}
+    Z_\mu(b) = \sum_{\ell=0}^\infty \frac{1}{\ell!} \sum_{i_1 \cdots i_\ell = 1}^n b_{i_1} \cdots b_{i_\ell} \ev{x_{i_1} \cdots x_{i_\ell}}_\mu.
+\end{equation}
+Furthermore, it is useful to notice that
+\begin{equation}
+    \pdv{b_k} Z_\mu(b) = \int d\mu(x)x_k \exp\left(\sum_{i=1}^n b_i x_i\right),
+\end{equation}
+which allows the correlaters to be written as
+\begin{equation}
+    \ev{x_{i_1} \cdots x_{i_\ell}}_\mu = \pdv{b_{i_1}} \cdots \pdv{b_{i_\ell}} Z_\mu(b) \eval_{b=0}.
+\end{equation}
+
+Let us consder the Gaussian measure
+\begin{equation} \label{eq:gaussian_measure}
+    d\mu_0(x) = d^nx\, \Omega_0(x) = d^nx \, \mathcal{N}_0 \exp\left(-\frac{1}{2}\sum_{i,j=0}^n x_i A_{ij}x_j\right),
+\end{equation}
+where the normalization $\mathcal{N}_0$ is fixed by the normalization of the measure:
+\begin{equation}
+    \mathcal{N}_0 = (2\pi)^{-n/2} (\det A)^{1/2}.
+\end{equation}
+The generating function in this case can be readily computed using the boxed equation above:
+\begin{equation}
+    Z(b) = \frac{Z_A(b)}{Z_A(0)} = \exp\left(\frac{1}{2}\sum_{i,j = 1}^n b_i A_{ij}^{-1} b_j\right).
+\end{equation}
+In the future, we will drop any subscript $A$ when referring to a Gaussian measure for simplicity. And therefore, defining $\Delta_{ij} = A_{ij}^{-1}$, 
+\begin{empheq}[box=\widefbox]{align} \label{eq:correlator}
+    \ev{x_{i_1}\cdots x_{i_\ell} }_0 = \pdv{b_{i_1}} \cdots \pdv{b_{i_\ell}} \eval{\exp\left(\frac{1}{2}\sum_{i,j=1}^n b_i \Delta_{ij} b_j\right)}_{b=0}.
+\end{empheq}
+
+\subsection{Wick's Theorem}
+
+Let us start with a couple explicit examples, which we will compute in full detail in order to get familiar with the algebraic manipulations.
+
+\textbf{One-point function}: Let $k$ be an integer between 1 and $n$, we have 
+\begin{equation}
+\begin{aligned}
+    \ev{x_k}_0 &= \pdv{b_k} \eval{\exp\left(\frac{1}{2}\sum_{i,j = 1}^n b_i \Delta_{ij} b_j \right)}_{b=0} \\
+    &= \left(\frac{1}{2}\sum_{j=1}^n \Delta_{kj}b_j + \frac{1}{2}\sum_{i=1}^n b_i \Delta_{ik} \right)\eval{\exp\left(\frac{1}{2}\sum_{i,j = 1}^n b_i \Delta_{ij} b_j \right)}_{b=0} \\
+    &= \left(\sum_{j=1}^n \Delta_{kj}b_j\right)\eval{\exp\left(\frac{1}{2}\sum_{i,j = 1}^n b_i \Delta_{ij} b_j \right)}_{b=0} \\
+    &= 0,
+\end{aligned}
+\end{equation}
+where the last equality comes from the fact that the expression is linear in $b$, and we need to set $b=0$.
+
+\textbf{Two-point function}: We now consider a pair of indices $k$, $l$, and compute
+\begin{equation}
+\begin{aligned}
+    \ev{x_k x_l}_0 &= \pdv{b_l} \pdv{b_k} \eval{\exp\left(\frac{1}{2}\sum_{i,j = 1}^n b_i \Delta_{ij} b_j \right)}_{b=0} \\
+    &= \left[\Delta_{kl} + \left(\sum_{j=1}^n \Delta_{kj} b_j \right) \left(\sum_{m=1}^n \Delta_{lm} b_m \right)\right] \eval{\exp\left(\frac{1}{2}\sum_{i,j = 1}^n b_i \Delta_{ij} b_j \right)}_{b=0} \\
+    &= \Delta_{kl}
+\end{aligned}
+\end{equation}
+
+Thus, the generating function $Z(b)$ provides a systematic way to compute all correlators for a multi-dimensional Gaussian distribution. Having understood the general rule for such a process, we can generate a recipe to compute $\ev{x_{i_1} \cdots x_{i_\ell}}_0$, known as \textit{Wick's Theorem}:
+\begin{itemize}
+    \item Write down each $x_{i_1} \cdots x_{i_\ell}$ and organize them pairwise $(i_p, i_q)$. Note that if $\ell$ must be even for the correlator to be non-zero.
+    \item There are $(\ell - 1)\times(\ell-3) \times \cdots \times 3 \times 1$ ways of doing this. Sum over all of these possible pairings.
+    \item To each pair $(i_p, i_q)$ associate a factor $\Delta_{i_p i_q}$.
+\end{itemize}
+
+Let us revisit our result for the \textbf{two-point function}: for $\ev{x_{i_1} x_{i_2}}_0$, there is only one possible pairing $(i_1, i_2)$. Therefore
+\begin{equation}
+    \ev{x_{i_1} x_{i_2}}_0 = \Delta_{i_1 i_2}.
+\end{equation}
+
+\textbf{Four-point function}: For $\ev{x_{i_1} x_{i_2} x_{i_3} x_{i_4}}_0$, there are three different pairings
+\begin{equation}
+    P=\left\{\left\{\left(i_1, i_2\right),\left(i_3, i_4\right)\right\},\left\{\left(i_1, i_3\right),\left(i_2, i_4\right)\right\},\left\{\left(i_1, i_4\right),\left(i_2, i_3\right)\right\}\right\}
+\end{equation}
+
+Wick's theorem then yields 
+\begin{equation}
+    \ev{x_{i_1} x_{i_2} x_{i_3} x_{i_4}}_0=\Delta_{i_1 i_2} \Delta_{i_3 i_4}+\Delta_{i_1 i_3} \Delta_{i_2 i_4}+\Delta_{i_1 i_4} \Delta_{i_2 i_3}.
+\end{equation}
+
+We can also represent these pairings, \textit{Wick contractions}, as should be familiar from canonical quantum field theory:
+\begin{equation}
+    \ev{x_i x_j}_0 = \Delta_{ij} = \wick{\c x_i \c x_j}
+\end{equation}
+
+\subsection{Perturbed Gaussian Measure}
+
+Let us now consider a more complicated measure,
+\begin{equation}
+    \Omega(x) = \frac{1}{Z(\lambda)}e^{-S(x, \lambda)},
+\end{equation}
+where the normalization is given as usual by 
+\begin{equation}
+    Z(\lambda) = \int d^nx e^{-S(x,\lambda)}
+\end{equation}
+and
+\begin{equation}
+\begin{aligned}
+    S(x, \lambda) &= \frac{1}{2} \sum_{i, j = 1}^n x_i A_{ij}x_j + \lambda V(x) \\
+    &= S_0(x) + \lambda V(x).
+\end{aligned}
+\end{equation}
+We call $V(\lambda)$ the potential term, foreshadowing the physics we will be doing using the perturbed Gaussian measure. Furthermore
+\begin{equation}
+\begin{aligned}
+    Z(\lambda) &= \sum_{k=0}^\infty \frac{(-\lambda)^k}{k!} \int d^nx \, V^k(x) \exp\left(-\frac{1}{2} \sum_{i,j=1}^n x_i A_{ij} x_j\right) \\
+    &= Z(0) \sum_{k=0}^\infty \frac{(-\lambda)^k}{k!} \ev{V^k(x)}_0,
+\end{aligned}
+\end{equation}
+where in the first line we have expanded the exponential term containing $e^V(x)$ and in the second line used
+\begin{equation}
+    \ev{F(x)}_0 = \frac{1}{Z(0)} \int d^nx \exp\left(-\frac{1}{2} \sum_{i,j=1}^n x_i A_{ij} x_j\right) F(x),
+\end{equation}
+and $1/Z(0)$ referring to the normalization constant $\mathcal{N}_0$ from Eq. \ref{eq:gaussian_measure}. Recalling Eq. \ref{eq:correlator}, given that $F(x)$ admits a Taylor expansion
+\begin{equation}
+    F(x) = \sum_{\ell = 0}^\infty \sum_{i_1 \cdots i_\ell = 1}^n F_{i_1 \cdots i_\ell} x_{i_1} \cdots x_{i_\ell},
+\end{equation}
+we can define the expectation value of $F$ for a generic measure $\mu$ as 
+\begin{equation}
+    \ev{F(x)}_\mu = \sum_{\ell = 0}^\infty \sum_{i_1 \cdots i_\ell = 1}^n F_{i_1 \cdots i_\ell} \ev{x_{i_1} \cdots x_{i_\ell}}_\mu;
+\end{equation}
+for the case of a Gaussian measure we obtain
+\begin{equation}
+\begin{aligned}
+    \ev{F(x)}_0 &= \sum_{\ell = 0}^\infty \sum_{i_1 \cdots i_\ell = 1}^n F_{i_1 \cdots i_\ell} \pdv{b_{i_1}} \cdots \pdv{b_{i_\ell}} \eval{\exp\left(\frac{1}{2}\sum_{i,j=1}^n b_i \Delta_{ij} b_j\right)}_{b=0} \\
+    &= F \left(\pdv{b}\right) \eval{\exp\left(\frac{1}{2}\sum_{i,j=1}^n b_i \Delta_{ij} b_j\right)}_{b=0}.
+\end{aligned}
+\end{equation}
+
+Thus, returning to our potential term,
+\begin{equation}
+\begin{aligned}
+    \frac{Z(\lambda)}{Z(0)} &= \ev{e^{-\lambda V(x)}}_0 \\
+    &= \exp\left[-\lambda V\left(\pdv{b}\right)\right] \eval{\exp\left(\frac{1}{2}\sum_{i,j=1}^n b_i \Delta_{ij} b_j\right)}_{b=0}
+\end{aligned}
+\end{equation}
+
+
+\end{document}
