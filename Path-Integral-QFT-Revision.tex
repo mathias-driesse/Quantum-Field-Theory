@@ -281,4 +281,66 @@ $W(b, \lambda)$ is the generator of the connected $\ell$-point correlators $W_{i
 \end{equation}
 In statistics, the $W_{i_1 \cdots i_\ell}$ are called the \textit{cumulants} of the probability distribution $e^{-S(x, \lambda)}$.
 
+\section{Path Integral Quantum Mechanics}
+
+In this section, we will discuss the essentials of the path integral formulation of quantum mechanics, which will allow us to connect Gaussian integrals and the calculation of correlators to observables in quantum field theory. We consider a point particle in one dimension, with position operator $\hat{Q}$ such that
+\begin{equation}
+    \hat{Q}\ket{q} = q\ket{q}
+\end{equation}
+with a completeness condition
+\begin{equation}
+    \int dq \ket{q} \bra{q} = 1.
+\end{equation}
+The aim of this section is to find an expression for the quantum amplitude $\braket{q't'}{qt} = \mel{q'}{e^{-i\hat{H}(t'-t)}}{q}$ for a Hamiltonian $\hat{H}$.
+
+\subsection{Setting up the Path Integral}
+
+In order to proceed with the calculation, let us define $T=t'-t$ to be the size of the time interval, and $\epsilon=T/n$, where $n$ is an integer. Then
+\begin{equation}
+\begin{aligned}
+    t_0 &= t \\
+    t_k &= t_0 = k\epsilon, k=1, \cdots, n-1 \\
+    t_n &= t + n\epsilon = t' \\
+\end{aligned}
+\end{equation}
+and 
+\begin{equation}
+\begin{aligned}
+    \mel{q'}{e^{-i\hat{H}(t'-t)}}{q} &= \mel{q'}{e^{-i\hat{H}T}}{q} \\
+    &= \mel{q'}{\left(e^{-i\hat{H}\epsilon}\right) \cdots \left(e^{-i\hat{H}\epsilon}\right)}{q},
+\end{aligned}
+\end{equation}
+
+where the expression in the second line contains $n$ factors. Inserting the completeness relation $n-1$ times,
+\begin{equation}
+    \braket{q't'}{qt} \int \prod_{k=1}^{n-1} dq_k \mel{q'}{\left(e^{-i\hat{H}\epsilon}\right)}{q_{n-1}} \mel{q_{n-1}}{\left(e^{-i\hat{H}\epsilon}\right)}{q_{n-2}} \cdots \mel{q_1}{\left(e^{-i\hat{H}\epsilon}\right)}{q}.
+\end{equation}
+
+For small $\epsilon$ we can expand the exponential to first order and evaluate the matrix elements:
+\begin{equation}
+\begin{aligned}
+    e^{-i\hat{H}\epsilon} &= 1 - i \hat{H} \epsilon + \mathcal{O}(\epsilon^2) \\
+    \hat{H} &= \frac{1}{2} \hat{P} + V(\hat{Q}).
+\end{aligned}
+\end{equation}
+
+From the potential energy we get
+\begin{equation}
+\begin{aligned}
+    \mel{q_k}{V(\hat{Q})}{q_{k-1}} &= V(q_{k-1})\braket{q_k}{q_{k-1}} \\
+    &\approx V\left(\frac{q_k + q_{k-1}}{2}\right) \delta(q_k - q_{k-1}) \\
+    &= \int \hat{d}p \, V\left(\frac{q_k + q_{k-1}}{2}\right) e^{ip(q_k - q_{k-1})}.
+\end{aligned}
+\end{equation}
+
+In order to evaluate the contribution of the kinetic term, we introduce eigenstates of the momentum operator $\ket{p}$
+\begin{gather}
+    \hat{P} \ket{p} = p \ket{p} \\
+    \braket{q}{p} = e^{ipq},
+\end{gather}
+and use the completeness of the states $\ket{p}$:
+\begin{equation}
+    \mel{q_k}{\hat{P}^2}{q_{k-1}} = \int \hat{d}p\, p^2 e^{ip(q_k - q_{k-1})}.
+\end{equation}
+
 \end{document}
