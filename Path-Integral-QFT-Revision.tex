@@ -342,5 +342,102 @@ and use the completeness of the states $\ket{p}$:
 \begin{equation}
     \mel{q_k}{\hat{P}^2}{q_{k-1}} = \int \hat{d}p\, p^2 e^{ip(q_k - q_{k-1})}.
 \end{equation}
+Hence, remembering that the exponential of the Hamiltonian has been expanded to linear order,
+\begin{equation}
+\begin{aligned}
+    \mel{q_k}{e^{-i\hat{H}\epsilon}}{q_{k-1}} &= \mel{q_k}{1-i\epsilon \left(\frac{1}{2}\hat{P}^2 + V(\hat{Q})\right)}{q_{k-1}} \\
+    &= \int \hat{d}p \, \left[1 - i\epsilon\left(\frac{1}{2}p^2  + V\left(\frac{q_k + q_{k-1}}{2}\right)\right) e^{ip(q_k - q_{k-1})}\right] \\
+    &= \int \hat{d}p \, \exp\left[i\epsilon \left(p \frac{q_k - q_{k-1}}{\epsilon} - H(p, \frac{q_k - q_{k-1}}{2})\right)\right] + \mathcal{O}(\epsilon^2).
+\end{aligned}
+\end{equation}
+Therefore
+\begin{equation}
+    \braket{q't'}{qt} = \lim_{n\rightarrow \infty} \int \prod_{k=1}^{n-1} dq_k \prod_{j=1}^n \hat{d}p_j \, \exp\left\{i\epsilon \sum_{m=1}^n \left[p_m \frac{q_m - q_{m-1}}{\epsilon} - H\left(p_m, \frac{q_m + q_{m-1}}{2}\right)\right]\right\},
+\end{equation}
+where $q_0 = q$, and $q_n = q'$. The limit above defines the \textit{path integral} evaluation of the quantum amplitude, which we denote 
+\begin{empheq}[box=\widefbox]{align} \label{eq:pathintegral}
+    \braket{q't'}{qt} = \int \mathcal{D}q \mathcal{D}p \exp\left\{i\int_t^{t'} d\tau \left[p\dot{q} - H(p, q)\right]\right\}.
+\end{empheq}
+
+For Hamiltonians where the momentum dependance is \textbf{only quadratic}, the expression above can be simplified by performing the integral over the momenta $p_j$:
+\begin{equation}
+    \int \hat{dp} \, \exp\left\{i\epsilon \left[p \frac{q_k - q_{k-1}}{\epsilon} - \frac{1}{2}p^2\right]\right\} = (2\pi i \epsilon)^{-1/2} \exp\left\{i\epsilon \frac{1}{2}\left(\frac{q_k - q_{k-1}}{\epsilon}\right)^2\right\}.
+\end{equation}
+Using this result, we can rewrite the path integral in Eq. \ref{eq:pathintegral} as 
+\begin{equation}
+    \braket{q't'}{qt} = \lim_{n\rightarrow \infty} (2\pi i \epsilon)^{-n/2}\int \prod_{k=1}^{n-1} dq_k \exp\left\{i\epsilon \sum_{m=1}^n \left[\frac{1}{2}\left(\frac{q_k - q_{k-1}}{\epsilon}\right)^2 - V\left(\frac{q_m + q_{m-1}}{2}\right)\right]\right\},
+\end{equation}
+and, assuming that the limit exists, we have obtained the definition of the path integral as an integral over the position of the system only:
+\begin{empheq}[box=\widefbox]{align}
+    \braket{q't'}{qt} = \int \mathcal{D}q \exp\left\{i\int_t^{t'} d\tau\,  L(q, \dot{q})\right\}.
+\end{empheq}
+    
+\subsection{Correlators}
+
+We are now going to work out expressions for the matrix element of the position operator in between the initial and final state considered above. The first example we are going to consider is the matrix element
+\begin{equation}
+    \mel{q't'}{\hat{Q}(\bar{t})}{qt} = \mel{q'}{e^{-i\hat{H}(t'-t)}\hat{Q} e^{-i\hat{H}(\bar{t}-t)}}{q},
+\end{equation}
+where we assume $t < \bar{t} < t'$, and we have used
+\begin{equation}
+    \hat{Q}(t) = e^{i\hat{H}t} \hat{Q} e^{-i\hat{H}t}.
+\end{equation}
+Proceeding as we did in the previous section, we can write
+\begin{equation}
+    \mel{q't'}{\hat{Q}(\bar{t})}{qt} = \mel{q'}{\left(e^{-i\hat{H}\epsilon}\right) \cdots \left(e^{-i\hat{H}\epsilon}\right) \hat{Q} \left(e^{-i\hat{H}\epsilon}\right) \cdots \left(e^{-i\hat{H}\epsilon}\right)}{q}
+\end{equation}
+where we assumed that $\hat{t} = t_k$, and the first and second ellipses denote respectively $n-k$ and $k$ factors of $\left(e^{-i\hat{H}\epsilon}\right)$. Performing the same manipulations as before we obtain
+\begin{equation}
+    \mel{q't'}{\hat{Q}(\bar{t})}{qt} = \lim_{n\rightarrow \infty} \int \prod_{k=1}^{n-1} dq_k \prod_{j=1}^n \hat{d}p_j \, q_k \exp\left\{i\epsilon \sum_{m=1}^n \left[p_m \frac{q_m - q_{m-1}}{\epsilon} - H\left(p_m, \frac{q_m + q_{m-1}}{2}\right)\right]\right\}.
+\end{equation}
+Note the extra factor of $q_k$ in the integrand. We write this limit as 
+\begin{equation}
+    \mel{q't'}{\hat{Q}(\bar{t})}{qt} = \int_{qq'} \mathcal{D}q\, q(\bar{t}) \exp\left\{i \int_t^{t'} d\tau \mathcal{L}(q, \dot{q})\right\}.    
+\end{equation}
+The two-point function is 
+\begin{equation} \label{eq:twopoint}
+    \mel{q't'}{\hat{Q}(\bar{t}_1) \hat{Q}(\bar{t}_2)}{qt},
+\end{equation}
+where we assume $\bar{t}_1 = t_k$, $\bar{t}_2 = t_\ell$, $t < \bar{t}_2 <  \bar{t}_1 < t'$. Proceeding as above yields
+\begin{equation} \label{eq:twopointpath}
+    \mel{q't'}{\hat{Q}(\bar{t}_1) \hat{Q}(\bar{t}_2)}{qt} = \int_{qq'}\mathcal{D}q \, q(\bar{t}_1) q(\bar{t}_2) \exp\left\{\int_t^{t'} d\tau \mathcal{L}(q, \dot{q})\right\}.
+\end{equation}
+There is a subtlety here that is worth noting. The ordering of times in Eq. \ref{eq:twopoint} matters, while it does not in Eq. \ref{eq:twopointpath}. Thus, it is more accurate to say that the path integral we have defined is the result of the \textit{time-ordered product} of the operators
+\begin{equation}
+\begin{aligned}
+    \mel{q't'}{T\left(\hat{Q}(\bar{t}_1) \hat{Q}(\bar{t}_2)\right)}{qt} &= \mel{q't'}{\left(\theta(\bar{t}_1 - \bar{t}_2)\hat{Q}(\bar{t}_1) \hat{Q}(\bar{t}_2)  + \theta(\bar{t}_2 - \bar{t}_1)\hat{Q}(\bar{t}_2) \hat{Q}(\bar{t}_1)\right)}{qt} \\
+    &= \int_{qq'}\mathcal{D}q \, q(\bar{t}_1) q(\bar{t}_2) \exp\left\{\int_t^{t'} d\tau \mathcal{L}(q, \dot{q})\right\},
+\end{aligned}
+\end{equation}
+which can be trivially extended to an arbitrary number of insertions of the operator $\hat{Q}$. % TODO: not super happy with how this is presented.
+
+\subsection{Generating functional}
+
+Let us begin with a revision of properties of functional derivatives. A functional $F$ is a mapping from a function $u(x)$ to a number $F[u]$. The functional derivative describes the change of the functional to an infinitesimal variation of the function $u$:
+\begin{equation}
+    u(x) \mapsto u(x) + \delta u(x).
+\end{equation}
+We define
+\begin{equation}
+    \delta F = F[u + \delta u] - F[u] = \int dx \fdv{F}{u(x)} \delta u(x).
+\end{equation}
+In particular we have the important identity
+\begin{equation}
+    \fdv{f(x)}f(y) =\delta(x-y).
+\end{equation}
+
+Let $f(t)$ and $h(t)$ be two functions. Then we can add so-called source terms to the path integral:
+\begin{equation}
+    \braket{q't'}{qt}_{f,h} = \int \mathcal{D}q \mathcal{D}p \exp\left\{i\int_t^{t'} d\tau \left[p(\tau)\dot{q}(\tau) - H(p(\tau), q(\tau))\right] + f(\tau) q(\tau) + h(\tau) p(\tau)\right\}.
+\end{equation}
+Then we have the useful property that taking functional derivatives with respect to teh source fields yields the previously discussed correlators. For example,
+\begin{equation}
+    \left(\frac{1}{i}\fdv{f(\bar{\tau})}\right) \braket{q't'}{qt}_{f,h} = \int \mathcal{D}q \mathcal{D}p \, q(\bar{\tau})\exp\left\{i\int_t^{t'} d\tau \left[p(\tau)\dot{q}(\tau) - H(p(\tau), q(\tau))\right] + f(\tau) q(\tau) + h(\tau) p(\tau)\right\}.
+\end{equation}
+The general rule is thus 
+\begin{empheq}[box=\widefbox]{align}
+    \mel{q't'}{T\left(\hat{Q}(t_1) \cdots \hat{Q}(t_n)\right)}{qt} = \eval{\left(\frac{1}{i}\fdv{f(t_1)}\right) \cdots \left(\frac{1}{i}\fdv{f(t_n)}\right) \braket{q't'}{qt}_{f,h}}_{f,h=0}
+\end{empheq}
+
 
 \end{document}
