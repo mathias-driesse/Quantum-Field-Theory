@@ -19,7 +19,7 @@
 
 \section{Gaussian Integrals}
 
-The General Gaussian integral, for a complex, symmetric $n\times n$ matrix $A$ such that $\Re A \geq 0$ and the eigenvalues $a_i$ of $A$ are nonzero, is given by 
+The general Gaussian integral, for a complex, symmetric $n\times n$ matrix $A$ such that $\Re A \geq 0$ and the eigenvalues $a_i$ of $A$ are nonzero, is given by 
 
 \begin{empheq}[box=\widefbox]{align}
     Z_A(b) = \int d^nx \exp\left(-\frac{1}{2} \sum_{i,j = 1}^n x_i A_{ij}x_j + \sum_{i=1}^n b_i x_i\right) = (2\pi)^{n/2} (\det A)^{-1/2} \exp\left(\frac{1}{2}\sum_{i,j = 1}^n b_i A_{ij}^{-1}b_j \right).
@@ -205,7 +205,7 @@ which is often referred to as an $\ell$-point correlator/function. Let us start 
     &= Z(0) \sum_{k=0}^n \frac{(-\lambda)^k}{k!} \ev{V^k(x) x_{i_1} x_{i_2}},
 \end{aligned}
 \end{equation}
-where in the second line we have expressed the initial correlator in terms of correlators computed in teh Gaussian theory, denoted by $\ev{\cdots}_0$. The Gaussian correlators can be computed using Wick's theorem as before. We shall consider again a quartic potential
+where in the second line we have expressed the initial correlator in terms of correlators computed in the Gaussian theory, denoted by $\ev{\cdots}_0$. The Gaussian correlators can be computed using Wick's theorem as before. We shall consider again a quartic potential
 \begin{equation}
     V(x) = \frac{1}{4!} \sum_{i=1}^n x_i^4,
 \end{equation}
@@ -428,16 +428,213 @@ In particular we have the important identity
 
 Let $f(t)$ and $h(t)$ be two functions. Then we can add so-called source terms to the path integral:
 \begin{equation}
-    \braket{q't'}{qt}_{f,h} = \int \mathcal{D}q \mathcal{D}p \exp\left\{i\int_t^{t'} d\tau \left[p(\tau)\dot{q}(\tau) - H(p(\tau), q(\tau))\right] + f(\tau) q(\tau) + h(\tau) p(\tau)\right\}.
+    \braket{q't'}{qt}_{f,h} = \int \mathcal{D}q \mathcal{D}p \exp\left\{i\int_t^{t'} d\tau \left[p(\tau)\dot{q}(\tau) - H(p(\tau), q(\tau)) + f(\tau) q(\tau) + h(\tau) p(\tau)\right]\right\}.
 \end{equation}
-Then we have the useful property that taking functional derivatives with respect to teh source fields yields the previously discussed correlators. For example,
+Then we have the useful property that taking functional derivatives with respect to the source fields yields the previously discussed correlators. For example,
 \begin{equation}
     \left(\frac{1}{i}\fdv{f(\bar{\tau})}\right) \braket{q't'}{qt}_{f,h} = \int \mathcal{D}q \mathcal{D}p \, q(\bar{\tau})\exp\left\{i\int_t^{t'} d\tau \left[p(\tau)\dot{q}(\tau) - H(p(\tau), q(\tau))\right] + f(\tau) q(\tau) + h(\tau) p(\tau)\right\}.
 \end{equation}
 The general rule is thus 
-\begin{empheq}[box=\widefbox]{align}
-    \mel{q't'}{T\left(\hat{Q}(t_1) \cdots \hat{Q}(t_n)\right)}{qt} = \eval{\left(\frac{1}{i}\fdv{f(t_1)}\right) \cdots \left(\frac{1}{i}\fdv{f(t_n)}\right) \braket{q't'}{qt}_{f,h}}_{f,h=0}
+\begin{empheq}[box=\widefbox]{align} \label{eq:general_rule}
+    \mel{q't'}{T\left(\hat{Q}(t_1) \cdots \hat{Q}(t_n)\right)}{qt} = \eval{\left(\frac{1}{i}\fdv{f(t_1)}\right) \cdots \left(\frac{1}{i}\fdv{f(t_n)}\right) \braket{q't'}{qt}_{f,h}}_{f,h=0}.
 \end{empheq}
+
+% TODO: write out derivation of this relation
+
+\begin{empheq}[box=\widefbox]{align}
+    \braket{0}{0}_{f,h} = \int \mathcal{D}p \mathcal{D}q \exp\left\{i \int_{-\infty}^{\infty} d\tau \left[p\dot{q} - (1-i\epsilon) H(p, q) + fq + hp \right]\right\}
+\end{empheq}
+
+\section{Path Integral for the Scalar Field}
+
+The Lagrangian for a free real scalar field $\phi(x)$ is given by
+\begin{equation}
+    \mathcal{L}_0(\phi(x)) = \frac{1}{2}\partial_\mu \phi(x)\partial^\mu \phi(x) - \frac{1}{2}m^2 \phi^2(x).
+\end{equation}
+Note that $\mathcal{L}_0$ is invariant under Lorentz transformations. From the Euler-Lagrange equation, we derive the equation of motion for the field, the Klein-Gordon equation:
+\begin{eqnarray}
+    (\partial^2+ m^2) \phi(x) = 0.
+\end{eqnarray}
+Given the conjugate momentum
+\begin{equation}
+    \Pi(x) = \pdv{\mathcal{L}_0}{(\partial_0 \phi(x))} = \dot{\phi}(x)  
+\end{equation}
+we obtain the Hamiltonian
+\begin{equation}
+\begin{aligned}
+    \mathcal{H}_0 &= \Pi(x)\dot{\phi(x)} - \mathcal{L}_0(\phi(x)) \\
+    &= \frac{1}{2} \Pi^2(x) + \frac{1}{2}\sum_{k=1}^3 (\partial_k \phi(x))^2 + \frac{1}{2}m^2\phi^2(x).
+\end{aligned}
+\end{equation}
+The quadratic Hamiltonian is the generalization of the harmonic oscillator to the case where we have an infinite number of canonical coordinates, indexed by the continuous spatial coordinate $\underline{x}$.
+
+
+\subsection{Path Integral}
+
+The vacuum-to-vacuum amplitude in the presence of a source field $J(x)$ is the straightforward generalization fo the expression we have derived for the quantum mechanical system:
+\begin{equation}
+\begin{aligned}
+    q(t) &\mapsto \phi(t, \underline{x}) \\
+    \hat{Q}(t) &\mapsto \hat{\phi}(t, \underline{x}) \,\text{(operator)} \\
+    f(t) &\mapsto J(t, \underline{x})\, \text{(source)}.
+\end{aligned}
+\end{equation}
+
+By analogy with the QM computation, we can write the expression for the path integral representation of the vacuum amplitude
+\begin{equation} \label{eq:vacuum_amplitude}
+    Z_0[J] = \braket{0}{0}_J = \int \mathcal{D} \phi \exp\left\{i S_0\right\},
+\end{equation}
+where
+\begin{equation}
+    S_0[\phi] = \int d^Dx\, \mathcal{L}_0(\phi(x)) + \int d^Dx\, J(x) \phi(x).
+\end{equation}
+% For a free theory the integral in Eq. \ref{eq:vacuum_amplitude} is a Gaussian integral; this is why we have made sure to investigate their properties so carefully. In order to make the correspondence more explicit, we can write the action as 
+% \begin{equation}
+% \begin{aligned}
+%     S_0[\phi] &= \int d^Dx \, \frac{1}{2}\partial_\mu \phi(x)\partial^\mu \phi(x) - \frac{1}{2}m^2 \phi^2(x) +  \int d^Dx\, J(x) \phi(x)\\
+%     &= \int d^Dx\, d^Dx'\, \phi(x) K(x, x') \phi(x') + \int d^Dx\, J(x) \phi(x).
+% \end{aligned}
+% \end{equation} 
+% % TODO: kernel thing doesn't seem entirely right..?
+% Thus the kernel $K(x, x') = - (\partial^2 + m^2) \delta(x - x')$ plays the role of $A_{ij}$ and $J(x)$ the role of $b_i$.
+
+In momentum space, the kernel in the action is diagonal. Thus, introducing the Fourier transform
+\begin{equation}
+    \phi(x) = \int \hat{d}^Dp\, e^{-ip \cdot x} \tilde{\phi}(p),
+\end{equation}
+we can rewrite the kinetic term:
+\begin{equation}
+\begin{aligned}
+    \int d^Dx\, \partial_\mu \phi(x) \partial^\mu \phi(x) &= \int d^Dx \int_{p, p'} (-ip_\mu) e^{-ip\cdot x} \tilde{\phi}(p) (-ip'^\mu) e^{-ip'\cdot x} \tilde{\phi}(p') \\
+    &= \int_p p^2 \tilde{\phi}(p) \tilde{\phi}(-p) = \int_p p^2 |\tilde{\phi}(p)|^2
+\end{aligned}
+\end{equation} 
+since we have a factor of $\delta(p + p')$ from the exponential and $\tilde{\phi}(-p) = \tilde{\phi}^*(p)$. Hence the action for the field in momentum space can be written as 
+\begin{equation}
+    S_0[\phi] = \frac{1}{2} \int_p \left\{\tilde{\phi}(-p)\left[p^2-m^2 + i\epsilon\right] \tilde{\phi}(p) + \tilde{J}(p) \tilde{\phi}(-p) + \tilde{J}(-p) \tilde{\phi}(p)\right\}.
+\end{equation}
+
+Note that the contribution from the $\epsilon$ term to the exponential is 
+\begin{equation}
+    \exp{-\epsilon \int_p \left|\tilde{\phi}(p)\right|^2}
+\end{equation}
+which is clearly convergent for large values of $|\tilde{\phi}(p)|$. The path integral for the free field is a simple extension of the Gaussian integrals that we have discussed previously. % TODO: re-explain how
+The Gaussian integral can be computed by performing a shift of the integration variables
+\begin{equation}
+    \tilde{\chi}(p) = \tilde{\phi}(p) + \frac{\tilde{J}(p)}{p^2-m^2+i\epsilon},
+\end{equation}
+so that 
+\begin{equation}
+    S_0[\chi] = \frac{1}{2} \int_p \left\{\tilde{\chi}(-p)[p^2 - m^2 + i\epsilon]\tilde{\chi}(p) - \tilde{J}(-p) \frac{1}{p^2 - m^2 + i\epsilon} \tilde{J}(p) \right\}.
+\end{equation}
+Then up to a normalization factor (i.e. the kinetic term)
+\begin{equation} \label{eq:z0}
+\begin{aligned}
+    Z_0[J] &\propto \exp \frac{i}{2} \int_p \tilde{J}(-p)\frac{-1}{p^2-m^2+i\epsilon}\tilde{J}(p) \\
+    &= \exp -\frac{i}{2} \int d^Dx\, d^Dx' \, J(x) \Delta(x, x') J(x') 
+\end{aligned}
+\end{equation}
+where we have introduced the \textit{Feynman propagator} $\Delta$.
+\begin{equation}
+    \Delta(x, x') = \Delta(x - x') = \int d^{-ip\cdot(x-x')} \frac{1}{p^2-m^2+i\epsilon}.
+\end{equation}
+% TODO: add kernel bit.
+
+Recalling Eq. \ref{eq:general_rule} and the fact that $Z_0[J] = \braket{0}{0}_J$, we can write correlators as 
+\begin{equation}
+\begin{aligned}
+    \mel{0}{T\left(\phi(x_1) \phi(x_2)\right)}{0}_0 &= \left(\frac{1}{i}\fdv{J(x_1)}\right)\left(\frac{1}{i}\fdv{J(x_2)}\right) \eval{Z_0[J]}_{J=0} \\
+    &= i\Delta(x_1 - x_2).
+\end{aligned}
+\end{equation}
+
+Further correlators are obtained by taking more derivatives. They can be computed in the free theory using Wick's theorem, again following the arguments we used for Gaussian integrals, e.g.:
+\begin{equation}
+    \mel{0}{T\left(\phi(x_1)\phi(x_2)\phi(x_3)\phi(x_4)\right)}{0}_0 = i^2[\Delta(x_1-x_2) \Delta(x_3-x_4) + \Delta(x_1-x_3)\Delta(x_2-x_4) + \Delta(x_1-x_4)\Delta(x_2-x_3)].
+\end{equation}
+
+\subsection{Interacting Theory}
+Let us now add an interaction term in the Lagrangian:
+\begin{equation}
+    \mathcal{L}(\phi(x)) = \mathcal{L}_0(\phi(x)) + V(\phi(x)).
+\end{equation}
+We are going to consider several examples, e.g. $\phi^3$ theory:
+\begin{equation}
+    V(\phi(x)) = \frac{1}{3!}g \phi^3(x).
+\end{equation}
+% TODO: dimensionality of g
+Denoting by $S_0[\phi]$ the action of the free theory, we can write the path integral for the interacting theory
+\begin{equation}
+    Z[J] = \braket{0}{0}_J = \int \mathcal{D}\phi \exp\left\{i\left(S_0[\phi] + \int d^Dx \, V(\phi(x))\right)\right\}
+\end{equation}
+By performing the same manipulations as Eq. \ref{eq:z0/zlambda}, we obtain
+\begin{equation}
+    Z[J] = \exp\left\{i \int d^Dx \, V\left(\frac{1}{i}\fdv{J(x)}\right)\right\} Z_0[J],
+\end{equation}
+and by expanding both exponentials and substituting in Eq. \ref{eq:z0}, we obtain a perturbative expansion to our generating functional:
+\begin{equation}
+    Z[J] \propto \sum_{V=0}^\infty \frac{1}{V!} \left[\frac{ig}{3!} \int d^Dx \, \left(\frac{1}{i}\fdv{J(x)}\right)^3\right]^V \times \sum_{P=0}^\infty \frac{1}{P!} \left[-\frac{i}{2} \int d^Dy \, d^Dz \, J(y) \Delta(y-z)J(z)\right]^P
+\end{equation}
+
+Since each power of $P$ adds two sources and each power of $V$ removes three sources, we are left with $E=2P-3V$ sources. The functional derivatives turn factors of $J$ in the integrand into Dirac delta functions as following:
+\begin{equation}
+    \fdv{J(x)}\int \cdots d^dy \cdots J(y)\Delta(y, \cdots) \cdots = \int \cdots \Delta(x, \cdots) \cdots .
+\end{equation}
+% TODO: Let us look at the details that enter this contribution.
+
+\section{Scalar Field Correlators}
+
+\subsection{The $S$-matrix}
+
+In order to compute the quantum amplitude for a physical process involving arbitrary numbers of particles in the initial and final state, we need to compute the overlap of a state prepared in the distant past (the so-called \textit{in} state), with the resulting final state in the distant future (the so-called \textit{out} state). If we want to describe a $2 \rightarrow n$ process --- like a $pp$ collision at the LHC --- we need to compute 
+\begin{equation}
+    \braket{p_1, \cdots , p_n; \text{out}}{k_1, k_2; \text{in}}.
+\end{equation}
+
+The $S$-matrix allows us to express this scalar product between in- and out-states in terms of the states defined at any common reference time :
+\begin{equation}
+    \braket{p_1, \cdots , p_n; \text{out}}{k_1, k_2; \text{in}} = \mel{p_1, \cdots , p_n}{S}{k_1, k_2}.
+\end{equation}
+
+It is usual to separate the $S$-matrix into the identity operator, corresponding to the particles not interacting, plus a non-trivial \textit{transition matrix} which is usually denoted $T$:
+\begin{equation}
+    S = 1 + iT.
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+    \braket{p'_1 \cdots p'_{m'}; \text{out}}{p_1 \cdots p_m; \text{in}} &= \braket{p'_1 \cdots p'_{m'}}{S}{p_1 \cdots p_m} \\
+    &= \lim_{p_j^2, \, p_k^{\prime 2} \rightarrow m_{\text{phys}}^2} \prod_{k=1}^{m'} (p_k^{\prime 2} - m_{\text{phys}}^2 + i\epsilon) \prod_{j=1}^{m} (p_j^2 - m_{\text{phys}}^2 + i\epsilon) \\
+    & \quad \times \tilde{G}^{(m+m')} (p_1, \cdots, p_m, -p'_1, \cdots, -p'_{m'}),
+\end{aligned}
+\end{equation}  
+where $n=m + m'$, and the fields are normalised so that
+\begin{equation}
+    \mel{\vb{p}}{\phi(0)}{0} = 1.
+\end{equation}
+
+
+\subsection{Field correlators}
+As discussed in the previous lecture, the field correlators are obtained from the partition function by taking functional derivatives:
+
+\begin{equation}
+\begin{aligned}
+    G^{(n)}(x_1, \cdots , x_n) &= \ev{T\left(\phi(x_1) \cdots \phi(x_n)\right)}{0} \\
+    &= \eval{\left(\frac{1}{i}\fdv{J(x_1)}\right) \cdots \left(\frac{1}{i}\fdv{J(x_n)}\right) Z[J]}_{J=0}.
+\end{aligned}
+\end{equation}
+
+The perturbative definition of the path integral has led to an expansion where we can classify the terms according to the number of currents that appea, which we denoted by $E$ above. Clearly, the only terms that contribute to an $n$-point function are the ones with $E=n$ \footnote{If there are less than $n$ sources, then at least one of the functional derivatives will have nothing to act on, yielding zero. If there are more than $n$ sources, then it will be set to zero when we evaluate the correlator, also yielding zero for the correlator.}. Since we can express $E$ in terms of $P$ and $V$, the calculation of correlators can be expressed as a perturbative expansion in terms of $V$, and therefore in powers of coupling:
+\begin{equation}
+    G^{(n)}(x_1, \cdots, x_n) = \sum_V g^V G^{(n, V)}(x_1, \cdots , x_n).
+\end{equation}
+
+As we will see in future sections, the \textit{LSZ reduction formula} provides a way to connect correlators in momentum space with $S$-matrix elements. This is intimately related to the structure of divergences which we can explore through \textit{polology}. We shall now explore the calculation of two-point position space correlators and the resulting momentum-space expressions.
+
+
+
+
+
 
 
 \end{document}
