@@ -46,15 +46,15 @@ We define the generating function
 
 which is a function of the $n$-dimensional vector $b$ and the measure $\mu$. The integrand can be expanded
 \begin{equation}
-    \exp\left(\sum_{i=1}^n b_i x_i\right) = \sum_{\ell=0}^\infty \frac{1}{\ell!} \sum_{i_1 \cdots i_\ell = 1}^n b_{i_1} \cdots b_{i_\ell} x_{i_1} \cdots x_{i_\ell}.
+    \exp\left(\sum_{i=1}^n b_i x_i\right) = \sum_{\ell=0}^\infty \frac{1}{\ell!} \sum_{i_1 \dots i_\ell = 1}^n b_{i_1} \dots b_{i_\ell} x_{i_1} \dots x_{i_\ell}.
 \end{equation}
 Therefore, substituting the definition of the correlator
 \begin{equation}
-    \ev{x_{i_1} \cdots x_{i_\ell}}_\mu = \int d\mu(x) x_{i_1} \cdots x_{i_\ell}
+    \ev{x_{i_1} \dots x_{i_\ell}}_\mu = \int d\mu(x) x_{i_1} \dots x_{i_\ell}
 \end{equation}
 we obtain 
 \begin{equation}
-    Z_\mu(b) = \sum_{\ell=0}^\infty \frac{1}{\ell!} \sum_{i_1 \cdots i_\ell = 1}^n b_{i_1} \cdots b_{i_\ell} \ev{x_{i_1} \cdots x_{i_\ell}}_\mu.
+    Z_\mu(b) = \sum_{\ell=0}^\infty \frac{1}{\ell!} \sum_{i_1 \dots i_\ell = 1}^n b_{i_1} \dots b_{i_\ell} \ev{x_{i_1} \dots x_{i_\ell}}_\mu.
 \end{equation}
 Furthermore, it is useful to notice that
 \begin{equation}
@@ -62,7 +62,7 @@ Furthermore, it is useful to notice that
 \end{equation}
 which allows the correlaters to be written as
 \begin{equation}
-    \ev{x_{i_1} \cdots x_{i_\ell}}_\mu = \pdv{b_{i_1}} \cdots \pdv{b_{i_\ell}} Z_\mu(b) \eval_{b=0}.
+    \ev{x_{i_1} \dots x_{i_\ell}}_\mu = \pdv{b_{i_1}} \dots \pdv{b_{i_\ell}} Z_\mu(b) \eval_{b=0}.
 \end{equation}
 
 Let us consder the Gaussian measure
@@ -79,7 +79,7 @@ The generating function in this case can be readily computed using the boxed equ
 \end{equation}
 In the future, we will drop any subscript $A$ when referring to a Gaussian measure for simplicity. And therefore, defining $\Delta_{ij} = A_{ij}^{-1}$, 
 \begin{empheq}[box=\widefbox]{align} \label{eq:correlator}
-    \ev{x_{i_1}\cdots x_{i_\ell} }_0 = \pdv{b_{i_1}} \cdots \pdv{b_{i_\ell}} \eval{\exp\left(\frac{1}{2}\sum_{i,j=1}^n b_i \Delta_{ij} b_j\right)}_{b=0}.
+    \ev{x_{i_1}\dots x_{i_\ell} }_0 = \pdv{b_{i_1}} \dots \pdv{b_{i_\ell}} \eval{\exp\left(\frac{1}{2}\sum_{i,j=1}^n b_i \Delta_{ij} b_j\right)}_{b=0}.
 \end{empheq}
 
 \subsection{Wick's Theorem}
@@ -106,10 +106,10 @@ where the last equality comes from the fact that the expression is linear in $b$
 \end{aligned}
 \end{equation}
 
-Thus, the generating function $Z(b)$ provides a systematic way to compute all correlators for a multi-dimensional Gaussian distribution. Having understood the general rule for such a process, we can generate a recipe to compute $\ev{x_{i_1} \cdots x_{i_\ell}}_0$, known as \textit{Wick's Theorem}:
+Thus, the generating function $Z(b)$ provides a systematic way to compute all correlators for a multi-dimensional Gaussian distribution. Having understood the general rule for such a process, we can generate a recipe to compute $\ev{x_{i_1} \dots x_{i_\ell}}_0$, known as \textit{Wick's Theorem}:
 \begin{itemize}
-    \item Write down each $x_{i_1} \cdots x_{i_\ell}$ and organize them pairwise $(i_p, i_q)$. Note that if $\ell$ must be even for the correlator to be non-zero.
-    \item There are $(\ell - 1)\times(\ell-3) \times \cdots \times 3 \times 1$ ways of doing this. Sum over all of these possible pairings.
+    \item Write down each $x_{i_1} \dots x_{i_\ell}$ and organize them pairwise $(i_p, i_q)$. Note that if $\ell$ must be even for the correlator to be non-zero.
+    \item There are $(\ell - 1)\times(\ell-3) \times \dots \times 3 \times 1$ ways of doing this. Sum over all of these possible pairings.
     \item To each pair $(i_p, i_q)$ associate a factor $\Delta_{i_p i_q}$.
 \end{itemize}
 
@@ -164,20 +164,20 @@ where in the first line we have expanded the exponential term containing $e^V(x)
 and $1/Z(0)$ referring to the normalization constant $\mathcal{N}_0$ from Eq. \ref{eq:gaussian_measure}. Recalling Eq. \ref{eq:correlator}, given that $F(x)$ admits a Taylor expansion
 \begin{equation}
 \begin{aligned}
-    F(x) &= \sum_{\ell = 0}^\infty \sum_{i_1 \cdots i_\ell = 1}^n F_{i_1 \cdots i_\ell} x_{i_1} \cdots x_{i_\ell} \\
-    &= F_0 + F_1 x_1 + \cdots + F_n x_n\\
-    &\quad + F_{11} x_1^2 + F_{12} x_1 x_2 + \cdots + F_{nn} x_n^2 \\
-    &\quad + \cdots
+    F(x) &= \sum_{\ell = 0}^\infty \sum_{i_1 \dots i_\ell = 1}^n F_{i_1 \dots i_\ell} x_{i_1} \dots x_{i_\ell} \\
+    &= F_0 + F_1 x_1 + \dots + F_n x_n\\
+    &\quad + F_{11} x_1^2 + F_{12} x_1 x_2 + \dots + F_{nn} x_n^2 \\
+    &\quad + \dots
 \end{aligned}
 \end{equation}
-where $F_{i_1 \cdots i_\ell}$ refer to the constant expansion coefficients, we can define the expectation value of $F$ for a generic measure $\mu$ as 
+where $F_{i_1 \dots i_\ell}$ refer to the constant expansion coefficients, we can define the expectation value of $F$ for a generic measure $\mu$ as 
 \begin{equation}
-    \ev{F(x)}_\mu = \sum_{\ell = 0}^\infty \sum_{i_1 \cdots i_\ell = 1}^n F_{i_1 \cdots i_\ell} \ev{x_{i_1} \cdots x_{i_\ell}}_\mu;
+    \ev{F(x)}_\mu = \sum_{\ell = 0}^\infty \sum_{i_1 \dots i_\ell = 1}^n F_{i_1 \dots i_\ell} \ev{x_{i_1} \dots x_{i_\ell}}_\mu;
 \end{equation}
 for the case of a Gaussian measure we obtain
 \begin{equation}
 \begin{aligned}
-    \ev{F(x)}_0 &= \sum_{\ell = 0}^\infty \sum_{i_1 \cdots i_\ell = 1}^n F_{i_1 \cdots i_\ell} \pdv{b_{i_1}} \cdots \pdv{b_{i_\ell}} \eval{\exp\left(\frac{1}{2}\sum_{i,j=1}^n b_i \Delta_{ij} b_j\right)}_{b=0} \\
+    \ev{F(x)}_0 &= \sum_{\ell = 0}^\infty \sum_{i_1 \dots i_\ell = 1}^n F_{i_1 \dots i_\ell} \pdv{b_{i_1}} \dots \pdv{b_{i_\ell}} \eval{\exp\left(\frac{1}{2}\sum_{i,j=1}^n b_i \Delta_{ij} b_j\right)}_{b=0} \\
     &= F \left(\pdv{b}\right) \eval{\exp\left(\frac{1}{2}\sum_{i,j=1}^n b_i \Delta_{ij} b_j\right)}_{b=0}.
 \end{aligned}
 \end{equation}
@@ -195,7 +195,7 @@ Thus, returning to our potential term,
 
 The perturbative treatment discussed above can be extended to compute moments of the distribution:
 \begin{equation} \label{eq:twopoint_correlator}
-    \ev{x_{i_1} \cdots x_{i_l}} = \frac{\int d^nx \, e^{-S(x,\lambda)} x_{i_1} \cdots x_{i_l}}{\int d^nx\, e^{-S(x,\lambda)}} = \frac{1}{Z(\lambda)} \int d^nx\, e^{-S(x,\lambda)} x_{i_1} \cdots x_{i_l}
+    \ev{x_{i_1} \dots x_{i_l}} = \frac{\int d^nx \, e^{-S(x,\lambda)} x_{i_1} \dots x_{i_l}}{\int d^nx\, e^{-S(x,\lambda)}} = \frac{1}{Z(\lambda)} \int d^nx\, e^{-S(x,\lambda)} x_{i_1} \dots x_{i_l}
 \end{equation}
 which is often referred to as an $\ell$-point correlator/function. Let us start our discussion with a simple example. 
 \textbf{Two-point function}: we need to evaluate
@@ -205,7 +205,7 @@ which is often referred to as an $\ell$-point correlator/function. Let us start 
     &= Z(0) \sum_{k=0}^n \frac{(-\lambda)^k}{k!} \ev{V^k(x) x_{i_1} x_{i_2}},
 \end{aligned}
 \end{equation}
-where in the second line we have expressed the initial correlator in terms of correlators computed in the Gaussian theory, denoted by $\ev{\cdots}_0$. The Gaussian correlators can be computed using Wick's theorem as before. We shall consider again a quartic potential
+where in the second line we have expressed the initial correlator in terms of correlators computed in the Gaussian theory, denoted by $\ev{\dots}_0$. The Gaussian correlators can be computed using Wick's theorem as before. We shall consider again a quartic potential
 \begin{equation}
     V(x) = \frac{1}{4!} \sum_{i=1}^n x_i^4,
 \end{equation}
@@ -227,7 +227,7 @@ and compute all the terms in Eq. \ref{eq:two_point_function} order by order in $
         \end{equation}
         \item $x_1$ and $x_2$ are contracted with some of the $x_i$; there are 12 such contractions:
         \begin{equation}
-            \wick{\c1 x_{i_1} \c2 x_{i_2} \c1 x_i \c2 x_i x_i x_i} + \cdots = \Delta_{i i_1} \Delta_{i i_2} \Delta_{ii} \times 4 \times 3.
+            \wick{\c1 x_{i_1} \c2 x_{i_2} \c1 x_i \c2 x_i x_i x_i} + \dots = \Delta_{i i_1} \Delta_{i i_2} \Delta_{ii} \times 4 \times 3.
         \end{equation}
         Collecting all the terms yields
         \begin{equation}
@@ -249,7 +249,7 @@ and compute all the terms in Eq. \ref{eq:two_point_function} order by order in $
     \end{equation}
     A term that factorises as the product of a subdiagram with external lines and a subdiagram that is made of loops only is called a \textit{vacuum contribution}. For instance, $\Delta_{i_1 i_2} \frac{1}{4!} \sum_{i=1}^n \ev{x_i^4}_0$ is a vacuum contribution because $\ev{x_i^4}_0$ is one. 
 
-    Finally, we need to divide this expression by $Z(\lambda)$ in order to obtain the two-point correlator as defined in Eq. \ref{eq:twopoint_correlator}. As a result, we obtain a factor $Z(0)/Z(\lambda)$ multiplying the expression inside the square bracket in Eq. \ref{eq:full_twopoint}. The ratio $Z(0)/Z(\lambda)$ may be computed using Eq. \ref{eq:z0/zlambda} and expanding as $1/(1-x) = 1 + x + x^2 + \cdots$ and sorting the terms by powers of $\lambda$ to obtain
+    Finally, we need to divide this expression by $Z(\lambda)$ in order to obtain the two-point correlator as defined in Eq. \ref{eq:twopoint_correlator}. As a result, we obtain a factor $Z(0)/Z(\lambda)$ multiplying the expression inside the square bracket in Eq. \ref{eq:full_twopoint}. The ratio $Z(0)/Z(\lambda)$ may be computed using Eq. \ref{eq:z0/zlambda} and expanding as $1/(1-x) = 1 + x + x^2 + \dots$ and sorting the terms by powers of $\lambda$ to obtain
     \begin{equation}
         Z(0)/Z(\lambda) = 1 + \frac{1}{4!} \sum_{i=1}^n \ev{x_i^4}_0 - \frac{1}{2!} \frac{1}{(4!)^2} \lambda^2 \sum_{i,j=1}^n \ev{x_i^4 x_j^4}_0 + \frac{1}{(4!)^2} \lambda^2 \left(\sum_{i=1}^n \ev{x_i^4}_0 \right)^2 + \mathcal{0}(\lambda^3)
     \end{equation}
@@ -268,18 +268,18 @@ and remembering that we can also write
 \end{equation}
 the correlators in the perturbed measure are obtained by differentiation
 \begin{equation}
-    \ev{x_{i_1} \cdots x_{i_\ell}} = \eval{\frac{1}{Z(\lambda)} \pdv{b_{i_1}} \cdots \pdv{b_{i_\ell}} Z(b, \lambda)}_{b=0}.
+    \ev{x_{i_1} \dots x_{i_\ell}} = \eval{\frac{1}{Z(\lambda)} \pdv{b_{i_1}} \dots \pdv{b_{i_\ell}} Z(b, \lambda)}_{b=0}.
 \end{equation}
 
 The logarithm of $Z(b, \lambda)$ is usually denoted $W(b, \lambda)$,
 \begin{equation}
     Z(b, \lambda) = e^{W(b,\lambda)};
 \end{equation}
-$W(b, \lambda)$ is the generator of the connected $\ell$-point correlators $W_{i_1 \cdots i_\ell}$, i.e. the correlators that can be represented as a single diagram, with $\ell$ open ends:
+$W(b, \lambda)$ is the generator of the connected $\ell$-point correlators $W_{i_1 \dots i_\ell}$, i.e. the correlators that can be represented as a single diagram, with $\ell$ open ends:
 \begin{equation}
-    W_{i_1 \cdots i_\ell} = \eval{\pdv{b_{i_1}} \cdots \pdv{b_{i_\ell}} W(b, \lambda)}_{b=0}.
+    W_{i_1 \dots i_\ell} = \eval{\pdv{b_{i_1}} \dots \pdv{b_{i_\ell}} W(b, \lambda)}_{b=0}.
 \end{equation}
-In statistics, the $W_{i_1 \cdots i_\ell}$ are called the \textit{cumulants} of the probability distribution $e^{-S(x, \lambda)}$.
+In statistics, the $W_{i_1 \dots i_\ell}$ are called the \textit{cumulants} of the probability distribution $e^{-S(x, \lambda)}$.
 
 \section{Path Integral Quantum Mechanics}
 
@@ -299,7 +299,7 @@ In order to proceed with the calculation, let us define $T=t'-t$ to be the size 
 \begin{equation}
 \begin{aligned}
     t_0 &= t \\
-    t_k &= t_0 = k\epsilon, k=1, \cdots, n-1 \\
+    t_k &= t_0 = k\epsilon, k=1, \dots, n-1 \\
     t_n &= t + n\epsilon = t' \\
 \end{aligned}
 \end{equation}
@@ -307,13 +307,13 @@ and
 \begin{equation}
 \begin{aligned}
     \mel{q'}{e^{-i\hat{H}(t'-t)}}{q} &= \mel{q'}{e^{-i\hat{H}T}}{q} \\
-    &= \mel{q'}{\left(e^{-i\hat{H}\epsilon}\right) \cdots \left(e^{-i\hat{H}\epsilon}\right)}{q},
+    &= \mel{q'}{\left(e^{-i\hat{H}\epsilon}\right) \dots \left(e^{-i\hat{H}\epsilon}\right)}{q},
 \end{aligned}
 \end{equation}
 
 where the expression in the second line contains $n$ factors. Inserting the completeness relation $n-1$ times,
 \begin{equation}
-    \braket{q't'}{qt} \int \prod_{k=1}^{n-1} dq_k \mel{q'}{\left(e^{-i\hat{H}\epsilon}\right)}{q_{n-1}} \mel{q_{n-1}}{\left(e^{-i\hat{H}\epsilon}\right)}{q_{n-2}} \cdots \mel{q_1}{\left(e^{-i\hat{H}\epsilon}\right)}{q}.
+    \braket{q't'}{qt} \int \prod_{k=1}^{n-1} dq_k \mel{q'}{\left(e^{-i\hat{H}\epsilon}\right)}{q_{n-1}} \mel{q_{n-1}}{\left(e^{-i\hat{H}\epsilon}\right)}{q_{n-2}} \dots \mel{q_1}{\left(e^{-i\hat{H}\epsilon}\right)}{q}.
 \end{equation}
 
 For small $\epsilon$ we can expand the exponential to first order and evaluate the matrix elements:
@@ -384,7 +384,7 @@ where we assume $t < \bar{t} < t'$, and we have used
 \end{equation}
 Proceeding as we did in the previous section, we can write
 \begin{equation}
-    \mel{q't'}{\hat{Q}(\bar{t})}{qt} = \mel{q'}{\left(e^{-i\hat{H}\epsilon}\right) \cdots \left(e^{-i\hat{H}\epsilon}\right) \hat{Q} \left(e^{-i\hat{H}\epsilon}\right) \cdots \left(e^{-i\hat{H}\epsilon}\right)}{q}
+    \mel{q't'}{\hat{Q}(\bar{t})}{qt} = \mel{q'}{\left(e^{-i\hat{H}\epsilon}\right) \dots \left(e^{-i\hat{H}\epsilon}\right) \hat{Q} \left(e^{-i\hat{H}\epsilon}\right) \dots \left(e^{-i\hat{H}\epsilon}\right)}{q}
 \end{equation}
 where we assumed that $\hat{t} = t_k$, and the first and second ellipses denote respectively $n-k$ and $k$ factors of $\left(e^{-i\hat{H}\epsilon}\right)$. Performing the same manipulations as before we obtain
 \begin{equation}
@@ -436,7 +436,7 @@ Then we have the useful property that taking functional derivatives with respect
 \end{equation}
 The general rule is thus 
 \begin{empheq}[box=\widefbox]{align} \label{eq:general_rule}
-    \mel{q't'}{T\left(\hat{Q}(t_1) \cdots \hat{Q}(t_n)\right)}{qt} = \eval{\left(\frac{1}{i}\fdv{f(t_1)}\right) \cdots \left(\frac{1}{i}\fdv{f(t_n)}\right) \braket{q't'}{qt}_{f,h}}_{f,h=0}.
+    \mel{q't'}{T\left(\hat{Q}(t_1) \dots \hat{Q}(t_n)\right)}{qt} = \eval{\left(\frac{1}{i}\fdv{f(t_1)}\right) \dots \left(\frac{1}{i}\fdv{f(t_n)}\right) \braket{q't'}{qt}_{f,h}}_{f,h=0}.
 \end{empheq}
 
 % TODO: write out derivation of this relation
@@ -578,7 +578,7 @@ and by expanding both exponentials and substituting in Eq. \ref{eq:z0}, we obtai
 
 Since each power of $P$ adds two sources and each power of $V$ removes three sources, we are left with $E=2P-3V$ sources. The functional derivatives turn factors of $J$ in the integrand into Dirac delta functions as following:
 \begin{equation}
-    \fdv{J(x)}\int \cdots d^dy \cdots J(y)\Delta(y, \cdots) \cdots = \int \cdots \Delta(x, \cdots) \cdots .
+    \fdv{J(x)}\int \dots d^dy \dots J(y)\Delta(y, \dots) \dots = \int \dots \Delta(x, \dots) \dots .
 \end{equation}
 % TODO: Let us look at the details that enter this contribution.
 
@@ -588,12 +588,12 @@ Since each power of $P$ adds two sources and each power of $V$ removes three sou
 
 In order to compute the quantum amplitude for a physical process involving arbitrary numbers of particles in the initial and final state, we need to compute the overlap of a state prepared in the distant past (the so-called \textit{in} state), with the resulting final state in the distant future (the so-called \textit{out} state). If we want to describe a $2 \rightarrow n$ process --- like a $pp$ collision at the LHC --- we need to compute 
 \begin{equation}
-    \braket{p_1, \cdots , p_n; \text{out}}{k_1, k_2; \text{in}}.
+    \braket{p_1, \dots , p_n; \text{out}}{k_1, k_2; \text{in}}.
 \end{equation}
 
 The $S$-matrix allows us to express this scalar product between in- and out-states in terms of the states defined at any common reference time :
 \begin{equation}
-    \braket{p_1, \cdots , p_n; \text{out}}{k_1, k_2; \text{in}} = \mel{p_1, \cdots , p_n}{S}{k_1, k_2}.
+    \braket{p_1, \dots , p_n; \text{out}}{k_1, k_2; \text{in}} = \mel{p_1, \dots , p_n}{S}{k_1, k_2}.
 \end{equation}
 
 It is usual to separate the $S$-matrix into the identity operator, corresponding to the particles not interacting, plus a non-trivial \textit{transition matrix} which is usually denoted $T$:
@@ -603,9 +603,9 @@ It is usual to separate the $S$-matrix into the identity operator, corresponding
 
 \begin{equation}
 \begin{aligned}
-    \braket{p'_1 \cdots p'_{m'}; \text{out}}{p_1 \cdots p_m; \text{in}} &= \braket{p'_1 \cdots p'_{m'}}{S}{p_1 \cdots p_m} \\
+    \braket{p'_1 \dots p'_{m'}; \text{out}}{p_1 \dots p_m; \text{in}} &= \mel{p'_1 \dots p'_{m'}}{S}{p_1 \dots p_m} \\
     &= \lim_{p_j^2, \, p_k^{\prime 2} \rightarrow m_{\text{phys}}^2} \prod_{k=1}^{m'} (p_k^{\prime 2} - m_{\text{phys}}^2 + i\epsilon) \prod_{j=1}^{m} (p_j^2 - m_{\text{phys}}^2 + i\epsilon) \\
-    & \quad \times \tilde{G}^{(m+m')} (p_1, \cdots, p_m, -p'_1, \cdots, -p'_{m'}),
+    & \quad \times \tilde{G}^{(m+m')} (p_1, \dots, p_m, -p'_1, \dots, -p'_{m'}),
 \end{aligned}
 \end{equation}  
 where $n=m + m'$, and the fields are normalised so that
@@ -619,21 +619,74 @@ As discussed in the previous lecture, the field correlators are obtained from th
 
 \begin{equation}
 \begin{aligned}
-    G^{(n)}(x_1, \cdots , x_n) &= \ev{T\left(\phi(x_1) \cdots \phi(x_n)\right)}{0} \\
-    &= \eval{\left(\frac{1}{i}\fdv{J(x_1)}\right) \cdots \left(\frac{1}{i}\fdv{J(x_n)}\right) Z[J]}_{J=0}.
+    G^{(n)}(x_1, \dots , x_n) &= \ev{T\left(\phi(x_1) \dots \phi(x_n)\right)}{0} \\
+    &= \eval{\left(\frac{1}{i}\fdv{J(x_1)}\right) \dots \left(\frac{1}{i}\fdv{J(x_n)}\right) Z[J]}_{J=0}.
 \end{aligned}
 \end{equation}
 
 The perturbative definition of the path integral has led to an expansion where we can classify the terms according to the number of currents that appea, which we denoted by $E$ above. Clearly, the only terms that contribute to an $n$-point function are the ones with $E=n$ \footnote{If there are less than $n$ sources, then at least one of the functional derivatives will have nothing to act on, yielding zero. If there are more than $n$ sources, then it will be set to zero when we evaluate the correlator, also yielding zero for the correlator.}. Since we can express $E$ in terms of $P$ and $V$, the calculation of correlators can be expressed as a perturbative expansion in terms of $V$, and therefore in powers of coupling:
 \begin{equation}
-    G^{(n)}(x_1, \cdots, x_n) = \sum_V g^V G^{(n, V)}(x_1, \cdots , x_n).
+    G^{(n)}(x_1, \dots, x_n) = \sum_V g^V G^{(n, V)}(x_1, \dots , x_n).
 \end{equation}
 
 As we will see in future sections, the \textit{LSZ reduction formula} provides a way to connect correlators in momentum space with $S$-matrix elements. This is intimately related to the structure of divergences which we can explore through \textit{polology}. We shall now explore the calculation of two-point position space correlators and the resulting momentum-space expressions.
 
+% TODO: put in physical states such that it makes sense in the context of LSZ
 
+\subsection{Polology}
 
+In this section, we shall learn some features about the analytic structure of field correlators and discuss their relevance in order to extract physical information from the correlators. These are general properties of correlators and do not rely on perturbation theory.
 
+We begin by writing out an $n$-point correlator in momentum space:
+\begin{equation}
+    \tilde{G}^{(n)} (p_1, \dots, p_n) = \int d^Dx_1 \dots d^Dx_n \, e^{ip_1\cdot x_1} \dots e^{ip_n \dots x_n} \ev{T\left\{\phi(x_1) \dots \phi(x_n)\right\}}.
+\end{equation}
+As the integral spans $n$ time dimensions, we need to be careful regarding the ordering of the fields and the $T$-ordered product.
+
+Let us focus on the contribution coming from the sector where the values $x_1^0, \dots, x_r^0$ are all larger than the values of $x_{r+1}^0, \dots , x_n^0$ for some value of $r$ between $1$ and $n-1$. We can write this condition as $\min\{x_1^0 \dots x_r^0\} > \max\{x_{r+1}^0 \dots x_n^0\}$. The contribution can then be written as 
+\begin{equation}
+\begin{aligned}
+    \tilde{G}(p_1, \dots, p_n) \sim &\int d^Dx_1 \dots d^Dx_n \, e^{ip_1\cdot x_1} \dots e^{ip_n \cdot x_n} \\
+    &\times \theta(\min\{x_1^0 \dots x_r^0\} - \max\{x_{r+1}^0 \dots x_n^0\}) \\
+    &\times \ev{T\left\{\phi(x_1) \dots \phi(x_r)\right\} T \left\{\phi(x_{r+1}) \dots \phi(x_n)\right\}}{0}.
+\end{aligned}
+\end{equation}
+We can insert a complete set of one-particle states between the two $T$-ordered products:
+\begin{equation}
+\begin{aligned}
+    \ev{T\left\{\phi(x_1) \dots \phi(x_r)\right\} T \left\{\phi(x_{r+1}) \dots \phi(x_n)\right\}}{0} = \int d\Omega_p \, \mel{0}{T\left\{\phi(x_1) \dots \phi(x_r)\right\} }{p, \sigma} \mel{p, \sigma}{T \left\{\phi(x_{r+1}) \dots \phi(x_n)\right\}}{0}
+\end{aligned}
+\end{equation}
+Let us evaluate this by doing some rewriting. Suppose that $f(z)$ is a function of a real number $z$, and $p = -i \pdv{z}$ is the familiar quantum mechanical momentum operator. Then
+\begin{equation}
+    \exp[ipa] f(z) = \exp\left[a \pdv{z}\right] f(z) = \sum_{n=0}^\infty \frac{1}{n!} a^n \pdv[n]{z} f(z) = f(z+a).
+\end{equation}
+Thus we can see that $\exp[ipa]$ is the generator of translations. This works in an arbitrary number of directions. However, in the case of operators, we act once on the left normally and once on the right with the inverse. Thus for an operator $F(z)$,
+\begin{equation}
+    \exp[ip\cdot a] F(z) \exp[-ip\cdot a] = F(z+a).
+\end{equation}
+By defining new integration variables,
+\begin{equation}
+    x_i = x_1 + y_i, \quad \text{for } i=2, \dots, r,
+\end{equation}
+we can apply our knowledge of the momentum operator $P$ as a generator of translations to write
+\begin{equation}
+\begin{aligned}
+    \phi\left(x_1\right) \ldots \phi\left(x_r\right) & =\phi\left(x_1\right) \ldots \phi\left(x_1+y_i\right) \ldots \phi\left(x_1+y_r\right) \\
+    & =e^{i P \cdot x_1} \phi(0) e^{-i P \cdot x_1} \ldots e^{i P \cdot x_1} \phi\left(y_i\right) e^{-i P \cdot x_1} \ldots e^{i P \cdot x_1} \phi\left(y_r\right) e^{-i P \cdot x_1} \\
+    &= e^{i P \cdot x_1} \phi(0) \dots \phi(y_r) e^{-i P \cdot x_1}.
+\end{aligned}
+\end{equation}
+Since $e^{-iP \cdot x_1}\ket{0} = \ket{0}$ and $e^{-iP \cdot x_1}\ket{p, \sigma} = e^{-ip \cdot x_1}\ket{p, \sigma}$,
+\begin{equation}
+    \mel{0}{T\left\{\phi(x_1) \dots \phi(x_r)\right\}}{p, \sigma} = e^{-ip \cdot x_1} \mel{0}{T\left\{\phi(0) \dots \phi(y_r)\right\}}{p, \sigma}.
+\end{equation}
+The exact same procedure can be undergone for the other $T$-ordered product.
+
+The argument of the Heaviside theta function can be rewritten as 
+\begin{equation}
+    \min\left\{x_1^0 \dots x_r^0\right\} - \max\left\{x_{r+1}^0 \dots x_n^0 \right\} = x_1^0 - x_{r+1} + \min\left\{0 \dots y_r^0\right\} - \max\left\{0 \dots y_n^0\right\}.
+\end{equation}
 
 
 
