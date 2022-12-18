@@ -644,7 +644,7 @@ Let us focus on the contribution coming from the sector where the values $x_1^0,
 We can insert a complete set of one-particle states between the two $T$-ordered products:
 \begin{equation}
 \begin{aligned}
-    \ev{T\left\{\phi(x_1) \dots \phi(x_r)\right\} T \left\{\phi(x_{r+1}) \dots \phi(x_n)\right\}}{0} = \sum_\sigma \int d\Omega_p \, \mel{0}{T\left\{\phi(x_1) \dots \phi(x_r)\right\} }{p, \sigma} \mel{p, \sigma}{T \left\{\phi(x_{r+1}) \dots \phi(x_n)\right\}}{0}
+    \ev{T\left\{\phi(x_1) \dots \phi(x_r)\right\} T \left\{\phi(x_{r+1}) \dots \phi(x_n)\right\}}{0} = \sum_\sigma \int d\Omega_p \, \mel{0}{T\left\{\phi(x_1) \dots \phi(x_r)\right\} }{\vb{p}, \sigma} \mel{\vb{p}, \sigma}{T \left\{\phi(x_{r+1}) \dots \phi(x_n)\right\}}{0}
 \end{aligned}
 \end{equation}
 Let us evaluate this by doing some rewriting. Suppose that $f(z)$ is a function of a real number $z$, and $p = -i \pdv{z}$ is the familiar quantum mechanical momentum operator. Then
@@ -669,7 +669,7 @@ we can apply our knowledge of the momentum operator $P$ as a generator of transl
 \end{equation}
 Since $e^{-iP \cdot x_1}\ket{0} = \ket{0}$ and $e^{-iP \cdot x_1}\ket{p, \sigma} = e^{-ip \cdot x_1}\ket{p, \sigma}$,
 \begin{equation} \label{eq:x_to_y_mel}
-    \mel{0}{T\left\{\phi(x_1) \dots \phi(x_r)\right\}}{p, \sigma} = e^{-ip \cdot x_1} \mel{0}{T\left\{\phi(0) \dots \phi(y_r)\right\}}{p, \sigma}.
+    \mel{0}{T\left\{\phi(x_1) \dots \phi(x_r)\right\}}{\vb{p}, \sigma} = e^{-ip \cdot x_1} \mel{0}{T\left\{\phi(0) \dots \phi(y_r)\right\}}{\vb{p}, \sigma}.
 \end{equation}
 The exact same procedure can be undergone for the other $T$-ordered product.The argument of the Heaviside theta function can be rewritten as 
 \begin{equation}
@@ -686,7 +686,7 @@ yields
     \tilde{G}(p_1, \dots, p_n) \sim &\int d^Dx_1 d^Dy_2 \dots d^Dy_r d^Dx_{r+1} d^Dy_{r+2} \dots d^Dy_n \\
     &\times e^{ip_1\cdot x_1} e^{ip_1 \cdot (x_1 + y_2)} \dots e^{ip_r \cdot (x_1 + y_r)} e^{ip_{r+1} \cdot x_{r+1}} e^{ip_{r+2} \cdot (x_{r+1} + y_{r+2})} \dots e^{ip_n \cdot (x_{r+1} + y_n)}\\
     &\times -\frac{1}{2\pi i} \int \frac{d\omega}{\omega+i\epsilon} \exp{-i\omega\left[ x_1^0 - x_{r+1} + \min\left\{0 \dots y_r^0\right\} - \max\left\{0 \dots y_n^0\right\}\right]} \\
-    &\times \sum_\sigma \int d\Omega_p \, e^{-ip \cdot x_1}\mel{0}{T\left\{\phi(0) \dots \phi(y_r)\right\} }{p, \sigma} e^{ip \cdot x_{r+1}}\mel{p, \sigma}{T \left\{\phi(0) \dots \phi(y_n)\right\}}{0}.
+    &\times \sum_\sigma \int d\Omega_p \, e^{-ip \cdot x_1}\mel{0}{T\left\{\phi(0) \dots \phi(y_r)\right\} }{\vb{p}, \sigma} e^{ip \cdot x_{r+1}}\mel{\vb{p}, \sigma}{T \left\{\phi(0) \dots \phi(y_n)\right\}}{0}.
 \end{aligned}
 \end{equation}
 Performing the integral over $x_1$ and $x_{r+1}$ yields delta functions in terms of the arguments of the exponential: the four-momenta in the second line, the dummy variable $\omega$ in the third line and the extra exponentials due to Eq. \ref{eq:x_to_y_mel} in the fourth line. We can split these delta functions into a product of delta functions of the space and time components, yielding our final result
@@ -695,30 +695,44 @@ Performing the integral over $x_1$ and $x_{r+1}$ yields delta functions in terms
     \tilde{G}(p_1, \dots, p_n) \sim &\int d^Dy_2 \dots d^Dy_r d^Dy_{r+2} \dots d^Dy_n \\
     &\times e^{ip_1 \cdot y_2} \dots e^{ip_r \cdot y_r}  e^{ip_{r+2} \cdot y_{r+2}} \dots e^{ip_n \cdot y_n}\\
     &\times -\frac{1}{2\pi i} \int \frac{d\omega}{\omega+i\epsilon} \exp{-i\omega\left[\min\left\{0 \dots y_r^0\right\} - \max\left\{0 \dots y_n^0\right\}\right]} \\
-    &\times \sum_\sigma \int d\Omega_p \,\mel{0}{T\left\{\phi(0) \dots \phi(y_r)\right\} }{p, \sigma} \mel{p, \sigma}{T \left\{\phi(0) \dots \phi(y_n)\right\}}{0} \\
-    &\times \hat{\delta}(\vb{p} - \vb{p}_1 - \dots - \vb{p}_r) \delta(E_p + \omega - p_1^0 - \dots - p_r^0) \\
-    &\times \hat{\delta}(\vb{p} - \vb{p}_{r+1} - \dots - \vb{p}_n) \delta(E_p + \omega - p_{r+1}^0 - \dots - p_n^0).
+    &\times \sum_\sigma \int d\Omega_p \,\mel{0}{T\left\{\phi(0) \dots \phi(y_r)\right\} }{\vb{p}, \sigma} \mel{\vb{p}, \sigma}{T \left\{\phi(0) \dots \phi(y_n)\right\}}{0} \\
+    &\times \hat{\delta}(\vb{p} - \vb{p}_1 - \dots - \vb{p}_r) \hat{\delta}(E_p + \omega - p_1^0 - \dots - p_r^0) \\
+    &\times \hat{\delta}(\vb{p} - \vb{p}_{r+1} - \dots - \vb{p}_n) \hat{\delta}(E_p + \omega - p_{r+1}^0 - \dots - p_n^0).
 \end{aligned}
 \end{equation}
 Performing the Lorentz-invariant phase space integral\footnote{You're going to have to trust me on this one.} % TODO: find out how he did this 
 over the spatial components of $p$ and $\omega$ transforms the delta functions into
 \begin{equation}
-    \delta(\vb{p}_1 + \dots + \vb{p}_n) \text{ and } \delta(p_1^0 + \dots + p_n^0) \frac{1}{q^0 - E_p + i\epsilon},
+    \hat{\delta}(p_1 + \dots + p_n) \frac{1}{q^0 - E_p + i\epsilon}\frac{1}{2E_p}
 \end{equation}
-where the four-momentum $q$ is defined as 
+where the factor of $1/2E_p$ comes from the integration measure $d\Omega_p$ and the four-momentum $q$ is defined as 
 \begin{equation}
     q = p_1 + \dots + p_r = -p_{r+1} - \dots - p_n.
 \end{equation}
-% TODO: figure out the following
-Finally, if we are interested in the residue at the pole, we can rewrite
+
+
+To make it more clear that it is about $q$ being on-shell, we can rewrite
 \begin{equation}
-    \frac{1}{q^0 - E_p + i\epsilon} \rightarrow \frac{2E_p}{q^2-m_{\text{phys}}^2 + i\epsilon}.
+\begin{aligned}
+    \lim_{q^0 \rightarrow E_p} \frac{1}{q^0 - E_p + i\epsilon}\frac{1}{2E_p} &= \lim_{q^0 \rightarrow E_p} \frac{1}{q^0 - E_p + i\epsilon}\frac{1}{E_p + E_p} \\
+    &= \lim_{q^0 \rightarrow E_p} \frac{1}{q^0 - E_p}\frac{1}{q^0 + E_p} \\
+    &= \lim_{q^0 \rightarrow E_p} \frac{1}{(q^0)^2 - E_p^2} \\
+    &= \lim_{q^0 \rightarrow E_p} \frac{1}{(q^0)^2 - \vb{q}^2 - m_{\text{phys}}^2} \\
+    &= \lim_{q^0 \rightarrow E_p} \frac{1}{q^2 - m_{\text{phys}}^2 + i\epsilon}.
+\end{aligned}
 \end{equation}
 The important result here is that the correlators in momentum space have a pole singularity \textbf{whenever $q=p_1 + \dots + p_r$ goes on-shell}.
+The residue at this pole will be 
+\begin{equation}
+\begin{aligned}
+    \delta(p_1 + \dots + p_n) \frac{i}{q^2 - m_{\text{phys}}^2 + i\epsilon} \sum_\sigma &\int d^Dy_2 \dots d^Dy_r e^{ip_2 \cdot y_2} \dots e^{ip_r \cdot y_r} \mel{0}{T\left\{\phi(0) \dots \phi(y_r)\right\} }{\vb{q}, \sigma} \\
+    \times &\int d^Dy_{r+2} \dots d^Dy_n e^{ip_{r+2} \cdot y_{r+2}} \dots e^{ip_n \cdot y_n} \mel{\vb{q}, \sigma}{T \left\{\phi(0) \dots \phi(y_n)\right\}}{0}
+\end{aligned}
+\end{equation}
 
-\section{LSZ reduction}
+\subsection{LSZ reduction}
 
-An important corollary of what we have just covered is obtained by setting $r=1$. In this case, the correlator in momentum space has a pole whenever $p_1$ is on-shell. However, $p_1$ is somewhat arbitrarily chosen --- we could equivalently relabel the momenta and choose a different sector of the integral --- and therefore the correlator in momentum space has a pole whenever the momentum of any of the fields is on-shell. It follows that an $n$-point correlation function as (at least) $n$ poles, each corresponding to one of the momenta $p_i \rightarrow m_{\text{phys}}^2$. The residue at this multiple pole yields the $S$-matrix for a scattering process involving $n$ particles: % TODO: which pole? why the residue???
+An important corollary of what we have just covered is obtained by setting $r=1$. In this case, the correlator in momentum space has a pole whenever $p_1$ is on-shell. However, $p_1$ is somewhat arbitrarily chosen --- we could equivalently relabel the momenta and choose a different sector of the integral --- and therefore the correlator in momentum space has a pole whenever the momentum of any of the fields is on-shell. It follows that an $n$-point correlation function as (at least) $n$ poles, each corresponding to one of the momenta $p_i \rightarrow m_{\text{phys}}^2$. In a real scattering event, we want each of the particles involved in the correlator to be on-shell, so somehow we must assign a value to these poles. The most natural choice is of course the residue. 
 \begin{equation}
 \begin{aligned}
     \braket{p'_1 \dots p'_{m'}; \text{out}}{p_1 \dots p_m; \text{in}} &= \mel{p'_1 \dots p'_{m'}}{S}{p_1 \dots p_m} \\
@@ -730,6 +744,42 @@ where $n=m + m'$, and the fields are normalised so that
 \begin{equation}
     \mel{\vb{p}}{\phi(0)}{0} = 1.
 \end{equation}
+% TODO: include proof for simpler version of LSZ and explain what it means. Problem Set 4.4 seems to be same as Srednicki proof.
+% TODO: figure out the bit where LSZ is the same as amputating the sources or something like that?
+
+\subsection{Källén-Lehmann representation}
+Let us now come back to the 2-point function, and find a representation that allows us to extract some physical information about the scalar field. We define the full propagator as 
+\begin{equation}
+    i\Delta_F(x-y) = \ev{T\left\{\phi(x) \phi(y)\right\}}{0},
+\end{equation}
+and define the field so that 
+\begin{equation} \label{eq:conventions}
+    \ev{\phi(x)}{0} = 0, \text{ and } \mel{\vb{p}}{\phi(0)}{0} = 1,
+\end{equation}
+where $\ket{\vb{p}}$ represents the physical one-particle state, and we have dropped the dependence on $\sigma$. As usual the full propagator in momentum space is defined by taking the Fourier transform:
+\begin{equation}
+    \tilde{\Delta}_F(p) = \int d^Dx e^{ip \cdot (x-y)} \Delta_F(x-y).
+\end{equation}
+With these conventions, the free theory result for the propagator is 
+\begin{equation}
+    \tilde{\Delta}(p) = \frac{i}{p^2-m^2+i\epsilon},
+\end{equation}
+which has a pole at $p^2=m^2$. For the free particle we find a pole in the propagator, at a value which coincides with the parameter in the Lagrangian.
+
+For the interacting theory, we can derive a general expression, which again does not rely on the perturbative definition of the two-point function. Let us first consider the case where $x^0 > y^0$. We can insert a complete set of zero-, one-, and multi-particle states in between:
+\begin{equation}
+\begin{aligned}
+    \ev{T\left\{\phi(x) \phi(y)\right\}}{0} &= \ev{\phi(x) \phi(y)}{0} \\
+    &= \ev{\phi(x)}{0} \!\! \ev{\phi(y)}{0} +\\
+    &\quad + \int d\Omega_p \mel{0}{\phi(x)}{\vb{p}}\!\!\mel{\vb{p}}{\phi(y)}{0} +\\
+    &\quad + \sum_n \int d\Omega_P \mel{0}{\phi(x)}{\vb{P}, n}\!\! \mel{\vb{P}, n}{\phi(y)}{0}.
+\end{aligned}
+\end{equation}
+The conventions defined in Eq. \ref{eq:conventions} simplify the expression above to 
+\begin{equation}
+    \int d^\Omega_p e^{-ip \cdot (x-y)} + \sum_n \int d\Omega_P e^{-ip \cdot (x-y)} |\mel{\vb{P}, n}{\phi(0)}{0}|^2.
+\end{equation}
+Because we are working with a scalar field, the matrix element 
 
 
 
