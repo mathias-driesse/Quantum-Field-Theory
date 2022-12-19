@@ -583,6 +583,8 @@ Since each power of $P$ adds two sources and each power of $V$ removes three sou
 % TODO: Let us look at the details that enter this contribution.
 
 \section{Scalar Field Correlators}
+% TODO: feynman rules!
+
 
 \subsection{The $S$-matrix}
 
@@ -604,7 +606,7 @@ It is usual to separate the $S$-matrix into the identity operator, corresponding
 
 
 
-\subsection{Field correlators}
+\subsection{Field correlators}\label{sec:field_correlators}
 As discussed in the previous lecture, the field correlators are obtained from the partition function by taking functional derivatives:
 
 \begin{equation}
@@ -747,6 +749,12 @@ where $n=m + m'$, and the fields are normalised so that
 % TODO: include proof for simpler version of LSZ and explain what it means. Problem Set 4.4 seems to be same as Srednicki proof.
 % TODO: figure out the bit where LSZ is the same as amputating the sources or something like that?
 
+Therefore, we can compute the $S$-matrix elements by adapting the Feynman rules given in Section \ref{sec:field_correlators}:
+\begin{itemize}
+    \item We associate an outgoing momentum to the external lines that correspond to particles in the final state, giving a relative minus sign compared to the normal Feynman rules when all momenta are taken to be inwards. 
+    \item We multiply each external line by a factor of $-i(p^2 - m_{\text{phys}}^2 + i\epsilon)$, this is part of computing the residue. Correlators multiplied by these factors are called \textit{truncated correlators} or \textit{amputated correlators}. % TODO: example for applying this.
+\end{itemize}
+
 \subsection{Källén-Lehmann representation}
 Let us now come back to the 2-point function, and find a representation that allows us to extract some physical information about the scalar field. We define the full propagator as 
 \begin{equation}
@@ -775,11 +783,54 @@ For the interacting theory, we can derive a general expression, which again does
     &\quad + \sum_n \int d\Omega_P \mel{0}{\phi(x)}{\vb{P}, n}\!\! \mel{\vb{P}, n}{\phi(y)}{0}.
 \end{aligned}
 \end{equation}
-The conventions defined in Eq. \ref{eq:conventions} simplify the expression above to 
+Using the same trick as in Eq. \ref{eq:x_to_y_mel}, the conventions defined in Eq. \ref{eq:conventions} simplify the expression above to 
 \begin{equation}
-    \int d^\Omega_p e^{-ip \cdot (x-y)} + \sum_n \int d\Omega_P e^{-ip \cdot (x-y)} |\mel{\vb{P}, n}{\phi(0)}{0}|^2.
+    \int d\Omega_p e^{-ip \cdot (x-y)} + \sum_n \int d\Omega_P e^{-ip \cdot (x-y)} |\mel{\vb{P}, n}{\phi(0)}{0}|^2.
 \end{equation}
-Because we are working with a scalar field, the matrix element 
+Because we are working with a scalar field, the matrix element $\mel{\vb{p}, n}{\phi(0)}{0}$ is invariant under Lorentz transformations, and therefore can only depend on $p$ via the invariant mass $M^2$. We can therefore introduce the \textit{spectral density}
+\begin{equation}
+    \rho(s) \equiv \sum_n |\mel{\vb{p}, n}{\phi(0)}{0}|^2 \delta(s-M^2),
+\end{equation}
+and write the two-point correlator as 
+\begin{equation}
+    \ev{T\left\{\phi(x) \phi(y)\right\}}{0} = \int d\Omega_p e^{-ip \cdot (x-y)} + \int_{4m_{\text{phys}}^2}^\infty ds \rho(s) \int d\Omega_P e^{-iP \cdot (x-y)}.
+\end{equation}
+We start the integral at $4m_{\text{phys}}^2$ because we must have $M \geq 2m_{\text{phys}}$ for a multiparticle state, so $M^2 \geq 4m_{\text{phys}}^2$.
+Similar manipulations for $y^0 > x^0$ yield
+\begin{equation}
+    \ev{\phi(y) \phi(x)}{0} = \int d\Omega_p e^{-ip \cdot (y-x)} + \int_{4m_{\text{phys}}^2}^\infty ds \rho(s) \int d\Omega_P e^{-iP \cdot (y-x)}.
+\end{equation}
+Collecting both contributions to the $T$-ordered product and using 
+\begin{equation}
+    \frac{1}{i} \int \hat{d}^Dp \frac{e^{-ip \cdot (x-y)}}{p^2-\mu^2 + i\epsilon} = \eval{\theta(x^0 - y^0)\int d^\Omega_p e^{-ip \cdot (x-y)} + \theta(y^0 - x^0) \int d^\Omega_p e^{-ip \cdot (y-x)}}_{p^0 = E_{\vb{p}}}
+\end{equation}
+we finally obtain 
+\begin{equation} \label{eq:almost_kallen_lehmann}
+    i\ev{T\left\{\phi(y) \phi(x)\right\}}{0} = \int \hat{d}^Dp e^{-ip \cdot (x-y)} \left[\frac{i}{p^2 - m_{\text{phys}} + i\epsilon} + \int_{4m_{\text{phys}}^2}^\infty ds \rho(s) \frac{i}{p^2 - s + i\epsilon}\right].
+\end{equation}
+Eq. \ref{eq:almost_kallen_lehmann} allows us to read the expression for the full propagator in momentum space, also known as the \textit{Källén-Lehmann representation}:
+\begin{empheq}[box=\widefbox]{align} \label{eq:kallen_lehmann}
+    \tilde{\Delta}_F(p) = \frac{i}{p^2 - m_{\text{phys}} + i\epsilon} + \int_{4m_{\text{phys}}^2}^\infty ds \rho(s) \frac{i}{p^2 - s + i\epsilon}
+\end{empheq}
+We see that the two-point correlator of a field $\phi$ that satisfies the conditions in Eq. \ref{eq:conventions} has a pole for $p^2 = m_{\text{phys}}^2$, with a residue exactly equal to one. Note that the field $\phi$ does not need to be the field that appears in the Lagrangian. Knowledge about the multiparticle states of the theory is encodeded in the spectral density part of the Källén-Lehmann representation.
+
+% TODO (optional): optical theorem
+
+\subsection{Ward identities}
+THe final example of relations between correlators that we are goign to dicuss are so-called \textit{Ward identities}. Ward identities are equalities between field correlators that are obtained as a consequence of symmetries of the system. In classical mechanics, symmetries of the action translate into conserved currents according to Noether's theorem. As we will show in this section, the analogue of current conservation in quantum field theory is precisely the Ward identity. 
+
+In order to derive the identities, let us start by considering a symmetry transformation of the field, i.e. a transformation
+\begin{equation}
+    \phi(x) \mapsto \phi'(x) = \phi(x) + \epsilon\delta(\phi(x)),
+\end{equation}
+such that for constant $\epsilon$ the action is unchanged. If we introduce a dependence on the space-time coordinate, $\epsilon(x)$, then the variation of the action can be written 
+\begin{equation}
+\begin{aligned}
+    \delta S &= \int d^Dx \fdv{S}{\phi(x)} \epsilon(x) \delta\phi(x) \\
+    &= -\int d^Dx \epsilon(x) \partial_\mu j^\mu(x),
+\end{aligned}
+\end{equation}
+where $j^\mu(x)$ is precisely the Noether current that is conserved in the classical theory. % TODO: clarify
 
 
 
