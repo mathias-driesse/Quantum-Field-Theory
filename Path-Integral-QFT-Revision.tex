@@ -820,18 +820,48 @@ We see that the two-point correlator of a field $\phi$ that satisfies the condit
 THe final example of relations between correlators that we are goign to dicuss are so-called \textit{Ward identities}. Ward identities are equalities between field correlators that are obtained as a consequence of symmetries of the system. In classical mechanics, symmetries of the action translate into conserved currents according to Noether's theorem. As we will show in this section, the analogue of current conservation in quantum field theory is precisely the Ward identity. 
 
 In order to derive the identities, let us start by considering a symmetry transformation of the field, i.e. a transformation
-\begin{equation}
+\begin{equation} \label{eq:symmetry_transformation}
     \phi(x) \mapsto \phi'(x) = \phi(x) + \epsilon\delta(\phi(x)),
 \end{equation}
 such that for constant $\epsilon$ the action is unchanged. If we introduce a dependence on the space-time coordinate, $\epsilon(x)$, then the variation of the action can be written 
 \begin{equation}
 \begin{aligned}
     \delta S &= \int d^Dx \fdv{S}{\phi(x)} \epsilon(x) \delta\phi(x) \\
-    &= -\int d^Dx \epsilon(x) \partial_\mu j^\mu(x),
+    &= -\int d^Dx \, \epsilon(x) \partial_\mu j^\mu(x),
 \end{aligned}
 \end{equation}
 where $j^\mu(x)$ is precisely the Noether current that is conserved in the classical theory. % TODO: clarify
+In order to derive the Ward identities, we use Eq. \ref{eq:symmetry_transformation} to perform a change of integration variables in the functional integral
+\begin{equation} \label{eq:symmetry_transformation_change_variables}
+    \int \mathcal{D}\phi \, e^{iS[\phi]} O(\phi) = \int \mathcal{D}\phi' \, e^{iS[\phi']} O(\phi'),
+\end{equation}
+where $O$ is an arbitrary function of the field $\phi$ and then expand the RHS to first order in $\epsilon$:
+\begin{equation} 
+    \int \mathcal{D} \phi \, e^{iS[\phi]} O(\phi) = \int \mathcal{D}\phi e^{iS[\phi]} \left(1 + i\delta S[\phi]\right) \left(O(\phi) + \delta O\right).
+\end{equation}
+We can now substitute the expressions for $\delta S$ and $\delta O$:
+\begin{equation}
+    \int \mathcal{D}\phi e^{iS[\phi]} \left(1 - i\int d^Dx \, \epsilon(x) \partial_\mu j^\mu(x)\right) \left(O(\phi) + \int d^Dx \, \fdv{O(\phi)}{\phi(x)}\epsilon(x) \delta \phi(x)\right)
+\end{equation}
+Thus the difference between the RHS and the LHS of Eq. \ref{eq:symmetry_transformation_change_variables}, ignoring terms of $\mathcal{O}(\epsilon^2)$, is 
+\begin{equation}
+    \int \mathcal{D}\phi \, e^{iS[\phi]} \left\{-i \int d^Dx \, \epsilon(x) \partial_\mu j^\mu(x) O(\phi) + \int d^Dx \, \fdv{O(\phi)}{\phi(x)} \epsilon(x) \delta \phi(x)\right\} = 0.
+\end{equation}
+Rearranging the terms above allows us to write the identity in a way that makes its physical content more obvious 
+\begin{equation} \label{eq:integrated_ward}
+    \int d^Dx \, \epsilon(x) \left\{-i \ev{\partial_\mu j^\mu(x) O(\phi)} + \ev{\fdv{O(\phi)}{\phi(x)} \delta\phi(x)}\right\} = 0.
+\end{equation}
+Eq. \ref{eq:integrated_ward} is sometimes referred to as an \textit{integrated Ward identity}. Since it has to be satisfied for every function $\epsilon(x)$, we can derive the \textit{Ward identity}:
+\begin{empheq}[box=\widefbox]{align}\label{eq:ward_identity}
+    -i \ev{\partial_\mu j^\mu(x) O(\phi)} + \ev{\fdv{O(\phi)}{\phi(x)} \delta\phi(x)} = 0.
+\end{empheq}
+There are two important physical results encoded in Eq. \ref{eq:ward_identity}. 
+\begin{enumerate}
+    \item Symmetry in QFT translates into a relation between correlators. This is true beyond perturbation theory and is used in defining the renormalization conditions in QFT.
+    \item Current conservation in QFT is realised at the level of the insertion of $\partial_\mu j^\mu(x)$ in field correlators, up to the terms that come from the variation of $O$. If $O$ is a product of local fields, this variation is localised in space-time, i.e. the contributions are all proportional to Dirac deltas. These terms are called \textit{contact terms}.
+\end{enumerate}
 
+Note that in deriving the Ward identity above we have assumed that the integration measure $\mathcal{D}(\phi)$ is invariant, i.e. $\mathcal{D}\phi = D\phi'$. There are examples where the measure is \textbf{not invariant}, which lead to extra terms in the Ward identites. In these cases the Ward identities are called \textit{anomalous}.
 
 
 \end{document}
