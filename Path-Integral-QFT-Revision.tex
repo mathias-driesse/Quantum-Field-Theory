@@ -482,11 +482,11 @@ The vacuum-to-vacuum amplitude in the presence of a source field $J(x)$ is the s
 
 By analogy with the QM computation, we can write the expression for the path integral representation of the vacuum amplitude
 \begin{equation} \label{eq:vacuum_amplitude}
-    Z_0[J] = \braket{0}{0}_J = \int \mathcal{D} \phi \exp\left\{i S_0\right\},
+    Z_0[J] = \braket{0}{0}_J = \int \mathcal{D} \phi \exp\left\{i S_0 + J \cdot \phi\right\},
 \end{equation}
 where
-\begin{equation}
-    S_0[\phi] = \int d^Dx\, \mathcal{L}_0(\phi(x)) + \int d^Dx\, J(x) \phi(x).
+\begin{equation} \label{eq:scalar_action}
+    S_0[\phi] = \int d^Dx\, \mathcal{L}_0(\phi(x)), \quad J\cdot \phi = \int d^Dx\, J(x) \phi(x).
 \end{equation}
 % For a free theory the integral in Eq. \ref{eq:vacuum_amplitude} is a Gaussian integral; this is why we have made sure to investigate their properties so carefully. In order to make the correspondence more explicit, we can write the action as 
 % \begin{equation}
@@ -511,7 +511,7 @@ we can rewrite the kinetic term:
 \end{equation} 
 since we have a factor of $\delta(p + p')$ from the exponential and $\tilde{\phi}(-p) = \tilde{\phi}^*(p)$. Hence the action for the field in momentum space can be written as 
 \begin{equation}
-    S_0[\phi] = \frac{1}{2} \int_p \left\{\tilde{\phi}(-p)\left[p^2-m^2 + i\epsilon\right] \tilde{\phi}(p) + \tilde{J}(p) \tilde{\phi}(-p) + \tilde{J}(-p) \tilde{\phi}(p)\right\}.
+    S_0[\phi] + J \cdot \phi = \frac{1}{2} \int_p \left\{\tilde{\phi}(-p)\left[p^2-m^2 + i\epsilon\right] \tilde{\phi}(p) + \tilde{J}(p) \tilde{\phi}(-p) + \tilde{J}(-p) \tilde{\phi}(p)\right\}.
 \end{equation}
 
 Note that the contribution from the $\epsilon$ term to the exponential is 
@@ -520,12 +520,12 @@ Note that the contribution from the $\epsilon$ term to the exponential is
 \end{equation}
 which is clearly convergent for large values of $|\tilde{\phi}(p)|$. The path integral for the free field is a simple extension of the Gaussian integrals that we have discussed previously. % TODO: re-explain how
 The Gaussian integral can be computed by performing a shift of the integration variables
-\begin{equation}
+\begin{equation} \label{eq:shift_integration_variables_propagator}
     \tilde{\chi}(p) = \tilde{\phi}(p) + \frac{\tilde{J}(p)}{p^2-m^2+i\epsilon},
 \end{equation}
 so that 
 \begin{equation}
-    S_0[\chi] = \frac{1}{2} \int_p \left\{\tilde{\chi}(-p)[p^2 - m^2 + i\epsilon]\tilde{\chi}(p) - \tilde{J}(-p) \frac{1}{p^2 - m^2 + i\epsilon} \tilde{J}(p) \right\}.
+    S_0[\chi] + J \cdot \chi = \frac{1}{2} \int_p \left\{\tilde{\chi}(-p)[p^2 - m^2 + i\epsilon]\tilde{\chi}(p) - \tilde{J}(-p) \frac{1}{p^2 - m^2 + i\epsilon} \tilde{J}(p) \right\}.
 \end{equation}
 Then up to a normalization factor (i.e. the kinetic term)
 \begin{equation} \label{eq:z0}
@@ -817,7 +817,7 @@ We see that the two-point correlator of a field $\phi$ that satisfies the condit
 % TODO (optional): optical theorem
 
 \subsection{Ward identities}
-THe final example of relations between correlators that we are goign to dicuss are so-called \textit{Ward identities}. Ward identities are equalities between field correlators that are obtained as a consequence of symmetries of the system. In classical mechanics, symmetries of the action translate into conserved currents according to Noether's theorem. As we will show in this section, the analogue of current conservation in quantum field theory is precisely the Ward identity. 
+The final example of relations between correlators that we are goign to dicuss are so-called \textit{Ward identities}. Ward identities are equalities between field correlators that are obtained as a consequence of symmetries of the system. In classical mechanics, symmetries of the action translate into conserved currents according to Noether's theorem. As we will show in this section, the analogue of current conservation in quantum field theory is precisely the Ward identity. 
 
 In order to derive the identities, let us start by considering a symmetry transformation of the field, i.e. a transformation
 \begin{equation} \label{eq:symmetry_transformation}
@@ -863,5 +863,75 @@ There are two important physical results encoded in Eq. \ref{eq:ward_identity}.
 
 Note that in deriving the Ward identity above we have assumed that the integration measure $\mathcal{D}(\phi)$ is invariant, i.e. $\mathcal{D}\phi = D\phi'$. There are examples where the measure is \textbf{not invariant}, which lead to extra terms in the Ward identites. In these cases the Ward identities are called \textit{anomalous}.
 
+\section{Fermion Fields}
+
+\subsection{Fermionic Path Integral}
+
+For the case of fermion fields, we want to define the path integral following the recipe we used for the scalar field. We will treat the fields $\psi$ and $\bar{\psi}$ as Grassmann variables, i.e. 
+\begin{equation}
+    {\psi_\alpha(x), \psi_\beta(y)} = 0.
+\end{equation}
+In order to have a consistent implementation of the anticommuting properties of the fermion fields, the functional derivative with repsect to a Grassmann variable must be a Grassmann variable itself. As a consequence 
+\begin{equation}
+    \frac{\delta^2 F}{\delta \psi_\alpha(x) \delta\psi_\beta(y)} = - \frac{\delta^2 F}{\delta\psi_\beta(y) \psi_\alpha(x)}
+\end{equation}
+and 
+\begin{equation}
+    \frac{\delta^2 F}{\delta \psi_\alpha(x) \delta\psi_\alpha(x)} = 0.
+\end{equation}
+In the definition of the generating functional (recall Eqs. \ref{eq:vacuum_amplitude}, \ref{eq:scalar_action} for the scalar case, $\int d^Dx \, J(x) \phi(x)$ was the source term in the action), we introduce independent sources for $\psi$ and $\bar{\psi}$:
+\begin{equation}
+    S_0 = \int d^Dx \, \mathcal{L}_0 + \int d^Dx \, \left[\bar{\eta}(x)\psi(y) + \bar{\psi}(y) \eta(y)\right],
+\end{equation}
+such that
+\begin{align}
+    \fdv{\eta(y)} \int d^Dx \, \left[\bar{\eta}(x)\psi(y) + \bar{\psi}(y) \eta(y)\right] &= -\bar{\psi}(x) \\
+    \fdv{\bar{\eta}(x)} \int d^Dx \, \left[\bar{\eta}(x)\psi(y) + \bar{\psi}(y) \eta(y)\right] &= \psi(x).
+\end{align}
+Note the difference of ordering between the two terms in brackets.
+
+The action for the free Dirac field is 
+\begin{equation}
+    S_0[\psi, \bar{\psi}] = \int d^Dx \, \bar{\psi}(x) (i\slashed{\partial} - m)\psi(x).
+\end{equation}
+Using the rules above for the functional derivative, we can find the classical equation of motion, i.e. Dirac's equation
+\begin{equation}
+    \fdv{\bar{\psi}(x)} S_0[\psi, \bar{\psi}] = 0 \implies (i\slashed{\partial} - m)\psi(x).
+\end{equation}
+By analogy with the scalar case, we can write the generating functional for the free theory:
+\begin{equation}
+\begin{aligned}
+    Z_0[\bar{\eta}, \eta] &= \int \mathcal{D} \psi \, \mathcal{D} \psi \,\exp\left[i (S_0[\psi, \bar{\psi}] + \bar{\eta} \cdot \psi + \bar{\psi} \cdot \eta)\right] \\
+    &= \exp\left[-\int d^Dx \, d^Dy \, \bar{\eta}(x) S(x-y) \eta(y)\right].
+\end{aligned}
+\end{equation}
+By a similar method to Eq. \ref{eq:shift_integration_variables_propagator}, the Feynman propagator for the Dirac field is
+\begin{empheq}[box=\widefbox]{align}
+    S(x-y) = \int_p e^{-ip \cdot (x-y)} \frac{i(\slashed{p} + m)}{p^2 - m^2 + i\epsilon}.
+\end{empheq}
+Note that, just like in the case of the scalar field, the propagator is the inverse of the quadratic term in the action. The propagator is a $4 \times 4$ matrix in spin space, which we can write explicity:
+\begin{equation}
+    \ev{T\left\{\psi_\alpha(x)\bar{\psi}_\beta(y)\right\}}{0} = S_{\alpha\beta}(x-y) = \int_p e^{-ip \cdot (x-y)} \frac{i\left((\gamma^\mu)_{\alpha\beta}p_\mu + m \delta_{\alpha\beta}\right)}{p^2-m^2+i\epsilon}.
+\end{equation}
+Because of the linear term $p$ in the propagator the fermionic propagator is not symmetric in its arguments, and will be denoted with an arrow pointing from one end to the other: 
+\begin{equation}
+    S(x-y) = \feynmandiagram[small, horizontal=a to b]{
+        a [particle = $x$] -- [fermion] b [particle = $y$],
+    };
+\end{equation} % TODO: fix vertical alignment 
+Correlators of fermion fields are computed by taking derivatives with respect to the source fields:
+\begin{equation}
+    \ev{T\left\{\psi_{\alpha_1} \dots \bar{\psi}_{\beta_1}(y_1) \dots \right\}}{0}_0 = \eval{\left(\frac{1}{i}\fdv{\bar{\eta}_{\alpha_1}(x_1)}\right) \dots \left(i \fdv{\eta_{\beta_1}(y_1)}\right) \dots Z_0[\eta, \bar{\eta}]}_{\eta = \bar{\eta} = 0}
+\end{equation}% TODO: why factor of i and not 1/i?
+
+In the interacting theory, if the interactions are specified by a potential $V(\psi, \bar{\psi})$, the generating functional is defined as 
+\begin{equation}
+    Z[\eta, \bar{\eta}] = \exp\left[i \int d^Dx \, V\left(i \fdv{\eta(x)}, \frac{1}{i} \fdv{\bar{\eta}(x)}\right)\right],
+\end{equation}
+and the normalization is fixed by requiring 
+\begin{equation}
+    Z[0,0] = 1.
+\end{equation}
+Thus, for a perturbative expansion to our generating functional, we require a double expansion in the powers of the interaction and in powers of the propagator.
 
 \end{document}
