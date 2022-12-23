@@ -934,4 +934,46 @@ and the normalization is fixed by requiring
 \end{equation}
 Thus, for a perturbative expansion to our generating functional, we require a double expansion in the powers of the interaction and in powers of the propagator.
 
+\section{Gauge Fields}
+
+The action for a gauge field $A_\mu(x)$ can be written as 
+\begin{equation} \label{eq:gauge_field_action}
+    S[A] = \int d^Dx \, \left(-\frac{1}{4}F_{\mu\nu}(x)F^{\mu\nu}(x)\right),
+\end{equation}
+where in the case of the electromagnetic field, which we will be discussing for the remainder of the section, $F_{\mu\nu}(x) = \partial_\mu A_\nu(x) - \partial_\nu A_\mu(x)$. Computing the variation of the action yields the classical equations of motion, i.e. Maxwell's equations in vacuo:
+\begin{equation}
+    \partial_\mu F^{\mu\nu}(x) = 0.
+\end{equation}
+Note that the action only depends on the field strength $F_{\mu\nu}$, and therefore is invariant under \textit{local gauge transformations}
+\begin{equation}
+    A_\mu(x) \mapsto A_\mu^\Lambda(x) = A_\mu(x) + \partial_\mu \Lambda(x).
+\end{equation}
+Other symmetries, like translation invariance and invariance under Lorentz transformations are also encoded in Eq. \ref{eq:gauge_field_action}. The action is quadratic in the fields, and can be recast as 
+\begin{equation}
+    S[A] = \frac{1}{2}\int d^Dx \, A_\mu(x)[\partial^2 g^{\mu\nu} - \partial^\mu \partial^\nu]A_v(x).
+\end{equation} % TODO: show proof
+
+It would be tempting at this stage to define the path integral by analogy to the case of the scalar field:
+\begin{equation}
+    Z[J] = \int \mathcal{D}A \, \exp{i \int d^Dx \left[-\frac{1}{4}F_{\mu\nu}(x)F^{\mu\nu}(x) + J_\mu(x) A^\mu(x)\right]}.
+\end{equation}
+Unfortunately, the integral above can be performed iff the kernel is invertible. Writing the action in momentum space yields the kernel in its diagonalised form,
+\begin{equation}
+    S[A] = \int \hat{d}^Dk \tilde{A}_\mu(k)[K^{\mu\nu}(k)]\tilde{A}_\nu(-k),
+\end{equation}
+where the kernel is given by 
+\begin{equation}
+    K^{\mu\nu}(k) = -k^2 g^{\mu\nu} + k^\mu k^\nu.
+\end{equation}
+Substituting any longitudinal component of the gauge field, $\tilde{A}_\mu(k) = k_\mu \tilde{\Lambda}(k)$ yields
+\begin{equation}
+\begin{aligned}
+    S[A] &= \int \hat{d}^Dk \,k_\mu \tilde{\Lambda}(k)[k^\mu k^\nu - k^2 g^{\mu\nu}]k_\nu \tilde{\Lambda}(k) \\
+    &= \int \hat{d}^Dk \, \tilde{\Lambda}(k) (k^4 - k^4)\tilde{\Lambda}(k) \\
+    &= 0
+\end{aligned}
+\end{equation}
+
+Thus, the action does not depend at all on the longitudinal components. They are ``projected out'' of the action, leaving a divergent integral over a non-compact domain. This is a direct consequence of the redundancy in the usage of a four-vector to describe photons. There are indeed four degrees of freedom in a real vector field, which is used to represent photons with only \textbf{two} physical, transverse polarizations. Using a four-vector allows an elegant implementation of Lorentz covariance, but the price we pay is that we have unphysical degrees of freedom in the action. The redundancy is at the origin of the gauge symmetry of the action. Going back to position space, it is easy to see that the longitudinal modes are \textit{pure gauge} ones, i.e. $A_\mu(x) = \partial_\mu \Lambda(x)$. The solution to this problem is to identify the redundant degrees of freedom, and factor out the integration over these modes.
+
 \end{document}
