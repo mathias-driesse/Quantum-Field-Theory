@@ -976,4 +976,93 @@ Substituting any longitudinal component of the gauge field, $\tilde{A}_\mu(k) = 
 
 Thus, the action does not depend at all on the longitudinal components. They are ``projected out'' of the action, leaving a divergent integral over a non-compact domain. This is a direct consequence of the redundancy in the usage of a four-vector to describe photons. There are indeed four degrees of freedom in a real vector field, which is used to represent photons with only \textbf{two} physical, transverse polarizations. Using a four-vector allows an elegant implementation of Lorentz covariance, but the price we pay is that we have unphysical degrees of freedom in the action. The redundancy is at the origin of the gauge symmetry of the action. Going back to position space, it is easy to see that the longitudinal modes are \textit{pure gauge} ones, i.e. $A_\mu(x) = \partial_\mu \Lambda(x)$. The solution to this problem is to identify the redundant degrees of freedom, and factor out the integration over these modes.
 
+\subsection{Faddeev-Popov method}
+We would like to develop a method to separate the physical degrees of freedom from the unphysical degrees of freedom in our path integral. For this, we make use of our knowledge of gauge theory. 
+A \textit{gauge orbit} is a set of gauge configurations that are related by gauge transformations:
+\begin{equation}
+    \Omega_A = \{A_\mu^\Lambda(x) \,\forall \,\Lambda(x)\}.
+\end{equation}
+
+As discussed above, for a given $A_\mu(x)$, all the field configurations in $\Omega_A$ represent the same physical state, and therefore a single representative should be included in the path integral for each gauge orbit. We can select such a representative by requiring it to be the solution of a \textit{gauge fixing} condition 
+\begin{equation}
+    G(A_\mu(x)) = 0.
+\end{equation}
+
+In order to insert a gauge fixing condition in the path integral, we are going to make use of the following identity:
+\begin{align}
+    1 &= \int \mathcal{D} G\, \delta(G) = \int \prod_x \left[dG(x)\delta(G(x))\right] \\
+    &= \int \mathcal{D} \Lambda \, \delta(G(A_\mu^\Lambda)) \det\left(\fdv{G(A_\mu^\Lambda)}{\Lambda}\right). \label{eq:jacobian}
+\end{align}
+
+
+As an example, the Lorenz gauge corresponds to the choice 
+\begin{equation}
+    G(A_\mu(x)) = \partial_\mu A^\mu(x);
+\end{equation}
+and therefore 
+\begin{equation}
+\begin{aligned}
+    G(A_\mu^\Lambda(x)) &= \partial_\mu(A^\mu(x) + \partial^\mu \Lambda(x)) \\
+    &= \partial_\mu A^\mu(x) + \partial^2 \Lambda(x).
+\end{aligned}
+\end{equation}
+
+In order to compute the Jacobian of the change of variables in Eq. \ref{eq:jacobian}, we need to consider that $G(A_\mu^\Lambda(x))$ is a function of $\Lambda$, so that 
+\begin{equation}
+    \fdv{G(A_\mu^\Lambda(x))}{\Lambda(y)} = \delta(x-y) \partial^2
+\end{equation}
+In this simple case, we note that the functional derivative does not depend on the gauge field $A_\mu$, and therefore we do not need to work out the determinant in full detail.
+
+We can now use Eq. \ref{eq:jacobian} and rewrite the functional integral for a gauge theory as 
+\begin{equation}
+\begin{aligned}
+    \int \mathcal{D}A\, e^{iS[A]} &= \det\left(\fdv{G(A_\mu^\Lambda)}{\Lambda}\right) \int \mathcal{D}\Lambda \int \mathcal{D} A \, e^{iS[A]} \delta(G(A_\mu^\Lambda)) \\
+    & \propto \int \mathcal{D}\Lambda \int \mathcal{D}A^\Lambda e^{iS[A^\Lambda]} \delta(G(A_\mu^\Lambda)).
+\end{aligned}
+\end{equation}
+We can do this because the integration measure as well as the action are invariant under the gauge transformation.
+We have therefore achieved our goal, namely to separate the integration over the gauge copies, which is now factored out in front of the path integral. The remaining integration is over the gauge fields but includes the gauge-fixing delta function, which selects one representative for each gauge orbit. This procedure is called the \textit{Faddeev-Popov} method, and turns out to be particularly simple for the $U(1)$ theory, where the Jacobian turns out to be independent of the gauge field, and drops out of the integral. The procedure yields a more interesting result for the case of non-Abelian gauge symmetry. 
+
+In a generalized gauge,
+\begin{equation}
+    G(A_\mu(x)) = \partial_\mu A^\mu(x) - \omega(x),
+\end{equation}
+where $\omega$ is a generic function. Using the Faddeev-Popov trick, we can write the path integral as 
+\begin{equation}
+    \int \mathcal{D}A\, e^{iS[A]} \propto \int \mathcal{D}\Lambda \int \mathcal{D}A\, e^{iS[A]} \delta\left(\partial_\mu A^\mu(x) - \omega(x)\right).
+\end{equation}
+Since the path integral is independent of $\omega$, we can multiply it by an arbitrary functional of $\omega$, and then perform a path integral over $\omega$; the result can only change by a normalization of $Z[J]$.
+\begin{equation}
+\begin{aligned}
+    \int \mathcal{D}A\, e^{iS[A]} &\propto \int \mathcal{D} \omega \, \exp\left[-i \int d^Dx \frac{\omega^2(x)}{2\xi}\right] \int \mathcal{D}\Lambda \int \mathcal{D}A\, e^{iS[A]} \delta\left(\partial_\mu A^\mu(x) - \omega(x)\right) \\
+    &= \int \mathcal{D} \Lambda \int \mathcal{D} A \, e^{iS[A]} \exp\left[-i \int d^Dx \frac{1}{2\xi} (\partial_\mu A^\mu(x))^2\right].
+\end{aligned}
+\end{equation}
+Once again we have factored out the volume of the gauge orbit, but now instead of a gauge fixing delta function in the path integral, we have a non-trivial weight for the longitudinal modes in the exponential. The modified action can be written as:
+\begin{equation}
+    S[A] - \frac{1}{2\xi} \int d^Dx \left(\partial_\mu A^\mu(x)\right)^2 = \frac{1}{2} \int d^Dx A_\mu(x) \left[\partial^2 g^{\mu\nu} - \left(1 - \frac{1}{\xi}\right)\partial^\mu \partial^\nu\right] A_\nu(x).
+\end{equation}
+Where the $\xi$-dependent term is a free scalar field, a \textit{Faddeev-Popov ghost}. Since in the Abelian case, it does not couple to anything else, we may simply ignore it. The new kernel in momentum space is 
+\begin{equation}
+    K_\xi^{\mu\nu}(k) = -k^2 g^{\mu\nu} + \left(1 - \frac{1}{\xi}\right) k^\mu k^\nu,
+\end{equation}
+and it can be readily checked that the longitudinal modes are no longer zero modes of $K_\xi$, which is now invertible. Its inverse, which we denote $\tilde{D}_F^{\mu\nu}(k)$ is the Feynman propagator for the photon field:
+\begin{equation}
+    \tilde{D}_F^{\mu\nu}(k) = \frac{-i}{k^2+i\epsilon}\left[g^{\mu\nu} - (1-\xi)\frac{k^\mu k^\nu}{k^2}\right].
+\end{equation}
+The choices $\xi = 0$ and $\xi = 1$ are called respectively the Landau and Feynman gauge propagators. The Gaussian integral for the free theory can now be performed 
+\begin{equation}
+    Z_0[J] = \exp\left[\frac{1}{2}\int \hat{d}^Dk \tilde{J}_\mu(k) \tilde{D}_F^{\mu\nu}(k) \tilde{J}_\nu(-k)\right].
+\end{equation}
+The propagator in momentum space is obtained by Fourier transforming the expression in momentum space, 
+\begin{equation}
+\begin{aligned}
+    D_f^{\mu\nu}(x-y) &= \int \hat{d}^Dk e^{-ik \cdot (x-y)} \tilde{D}_F^{\mu\nu}(k) \\
+    &= \feynmandiagram[small, horizontal=a to b]{
+        a [particle = $x$] -- [photon] b [particle = $y$],
+    };.
+\end{aligned}
+\end{equation}
+
+
 \end{document}
