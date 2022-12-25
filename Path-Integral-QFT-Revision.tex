@@ -1064,5 +1064,63 @@ The propagator in momentum space is obtained by Fourier transforming the express
 \end{aligned}
 \end{equation}
 
+\section{Divergences}
 
+\subsection{A first look at divergences}
+
+In this section we will aim to develop a self-consistent treatment of divergences in quantum field theory. This is a vast topic, which can hardly be addressed exhaustively in the time that we have. Therefore, we will follow the following steps:
+\begin{enumerate}
+    \item Compute the scalar two-point function beyond the first order in perturbation theory. As we try to perform this calculation we will encounter our first divergent integral.
+    \item Discuss the regularization of divergences; i.e. a procedure that allows us to manipulate well-defined mathematical expressions, and to identify the structure of the divergences.
+    \item Discuss the renormalization of divergences, i.e. the conditions that are necessary for a quantum field theory to produce finite, unambiguous predictions.
+\end{enumerate}
+
+Working in perturbation theroy, we compute the two-point function
+\begin{equation} \label{eq:scalar_two_point_function}
+    \tilde{G}^{(2)}(p, p') = \hat{\delta}(p + p')\frac{1}{i}\tilde{\Delta}_F(p),
+\end{equation}
+as a Taylor expansion in powers of the coupling constant 
+\begin{equation}
+    \tilde{G}^{(2)}(p, p') = \sum_k g^k\tilde{G}^{(2,k)}(p, p'). 
+\end{equation}
+As discussed before, the delta function in Eq. \ref{eq:scalar_two_point_function} ensures momentum conservation. For all pratical purposes, we should remember that it is there, and work in the perturbative expansion of the full propagator 
+\begin{equation}
+    \tilde{\Delta}_F(p) = \sum_k g^k \tilde{\Delta}_F^{(k)}(p).
+\end{equation}
+From our previous computations % TODO: which ones?
+\begin{equation}
+    \frac{1}{i}\tilde{\Delta}_F^{(2)}(p^2) = \frac{1}{i} \tilde{\Delta}(p^2) \left(i \Pi(p^2)\right) \frac{1}{i} \tilde{\Delta}(p^2)
+\end{equation}
+where 
+\begin{equation}
+    \tilde{\Delta}(p^2) = \frac{1}{p^2 + m^2 + i\epsilon}
+\end{equation}
+is the free-field propagator, and 
+\begin{equation}
+\begin{aligned}
+    i\Pi(p^2) &= \frac{1}{2}(ig)^2 \left(\frac{1}{i}\right)^2 \int \hat{d}^D\ell \frac{1}{l^2 - m^2 + i\epsilon} \frac{1}{(l - p)^2 - m^2 + i\epsilon}\\
+    &= \frac{1}{2}(ig)^2 \left(\frac{1}{i}\right)^2 \int \hat{d}^D\ell \tilde{\Delta}(l^2) \tilde{\Delta}((l-p)^2)
+\end{aligned}
+\end{equation}
+is the \textit{self-energy}.
+
+Let us evaluate the self-energy using the technique of \textit{Feynman parameters}, using the general formula 
+\begin{equation}
+\begin{aligned}
+    \frac{1}{A_1^{\alpha_1} \dots A_n^{\alpha_n}} = &\frac{\Gamma(\alpha_1 + \dots + \alpha_n)}{\Gamma(\alpha_1) \dots \Gamma(\alpha_n)} \int_0^1 dx_1 \dots \int_0^1 dx_n \, x_1^{\alpha_1 - 1} \dots x_n^{\alpha_n - 1} \times \\
+    &\times \delta(1 - x_1 - \dots - x_n) \frac{1}{\left(x_1 A_1 + \dots + x_n A_n\right)^{\alpha_1 + \dots + \alpha_n}}.
+\end{aligned}
+\end{equation}
+
+Applying it to the integrand above yields 
+\begin{equation}
+\begin{aligned}
+    \frac{1}{l^2 - m^2 + i\epsilon} \frac{1}{(l - p)^2 - m^2 + i\epsilon} &= \frac{\Gamma(1+1)}{\Gamma(1) \Gamma(1)} \int_0^1 dx_1 \int_0^1 dx_2\, \delta(1-x_1-x_2) \frac{1}{(x_1(l^2-m^2+i\epsilon) + x_2((l-p)^2 - m^2 + i\epsilon))^{1+1}} \\
+    &= \int_0^1 dx \frac{1}{(q^2 - M^2 + i\epsilon)^2},
+\end{aligned}
+\end{equation}
+where $q = l - xp$ and $M^2(x, p) = m^2 - x(1-x)p^2$. Hence, we have 
+\begin{equation}
+    i\Pi(p^2) = \frac{g^2}{2} \int_0^1 \int \hat{d}^Dq \frac{1}{(q^2 - M^2 + i\epsilon)^2}.
+\end{equation}
 \end{document}
