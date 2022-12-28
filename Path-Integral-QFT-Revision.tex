@@ -1,10 +1,9 @@
 %!TEX program = lualatex
 \documentclass{article}
-\usepackage{physics, amsmath, amsfonts, empheq, mathtools, booktabs, hyperref, simpler-wick, tikz-feynman, slashed}
+\usepackage{physics, amsmath, amsfonts, empheq, mathtools, booktabs, hyperref, simpler-wick, tikz-feynman, slashed, parskip}
 \usepackage[style=nature, autocite = inline]{biblatex}
 \usepackage[margin=1in]{geometry}
 
-\setlength{\parindent}{0pt}
 \numberwithin{equation}{section}
 
 \newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
@@ -17,6 +16,9 @@
 
 \maketitle
 
+\tableofcontents
+\newpage
+
 \section{Gaussian Integrals}
 
 The general Gaussian integral, for a complex, symmetric $n\times n$ matrix $A$ such that $\Re A \geq 0$ and the eigenvalues $a_i$ of $A$ are nonzero, is given by 
@@ -26,7 +28,6 @@ The general Gaussian integral, for a complex, symmetric $n\times n$ matrix $A$ s
 \end{empheq}
 
 Let $\mu$ be a measure in $\mathbb{R}^n$; we define the expectation value
-
 \begin{equation}
 \begin{aligned}
     \ev{F}_\mu &= \int d\mu(x)F(x) \\
@@ -65,7 +66,7 @@ which allows the correlaters to be written as
     \ev{x_{i_1} \dots x_{i_\ell}}_\mu = \pdv{b_{i_1}} \dots \pdv{b_{i_\ell}} Z_\mu(b) \eval_{b=0}.
 \end{equation}
 
-Let us consder the Gaussian measure
+Let us consider the Gaussian measure
 \begin{equation} \label{eq:gaussian_measure}
     d\mu_0(x) = d^nx\, \Omega_0(x) = d^nx \, \mathcal{N}_0 \exp\left(-\frac{1}{2}\sum_{i,j=0}^n x_i A_{ij}x_j\right),
 \end{equation}
@@ -1050,7 +1051,7 @@ and it can be readily checked that the longitudinal modes are no longer zero mod
 \begin{equation}
     \tilde{D}_F^{\mu\nu}(k) = \frac{-i}{k^2+i\epsilon}\left[g^{\mu\nu} - (1-\xi)\frac{k^\mu k^\nu}{k^2}\right].
 \end{equation}
-The choices $\xi = 0$ and $\xi = 1$ are called respectively the Landau and Feynman gauge propagators. The Gaussian integral for the free theory can now be performed 
+The choices $\xi = 0$ and $\xi = 1$ are called the Landau and Feynman gauge propagators, respectively. The Gaussian integral for the free theory can now be performed 
 \begin{equation}
     Z_0[J] = \exp\left[\frac{1}{2}\int \hat{d}^Dk \tilde{J}_\mu(k) \tilde{D}_F^{\mu\nu}(k) \tilde{J}_\nu(-k)\right].
 \end{equation}
@@ -1075,7 +1076,7 @@ In this section we will aim to develop a self-consistent treatment of divergence
     \item Discuss the renormalization of divergences, i.e. the conditions that are necessary for a quantum field theory to produce finite, unambiguous predictions.
 \end{enumerate}
 
-Working in perturbation theroy, we compute the two-point function
+Working in perturbation theory, we compute the two-point function
 \begin{equation} \label{eq:scalar_two_point_function}
     \tilde{G}^{(2)}(p, p') = \hat{\delta}(p + p')\frac{1}{i}\tilde{\Delta}_F(p),
 \end{equation}
@@ -1116,11 +1117,95 @@ Applying it to the integrand above yields
 \begin{equation}
 \begin{aligned}
     \frac{1}{l^2 - m^2 + i\epsilon} \frac{1}{(l - p)^2 - m^2 + i\epsilon} &= \frac{\Gamma(1+1)}{\Gamma(1) \Gamma(1)} \int_0^1 dx_1 \int_0^1 dx_2\, \delta(1-x_1-x_2) \frac{1}{(x_1(l^2-m^2+i\epsilon) + x_2((l-p)^2 - m^2 + i\epsilon))^{1+1}} \\
+    &= \int_0^1 dx_2 \frac{1}{(l^2 - m^2 - 2xlp + xp^2)^2} \\
     &= \int_0^1 dx \frac{1}{(q^2 - M^2 + i\epsilon)^2},
 \end{aligned}
 \end{equation}
 where $q = l - xp$ and $M^2(x, p) = m^2 - x(1-x)p^2$. Hence, we have 
 \begin{equation}
-    i\Pi(p^2) = \frac{g^2}{2} \int_0^1 \int \hat{d}^Dq \frac{1}{(q^2 - M^2 + i\epsilon)^2}.
+    i\Pi(p^2) = \frac{g^2}{2} \int_0^1 dx \int \hat{d}^Dq \frac{1}{(q^2 - M^2 + i\epsilon)^2}.
 \end{equation}
+
+It is useful to introduce Euclidean momenta in order to perform the integration. Because of the location of the poles (below the real axis on the interval $\Re q^0 > 0$, above the real axis on the interval $\Re q^0 < 0$), we can rotate the integration contour clockwise by $\pi/2$ to rune along the purely imaginary axis. This is known as a \textit{Wick rotation}. Introducing 
+\begin{equation}
+    q^0 = i q_E^0, \quad \vb{q} = \vb{q}_E,
+\end{equation}
+we can rewrite $(q^2 - M^2)^2 = ((iq^0_E)^2 - \vb{q}_E^2 - M^2)^2 = (q^2 + M^2)^2$:
+\begin{equation} \label{eq:pi}
+    \Pi(p^2) = \frac{g^2}{2} \int_0^1 dx \int \hat{d}^Dq_E \frac{1}{(q_E^2 + M^2)^2}.
+\end{equation}
+
+Note that we have dropped the $i$ in front because of the Wick rotation of the differential. Since there are four powers of $q_E$ in the denominator and $D$ powers of $q_E$ in the numerator, the integral is clearly divergent for $D \geq 4$. In particular, it is quadratically divergent in the UV for the case $D=6$, which is the one we will be interested in. Before developing more sophisticated tools, we can make a simple, but rather deep, observation. If we take the derivative of $\Pi(p^2)$ with respect to $p^2$:
+\begin{equation}
+\begin{aligned}
+    \Pi'(p^2) &= \frac{g^2}{2} \int_0^1 dx \int \hat{d}^Dq_E \frac{-1}{(q_E^2 + M^2)^3} \left(x(x-1)\right) \\
+    &= -g^2 \int_0^1 dx\, x(x-1) \int \hat{d}^Dq_E \frac{1}{(q_E^2 +M^2)^3},
+\end{aligned}
+\end{equation}
+which is still divergent, but only for $D\geq 6$. Similarly
+\begin{equation}
+    \Pi''(p^2) = 3g^2 \int_0^1 dx\, x^2(x-1)^2 \int \hat{d}^Dq_E \frac{1}{(q_E^2 + M^2)^4}
+\end{equation}
+is divergent only for $D\geq 8$, and in particular is finite for $D=6$. Therefore, the function $\Pi(p^2)$ can be reconstructed by integrating its second derivative twice,
+\begin{equation}
+    \Pi(p^2) = \Pi(\mu_1^2) + \Pi'(\mu_2^2)(p^2 - \mu_1^2) + \int_{\mu_1^2}^{p^2} ds' \int_{\mu_2^2}^{s'} ds\, \Pi''(s).
+\end{equation}
+Thus, $\Pi(p^2)$ in $D=6$ is well-defined for all values of $p^2$, provided we fix the values $\Pi(\mu_1^2)$ and $\Pi'(\mu_2^2)$, i.e. the values of the function and its derivative at two \textit{arbitrary} values of the scale.
+
+\subsection{Regularization}
+
+In order to make progress in our understanding of these divergences, we first need to regulate the theory, i.e. we need to choose a prescription that makes the loop integrals mathematically well-defined. This is clearly a necessary condition in order to be able to manipulate these expressions, and eventually define a predictive theory that yields finite results for physical quantities. 
+
+There are serveral ways of regularizing a theory, here we list some of the most common procedures, some of which we will explore in tutorials:
+\begin{enumerate}
+    \item Sharp cutoff in Euclidean momenta, $q_E^2 \leq \Lambda^2$.
+    \item Pauli-villars regulator. The propagators are modified in order to have a less divergent behaviour at large values of the momenta:
+    \begin{equation}
+        \frac{1}{p^2 - m^2 + i\epsilon} \mapsto \frac{1}{p^2 - m^2 + i\epsilon} - \frac{1}{p^2 - M^2 + i\epsilon}.
+    \end{equation}
+    \item Schwinger-time regularization.
+    \item Work in generic dimension $D$, and define the divergent integrals by analytic continuation.
+\end{enumerate}
+
+\subsection{Dimensional Regularization}
+
+In dimensional regularization, loop integrals are computed in a generic dimension $D$, where the integration is actually convergent, and then defined for arbitrary values of $D$ by analytical continuation. Let us look at the integral that we encountered above for the two-point function. After Wick rotation, we are interested in 
+\begin{equation}
+    I_D = \int \hat{d}^Dq_E \frac{1}{(q_E^2 + m^2)^2},
+\end{equation}
+which is easily switched to spherical coordinates:
+\begin{equation} \label{eq:I_D}
+\begin{aligned}
+    I_D &= \int \hat{d}\Omega_D \frac{1}{2} \int_0^\infty dq_E^2 (q_E^2)^{D/2-1} \frac{1}{(q_E^2 + M^2)^2} \\
+    &= \frac{1}{(2\pi)^D}
+    &= \frac{1}{(4\pi)^{D/2}} \frac{\Gamma(2-D/2)}{\Gamma(2)} \left(\frac{1}{M^2}\right)^{2-D/2}.
+\end{aligned}
+\end{equation} % TODO: fill in and explanation
+
+Eq. \ref{eq:I_D} provides an expression for $I_D$ which can be extended by analytical continuation to arbitrary values of $D$. It is interesting to note that the divergences that we identified in $D=4$ and $D=6$ appear in the regularized version as poles of the gamma function for negative integer values of its argument. 
+
+\subsection{Structure of divergences}
+
+So far, we have avoided discussing the issue of dimensions and units in detail in quantum field theory. Let us review what we need for the following section. In natural units, we reduce all units to powers of mass by setting $\hbar = c = k_B = 1$ - not just setting their value, but their dimensionality too. The mass dimension is the power of mass for that unit. For example, momentum has mass dimension 1, and lengths have mass dimension $-1$. We denote by $[\alpha]$ the mass dimension for some quantity $\alpha$. Since mass dimension is an exponentiated quantity, we have $[\alpha\beta] = [\alpha] + [\beta]$. 
+
+Consider the $\phi^3$ theory Lagrangian
+\begin{equation}
+    \mathcal{L} = \frac{1}{2}(\partial_\mu \phi)(\partial^\mu \phi) + \frac{1}{2}m^2 \phi^2 + \frac{1}{3!}g \phi^3.
+\end{equation}
+We know that the action
+\begin{equation}
+    S = \int d^Dx \mathcal{L}
+\end{equation}
+is dimensionless. Furthermore, since $[d^Dx] = -D$ we must have $[\mathcal{L}] = D$. In the first term of the Lagrangian, $[\partial_\mu] = [\partial^\mu] = [1/x] = 1$, so we must have $[\phi] = (D-2)/2$. We must also have that $[g\phi^3] = [\mathcal{L}] = D$, so
+\begin{equation}
+    [g] = [\mathcal{L}] - [\phi^3] = \frac{6-D}{2}.
+\end{equation}
+That means that in $D=6$, the coupling is dimensionless. This property is useful for the cleanliness of our perturbation theory, so in the future we will consider $D=6$ as the desired limit. To take this limit, we consider $D=6-2\varepsilon$, in which our gamma functions do not diverge. Then $[\phi] 2-\varepsilon$ and $[g] = \varepsilon$. To preserve dimensionless in the coupling constant, we replace $g$ in the action by $g\tilde{\mu}^\epsilon$, where $\tilde{\mu}$ is an arbitrary scale. This seemingly harmless rescaling has deep consequences: the regularization procedure - in this case changing the number of space-time dimensions - has automatically introduced a new scale in the problem. 
+
+Performing this rescaling in our expression for $\Pi(p^2)$ (Eq. \ref{eq:pi}) and substituting our expression for $I_D$ (Eq. \ref{eq:I_D}) yields
+\begin{equation}
+    \Pi(p^2) = \frac{g^2}{2} \tilde{\mu}^{2\epsilon} \int_0^1 dx \frac{1}{(4\pi)^{D/2}}
+\end{equation}
+
+
 \end{document}
