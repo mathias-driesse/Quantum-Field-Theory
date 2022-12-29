@@ -1200,11 +1200,52 @@ is dimensionless. Furthermore, since $[d^Dx] = -D$ we must have $[\mathcal{L}] =
 \begin{equation}
     [g] = [\mathcal{L}] - [\phi^3] = \frac{6-D}{2}.
 \end{equation}
-That means that in $D=6$, the coupling is dimensionless. This property is useful for the cleanliness of our perturbation theory, so in the future we will consider $D=6$ as the desired limit. To take this limit, we consider $D=6-2\varepsilon$, in which our gamma functions do not diverge. Then $[\phi] 2-\varepsilon$ and $[g] = \varepsilon$. To preserve dimensionless in the coupling constant, we replace $g$ in the action by $g\tilde{\mu}^\epsilon$, where $\tilde{\mu}$ is an arbitrary scale. This seemingly harmless rescaling has deep consequences: the regularization procedure - in this case changing the number of space-time dimensions - has automatically introduced a new scale in the problem. 
+That means that in $D=6$, the coupling is dimensionless. This property is useful for the cleanliness of our perturbation theory, so in the future we will consider $D=6$ as the desired limit. To take this limit, we consider $D=6-2\varepsilon$, in which our gamma functions do not diverge. Then $[\phi] 2-\varepsilon$ and $[g] = \varepsilon$. To preserve dimensionless in the coupling constant, we replace $g$ in the action by $g\tilde{\mu}^\varepsilon$, where $\tilde{\mu}$ is an arbitrary scale. This seemingly harmless rescaling has deep consequences: the regularization procedure - in this case changing the number of space-time dimensions - has automatically introduced a new scale in the problem. 
 
 Performing this rescaling in our expression for $\Pi(p^2)$ (Eq. \ref{eq:pi}) and substituting our expression for $I_D$ (Eq. \ref{eq:I_D}) yields
 \begin{equation}
-    \Pi(p^2) = \frac{g^2}{2} \tilde{\mu}^{2\epsilon} \int_0^1 dx \frac{1}{(4\pi)^{D/2}}
+    \Pi(p^2) = \frac{g^2}{2} \tilde{\mu}^{2\varepsilon} \int_0^1 dx \frac{1}{(4\pi)^{3-\varepsilon}} \Gamma(\varepsilon - 1) \left(\frac{1}{M^2}\right)^{\varepsilon - 1}.
+\end{equation}
+Collecting together the terms without $\varepsilon$ or $x$ dependence into a single parameter $\alpha$, this becomes
+\begin{equation}
+    \frac{1}{2} \alpha \int_0^1 dx \, M^2 \Gamma(\varepsilon - 1) \left(\frac{4\pi\tilde{\mu}^2}{M^2}\right)^\varepsilon
+\end{equation}
+where 
+\begin{equation}
+    \alpha = \frac{g^2}{(4\pi)^3}.
+\end{equation}
+We utilize the following expansion for the gamma function for integer $n$:
+\begin{equation}
+    \Gamma(\varepsilon - n) = \frac{(-1)^n}{n!}\left[\frac{1}{\varepsilon} - \gamma + \sum_{k=1}^n \frac{1}{k} + \mathcal{O}(\varepsilon)\right],
+\end{equation}
+where $\gamma$ is the Euler-Mascheroni constant. Expanding the $\epsilon$-dependent terms yields 
+\begin{gather}
+    \Gamma(\varepsilon - 1) = -\left[\frac{1}{\varepsilon} - \gamma + 1 + \mathcal{O}(\varepsilon)\right], \\
+    \left(\frac{4\pi\tilde{\mu}^2}{M^2}\right)^\varepsilon = 1 + \varepsilon \log \left(\frac{4\pi\tilde{\mu}^2}{M^2}\right) + \mathcal{O}(\varepsilon),
+\end{gather}
+and hence 
+\begin{equation}
+\begin{aligned}
+    \Pi(p^2) &= -\frac{1}{2} \alpha \int_0^1 dx \, M^2 \left[\frac{1}{\varepsilon} - \gamma + 1 + \mathcal{O}(\varepsilon)\right] \left[1 + \varepsilon \log \left(\frac{4\pi\tilde{\mu}^2}{M^2}\right) + \mathcal{O}(\varepsilon)\right] \\
+    &= -\frac{1}{2} \alpha \int_0^1 dx \, M^2 \left[\frac{1}{\varepsilon} + 1 + \log \left(\frac{4\pi\tilde{\mu}^2}{e^\gamma M^2}\right) + \mathcal{O}(\varepsilon)\right] \\
+    &= -\frac{1}{2} \alpha \left[\left(\frac{1}{\varepsilon} + 1\right)\left(m^2 - \frac{1}{6}p^2\right) - \int_0^1 dx \, M^2 \log\left(\frac{\mu^2}{M^2}\right)\right] + \mathcal{O}(\varepsilon),
+\end{aligned}
+\end{equation}
+where 
+\begin{equation}
+    \mu^2 = \frac{4\pi}{e^\gamma} \tilde{\mu}^2.
+\end{equation}
+
+Thus, we have isolated the structure of the divergences in the loop integral. Just as with the divergences in $\Pi(\mu_1^2)$ and $\Pi'(\mu_2^2)$ terms, we have a constant ($m^2$) and a linear (in $p^2$) term in the divergence. 
+
+Having evaluated $\Pi(p^2)$, we can easily resum an entire class of contributions: \textbf{one particle irreducible}, or \textbf{1PI} diagrams. These are diagrams in which removing a propagator $\tilde{\Delta}(p^2)$ results in a disconnected diagram. The series % TODO: Feynman this shit
+\begin{equation}
+\begin{aligned}
+    \frac{1}{i}\tilde{\Delta}_F(p^2) &= \frac{1}{i}\tilde{\Delta}(p^2) + \frac{1}{i}\tilde{\Delta}(p^2) (i\Pi(p^2)) \frac{1}{i}\tilde{\Delta}(p^2) \\
+    &\quad + \frac{1}{i}\tilde{\Delta}(p^2)(i\Pi(p^2)) \frac{1}{i}\tilde{\Delta}(p^2) (i\Pi(p^2)) \frac{1}{i}\tilde{\Delta}(p^2) + \dots \\
+    &= \frac{1}{i} \tilde{\Delta}(p^2) \sum_{k=0}^\infty \left[\Pi(p^2) \tilde{\Delta}(p^2)\right]^k \\
+    &= \frac{1}{i} \tilde{\Delta}(p^2) \frac{1}{1 - \Pi(p^2) \tilde{\Delta}(p^2)}
+\end{aligned}
 \end{equation}
 
 
